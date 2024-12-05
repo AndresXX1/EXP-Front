@@ -98,7 +98,7 @@ const CardBranch = ({ branch, getBranchesList }: CardBranchProps) => {
         element={
           <div className="px-6 py-6 flex flex-col justify-center w-[481px] h-[192px]">
             <div className="flex justify-between items-start">
-              <p className="text-[1rem] text-Express-Cash-textos font-bold max-w-[370px]">
+              <p className="text-[1rem] text-expresscash-textos font-bold max-w-[370px]">
                 ¿Está seguro que desea eliminar esta sucursal?
               </p>
               <p
@@ -108,13 +108,13 @@ const CardBranch = ({ branch, getBranchesList }: CardBranchProps) => {
                 <IconX />
               </p>
             </div>
-            <p className="text-[14px] font-book text-Express-Cash-gray w-[380px] mb-10 mt-1">
+            <p className="text-[14px] font-book text-expresscash-gray w-[380px] mb-10 mt-1">
               Si la elimina ya no podrá recuperarla
             </p>
             <div className="flex gap-4">
               <button
                 onClick={handleDelete}
-                className="bg-Express-Cash-red w-[109px] h-[38px] rounded-[5px] text-Express-Cash-white text-[1rem] font-book"
+                className="bg-expresscash-red w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-book"
               >
                 Eliminar
               </button>
@@ -122,7 +122,7 @@ const CardBranch = ({ branch, getBranchesList }: CardBranchProps) => {
                 onClick={() => {
                   setModalDelete(false);
                 }}
-                className="border-[1px] border-solid border-Express-Cash-gray w-[109px] h-[38px] rounded-[5px] text-Express-Cash-gray text-[1rem] font-book"
+                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-book"
               >
                 Cancelar
               </button>
@@ -138,7 +138,7 @@ const CardBranch = ({ branch, getBranchesList }: CardBranchProps) => {
             onSubmit={handleEdit}
           >
             <div className="flex justify-between items-center">
-              <p className="text-[32px] text-Express-Cash-textos font-bold">
+              <p className="text-[32px] text-expresscash-textos font-bold">
                 Nueva sucursal
               </p>
               <p className="cursor-pointer" onClick={() => setModalEdit(false)}>
@@ -150,7 +150,7 @@ const CardBranch = ({ branch, getBranchesList }: CardBranchProps) => {
                 <div>
                   <div
                     onClick={handleUpdoadImageNotice}
-                    className="flex items-center justify-center rounded-[13px] w-[185px] h-[185px] bg-Express-Cash-gray3 border-[1px] border-solid border-Express-Cash-gray2 cursor-pointer"
+                    className="flex items-center justify-center rounded-[13px] w-[185px] h-[185px] bg-expresscash-gray3 border-[1px] border-solid border-expresscash-gray2 cursor-pointer"
                   >
                     {data.image === "" ? (
                       <img
@@ -164,7 +164,7 @@ const CardBranch = ({ branch, getBranchesList }: CardBranchProps) => {
                       />
                     )}
                   </div>
-                  <p className="flex gap-1 items-center pt-[18px] text-[14px] font-book text-Express-Cash-textos">
+                  <p className="flex gap-1 items-center pt-[18px] text-[14px] font-book text-expresscash-textos">
                     <IconPencil />
                     Subir foto
                   </p>
@@ -173,7 +173,7 @@ const CardBranch = ({ branch, getBranchesList }: CardBranchProps) => {
                 <div className="flex flex-col gap-4">
                   <label htmlFor="">Nombre</label>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-Express-Cash-gray text-Express-Cash-textos placeholder:text-Express-Cash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
                     type="text"
                     placeholder="Nombre"
                     name="name"
@@ -183,7 +183,7 @@ const CardBranch = ({ branch, getBranchesList }: CardBranchProps) => {
                   />
                   <label htmlFor="">Dirección</label>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-Express-Cash-gray text-Express-Cash-textos placeholder:text-Express-Cash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
                     type="text"
                     placeholder="Dirección"
                     name="address"
@@ -193,7 +193,7 @@ const CardBranch = ({ branch, getBranchesList }: CardBranchProps) => {
                   />
                   <label htmlFor="">Número de Teléfono</label>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-Express-Cash-gray text-Express-Cash-textos placeholder:text-Express-Cash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
                     type="text"
                     placeholder="Número de Teléfono"
                     name="phone"
@@ -203,7 +203,7 @@ const CardBranch = ({ branch, getBranchesList }: CardBranchProps) => {
                   />
                   <label htmlFor="">Número de WhatsApp</label>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-Express-Cash-gray text-Express-Cash-textos placeholder:text-Express-Cash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
                     type="text"
                     placeholder="Número de WhatsApp"
                     name="whatsapp"
@@ -213,7 +213,7 @@ const CardBranch = ({ branch, getBranchesList }: CardBranchProps) => {
                   />
                   <label htmlFor="">Horario 1</label>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-Express-Cash-gray text-Express-Cash-textos placeholder:text-Express-Cash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
                     type="text"
                     placeholder="Lun a Vier 9:00 a 18:45 hs"
                     name="schedules_1"
@@ -223,7 +223,7 @@ const CardBranch = ({ branch, getBranchesList }: CardBranchProps) => {
                   />
                   <label htmlFor="">Horario 2</label>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-Express-Cash-gray text-Express-Cash-textos placeholder:text-Express-Cash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
                     type="text"
                     placeholder="Sab 9:00 a 13:00 hs"
                     name="schedules_2"
@@ -233,9 +233,9 @@ const CardBranch = ({ branch, getBranchesList }: CardBranchProps) => {
                   />
                   <p>Ubicación | Google Maps url</p>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-Express-Cash-gray text-Express-Cash-textos placeholder:text-Express-Cash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
                     type="text"
-                    placeholder="https://www.google.com/maps/place/Express-Cash+Avellaneda/@-34.649247,-58.4218763,12z/data=!4m6!3m5!1s0x95a33353b52e0ac7:0xecc21ebc001b04d4!8m2!3d-34.6606336!4d-58.3675524!16s%2Fg%2F11f3xgrr15?entry=ttu&g_ep=EgoyMDI0MTAyMy4wIKXMDSoASAFQAw%3D%3D"
+                    placeholder="https://www.google.com/maps/place/expresscash+Avellaneda/@-34.649247,-58.4218763,12z/data=!4m6!3m5!1s0x95a33353b52e0ac7:0xecc21ebc001b04d4!8m2!3d-34.6606336!4d-58.3675524!16s%2Fg%2F11f3xgrr15?entry=ttu&g_ep=EgoyMDI0MTAyMy4wIKXMDSoASAFQAw%3D%3D"
                     name="url"
                     onChange={handlerChange}
                     value={data.schedules_2}
@@ -248,12 +248,12 @@ const CardBranch = ({ branch, getBranchesList }: CardBranchProps) => {
               <button
                 type="button"
                 onClick={() => setModalEdit(false)}
-                className="border-[1px] border-solid border-Express-Cash-gray w-[109px] h-[38px] rounded-[5px] text-Express-Cash-gray text-[1rem] font-book"
+                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-book"
               >
                 Cancelar
               </button>
               <button
-                className="bg-Express-Cash-skyBlue w-[109px] h-[38px] rounded-[5px] text-Express-Cash-white text-[1rem] font-book"
+                className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-book"
                 type="submit"
               >
                 Guardar
@@ -262,7 +262,7 @@ const CardBranch = ({ branch, getBranchesList }: CardBranchProps) => {
           </form>
         }
       />
-      <div className="w-[306px] h-[200px] flex border-[1px] rounded-[13px] border-Express-Cash-gray mb-10 overflow-hidden">
+      <div className="w-[306px] h-[200px] flex border-[1px] rounded-[13px] border-expresscash-gray mb-10 overflow-hidden">
         <div className="rounded-[13px] bg-[#F9F9F9] flex items-center relative w-full h-full">
           <img
             className="w-full h-full overflow-hidden object-cover"

@@ -21,31 +21,31 @@ const DataAdmin = () => {
         element={<ModalEditAdmin setModalEdit={setModalEdit} />}
       />
       <div className="mb-10">
-        <h4 className="text-[23px] font-bold text-Express-Cash-textos mb-5 mt-8">
+        <h4 className="text-[23px] font-bold text-expresscash-textos mb-5 mt-8">
           Información de tu cuenta
         </h4>
 
-        <p className="text-[14px] text-Express-Cash-textos font-bold">
+        <p className="text-[14px] text-expresscash-textos font-bold">
           Nombre y Apellido
         </p>
         <input
-          className="min-w-[438px] max-w-[438px] rounded-[5px] border-[1px] border-solid border-Express-Cash-gray mt-[11px] text-Express-Cash-textos font-book leading-[23.04px]"
+          className="min-w-[438px] max-w-[438px] rounded-[5px] border-[1px] border-solid border-expresscash-gray mt-[11px] text-expresscash-textos font-book leading-[23.04px]"
           type="text"
           placeholder={user?.full_name || "Nombre sin registrar"}
           readOnly
         />
-        <p className="text-[14px] text-Express-Cash-textos font-bold">Email</p>
+        <p className="text-[14px] text-expresscash-textos font-bold">Email</p>
         <input
-          className="min-w-[438px] max-w-[438px] rounded-[5px] border-[1px] border-solid border-Express-Cash-gray mt-[11px] text-Express-Cash-textos font-book leading-[23.04px]"
+          className="min-w-[438px] max-w-[438px] rounded-[5px] border-[1px] border-solid border-expresscash-gray mt-[11px] text-expresscash-textos font-book leading-[23.04px]"
           type="email"
           placeholder={user?.email}
           readOnly
         />
-        <p className="text-[14px] text-Express-Cash-textos font-bold">
+        <p className="text-[14px] text-expresscash-textos font-bold">
           Contraseña
         </p>
         <input
-          className="min-w-[438px] max-w-[438px] rounded-[5px] border-[1px] border-solid border-Express-Cash-gray mt-[11px] text-Express-Cash-textos font-book leading-[23.04px]"
+          className="min-w-[438px] max-w-[438px] rounded-[5px] border-[1px] border-solid border-expresscash-gray mt-[11px] text-expresscash-textos font-book leading-[23.04px]"
           type="password"
           placeholder="*******************"
           readOnly
@@ -54,13 +54,13 @@ const DataAdmin = () => {
         <div className="flex gap-5 mt-10 mb-14">
           <button
             onClick={() => setModalEdit(true)}
-            className="flex w-[147px] h-[38px] items-center justify-center bg-Express-Cash-skyBlue text-[1rem] text-Express-Cash-white font-book rounded-[5px] hover:bg-Express-Cash-blue hover:transition-colors duration-100"
+            className="flex w-[147px] h-[38px] items-center justify-center bg-expresscash-skyBlue text-[1rem] text-expresscash-white font-book rounded-[5px] hover:bg-expresscash-blue hover:transition-colors duration-100"
           >
             Editar cuenta
           </button>
           <button
             onClick={() => setModalDelete(true)}
-            className="flex w-[147px] border-[1px] border-Express-Cash-red h-[38px] items-center justify-center text-[1rem] text-Express-Cash-red font-book rounded-[5px]"
+            className="flex w-[147px] border-[1px] border-expresscash-red h-[38px] items-center justify-center text-[1rem] text-expresscash-red font-book rounded-[5px]"
           >
             Eliminar cuenta
           </button>

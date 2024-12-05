@@ -9,7 +9,7 @@ module.exports = {
           yellow: "#FCD34D",
           black: "#111827",
           textos: "#575757",
-          skyBlue: "#4DCCFF",
+          skyBlue: "#8CC63F",
           white: "#FFF",
           gray: "#AAA",
           gray2: "#C4C4C4",

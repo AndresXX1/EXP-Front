@@ -31,6 +31,3 @@ const Modal = ({
 };
 
 export default Modal;
-
-
-//dsadsad

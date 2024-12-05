@@ -75,7 +75,7 @@ const CreateNotice = ({ getNoticesList }: CreateNoticeProps) => {
             onSubmit={handleCreateNotice}
           >
             <div className="flex justify-between items-center">
-              <p className="text-[32px] text-Express-Cash-textos font-bold">
+              <p className="text-[32px] text-expresscash-textos font-bold">
                 Nueva noticia
               </p>
               <p
@@ -90,7 +90,7 @@ const CreateNotice = ({ getNoticesList }: CreateNoticeProps) => {
                 <div>
                   <div
                     onClick={handleUpdoadImageNotice}
-                    className="flex items-center justify-center rounded-[13px] w-[185px] h-[185px] bg-Express-Cash-gray3 border-[1px] border-solid border-Express-Cash-gray2 cursor-pointer"
+                    className="flex items-center justify-center rounded-[13px] w-[185px] h-[185px] bg-expresscash-gray3 border-[1px] border-solid border-expresscash-gray2 cursor-pointer"
                   >
                     {urlImg === "" ? (
                       <img
@@ -104,7 +104,7 @@ const CreateNotice = ({ getNoticesList }: CreateNoticeProps) => {
                       />
                     )}
                   </div>
-                  <p className="flex gap-1 items-center pt-[18px] text-[14px] font-book text-Express-Cash-textos">
+                  <p className="flex gap-1 items-center pt-[18px] text-[14px] font-book text-expresscash-textos">
                     <IconPencil />
                     Subir foto o video
                   </p>
@@ -113,7 +113,7 @@ const CreateNotice = ({ getNoticesList }: CreateNoticeProps) => {
                 <div className="flex flex-col gap-4">
                   <label htmlFor="">Título</label>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-Express-Cash-gray text-Express-Cash-textos placeholder:text-Express-Cash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
                     type="text"
                     placeholder="Título"
                     name="title"
@@ -125,7 +125,7 @@ const CreateNotice = ({ getNoticesList }: CreateNoticeProps) => {
                   <label htmlFor="date">Fecha</label>
                   <input
                     id="date"
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-Express-Cash-gray text-Express-Cash-textos placeholder:text-Express-Cash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
                     type="text"
                     placeholder="1 / 1 / 2025"
                     name="date"
@@ -136,7 +136,7 @@ const CreateNotice = ({ getNoticesList }: CreateNoticeProps) => {
                   <label htmlFor="description">Descripción</label>
                   <textarea
                     id="description"
-                    className="w-[617px] h-[181px] rounded-[5px] border-[1px] border-solid border-Express-Cash-gray text-Express-Cash-textos placeholder:text-Express-Cash-gray text-[14px] font-book"
+                    className="w-[617px] h-[181px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
                     placeholder="Cuerpo de texto"
                     name="description"
                     onChange={handlerChange}
@@ -150,12 +150,12 @@ const CreateNotice = ({ getNoticesList }: CreateNoticeProps) => {
               <button
                 type="button"
                 onClick={() => setModalCreateNotice(false)}
-                className="border-[1px] border-solid border-Express-Cash-gray w-[109px] h-[38px] rounded-[5px] text-Express-Cash-gray text-[1rem] font-book"
+                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-book"
               >
                 Cancelar
               </button>
               <button
-                className="bg-Express-Cash-skyBlue w-[109px] h-[38px] rounded-[5px] text-Express-Cash-white text-[1rem] font-book"
+                className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-book"
                 type="submit"
               >
                 Guardar
@@ -166,7 +166,7 @@ const CreateNotice = ({ getNoticesList }: CreateNoticeProps) => {
       />
       <div
         onClick={() => setModalCreateNotice(true)}
-        className="w-[306px] h-[200px] flex border-[1px] rounded-[13px] border-Express-Cash-gray items-center justify-center cursor-pointer"
+        className="w-[306px] h-[200px] flex border-[1px] rounded-[13px] border-expresscash-gray items-center justify-center cursor-pointer"
       >
         <IconMas />
       </div>

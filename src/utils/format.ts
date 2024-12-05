@@ -4,8 +4,9 @@ import { es } from "date-fns/locale";
 import {
   IconHome,
   IconUser,
-  IconProducts,
-  IconEdits,
+  // IconProducts,
+  // IconEdits,
+  IconPrestamos,
   IconNotifications,
   IconConfig,
 } from "./svg";
@@ -21,7 +22,7 @@ export const links = [
     to: "/dashboard/products",
     text: "Prestamos",
     active: ["/dashboard/products"],
-    Icon: IconProducts,
+    Icon: IconPrestamos,
   },
   {
     to: "/dashboard/users",
@@ -29,12 +30,12 @@ export const links = [
     active: ["/dashboard/users"],
     Icon: IconUser,
   },
-  {
-    to: "/dashboard/edit-content",
-    text: "Editar contenido",
-    active: ["/dashboard/edit-content"],
-    Icon: IconEdits,
-  },
+  // {
+  //   to: "/dashboard/edit-content",
+  //   text: "Editar contenido",
+  //   active: ["/dashboard/edit-content"],
+  //   Icon: IconEdits,
+  // },
   {
     to: "/dashboard/notifications",
     text: "Notificaciones",

@@ -1,7 +1,7 @@
 version: "3.8"
 services:
-  Express-Cash-frontend:
-    container_name: Express-Cash-frontend
+  expresscash-frontend:
+    container_name: expresscash-frontend
     build:
       dockerfile: Dockerfile
       context: .
@@ -11,7 +11,7 @@ services:
     ports:
       - "8000:8000"
     networks:
-      - Express-Cash_network
+      - expresscash_network
 
 networks:
-  Express-Cash_network:
+  expresscash_network:

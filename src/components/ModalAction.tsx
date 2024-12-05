@@ -23,10 +23,10 @@ const ModalAction = ({
         onClick={() => close()}
         className="cursor-pointer text-[30px] text-black absolute top-[26px] right-[30px]"
       />
-      <p className="text-Express-Cash-black font-poppinsMedium text-[20px]">
+      <p className="text-expresscash-black font-poppinsMedium text-[20px]">
         {title}
       </p>
-      <div className="flex flex-col pt-[24px] mt-[24px] border-t-[1px] border-t-Express-Cash-black">
+      <div className="flex flex-col pt-[24px] mt-[24px] border-t-[1px] border-t-expresscash-black">
         <p className="text-[14px] font-poppinsRegular text-[#0C0C0C] text-opacity-70">
           {description}
         </p>
@@ -34,7 +34,7 @@ const ModalAction = ({
           <button
             type="button"
             onClick={() => close()}
-            className="w-[150px] h-[45px] rounded-full border-[1px] border-Express-Cash-skyBlue text-Express-Cash-skyBlue"
+            className="w-[150px] h-[45px] rounded-full border-[1px] border-expresscash-skyBlue text-expresscash-skyBlue"
           >
             <p className="font-semibold leading-[27px] text-[18px]">
               {textCancel}
@@ -43,7 +43,7 @@ const ModalAction = ({
           <button
             type="button"
             onClick={() => handleAction()}
-            className="w-[150px] bg-Express-Cash-skyBlue h-[45px] rounded-full border-[1px]"
+            className="w-[150px] bg-expresscash-skyBlue h-[45px] rounded-full border-[1px]"
           >
             <p className="font-medium text-white leading-[27px] text-[18px]">
               {textOk}

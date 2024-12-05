@@ -31,13 +31,13 @@ const EditBanners = () => {
 
   const getBannersListArgenCompras = async () => {
     const bannersArgenCompras = await getBannersArgenCompras();
-    console.log('Banners ArgenCompras:', bannersArgenCompras); // Verifica que los banners se reciban correctamente
+    console.log("Banners ArgenCompras:", bannersArgenCompras); // Verifica que los banners se reciban correctamente
     setBannersArgenCompras(bannersArgenCompras);
   };
-  
+
   const getBannersListCuponizate = async () => {
     const bannersCuponizate = await getBannersCuponizate();
-    console.log('Banners Cuponizate:', bannersCuponizate); // Verifica que los banners se reciban correctamente
+    console.log("Banners Cuponizate:", bannersCuponizate); // Verifica que los banners se reciban correctamente
     setBannersCuponizate(bannersCuponizate);
   };
 
@@ -47,11 +47,19 @@ const EditBanners = () => {
     getBannersListArgenCompras();
   }, []);
 
-  const handlePrev = (index: number, setIndex: { (value: SetStateAction<number>): void; }, banners: Banner[]) => {
+  const handlePrev = (
+    index: number,
+    setIndex: { (value: SetStateAction<number>): void },
+    banners: Banner[]
+  ) => {
     setIndex(index > 0 ? index - 1 : banners.length - 1); // Modified to avoid errors when index is 0
   };
 
-  const handleNext = (index: number, setIndex: { (value: SetStateAction<number>): void; }, banners: Banner[]) => {
+  const handleNext = (
+    index: number,
+    setIndex: { (value: SetStateAction<number>): void },
+    banners: Banner[]
+  ) => {
     setIndex(index < banners.length - 1 ? index + 1 : 0); // Modified to allow circular navigation
   };
 
@@ -64,11 +72,11 @@ const EditBanners = () => {
         >
           ←
         </button>
-        <p className="text-[40px] text-Express-Cash-textos font-book">Banners</p>
+        <p className="text-[40px] text-expresscash-textos font-book">Banners</p>
       </div>
 
       {/* Home banner */}
-      <p className="text-[23px] font-bold text-Express-Cash-textos mb-6">
+      <p className="text-[23px] font-bold text-expresscash-textos mb-6">
         Home banner
       </p>
       <div className="flex items-center gap-3">
@@ -101,29 +109,43 @@ const EditBanners = () => {
       </div>
 
       {/* ArgenCompras banner */}
-      <p className="text-[23px] font-bold text-Express-Cash-textos mb-6 mt-6">
+      <p className="text-[23px] font-bold text-expresscash-textos mb-6 mt-6">
         ArgenCompras banner
       </p>
       <div className="flex items-center gap-3">
         <button
           className="p-3 bg-gray-200 text-gray-800 rounded-full transition-all duration-300 transform hover:scale-110 hover:bg-[#A3D8F3] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#A3D8F3] focus:ring-offset-2"
-          onClick={() => handlePrev(argenComprasIndex, setArgenComprasIndex, bannersArgenCompras)}
+          onClick={() =>
+            handlePrev(
+              argenComprasIndex,
+              setArgenComprasIndex,
+              bannersArgenCompras
+            )
+          }
         >
           ←
         </button>
         <div className="grid grid-cols-2 gap-5">
-          {bannersArgenCompras.slice(argenComprasIndex, argenComprasIndex + 2).map(banner => (
-            <CardBanner
-              key={banner.id}
-              banner={banner}
-              getBannersList={getBannersListArgenCompras}
-              type="argencompras"
-            />
-          ))}
+          {bannersArgenCompras
+            .slice(argenComprasIndex, argenComprasIndex + 2)
+            .map(banner => (
+              <CardBanner
+                key={banner.id}
+                banner={banner}
+                getBannersList={getBannersListArgenCompras}
+                type="argencompras"
+              />
+            ))}
         </div>
         <button
           className="p-3 bg-gray-200 text-gray-800 rounded-full transition-all duration-300 transform hover:scale-110 hover:bg-[#A3D8F3] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#A3D8F3] focus:ring-offset-2"
-          onClick={() => handleNext(argenComprasIndex, setArgenComprasIndex, bannersArgenCompras)}
+          onClick={() =>
+            handleNext(
+              argenComprasIndex,
+              setArgenComprasIndex,
+              bannersArgenCompras
+            )
+          }
         >
           →
         </button>
@@ -134,29 +156,35 @@ const EditBanners = () => {
       </div>
 
       {/* Cuponizate banner */}
-      <p className="text-[23px] font-bold text-Express-Cash-textos mb-6 mt-6">
+      <p className="text-[23px] font-bold text-expresscash-textos mb-6 mt-6">
         Cuponizate banner
       </p>
       <div className="flex items-center gap-3">
         <button
           className="p-3 bg-gray-200 text-gray-800 rounded-full transition-all duration-300 transform hover:scale-110 hover:bg-[#A3D8F3] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#A3D8F3] focus:ring-offset-2"
-          onClick={() => handlePrev(cuponizateIndex, setCuponizateIndex, bannersCuponizate)}
+          onClick={() =>
+            handlePrev(cuponizateIndex, setCuponizateIndex, bannersCuponizate)
+          }
         >
           ←
         </button>
         <div className="grid grid-cols-2 gap-5">
-          {bannersCuponizate.slice(cuponizateIndex, cuponizateIndex + 2).map(banner => (
-            <CardBanner
-              key={banner.id}
-              banner={banner}
-              getBannersList={getBannersListCuponizate}
-              type="cuponizate"
-            />
-          ))}
+          {bannersCuponizate
+            .slice(cuponizateIndex, cuponizateIndex + 2)
+            .map(banner => (
+              <CardBanner
+                key={banner.id}
+                banner={banner}
+                getBannersList={getBannersListCuponizate}
+                type="cuponizate"
+              />
+            ))}
         </div>
         <button
           className="p-3 bg-gray-200 text-gray-800 rounded-full transition-all duration-300 transform hover:scale-110 hover:bg-[#A3D8F3] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#A3D8F3] focus:ring-offset-2"
-          onClick={() => handleNext(cuponizateIndex, setCuponizateIndex, bannersCuponizate)}
+          onClick={() =>
+            handleNext(cuponizateIndex, setCuponizateIndex, bannersCuponizate)
+          }
         >
           →
         </button>

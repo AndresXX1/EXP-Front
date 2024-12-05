@@ -18,13 +18,13 @@ const ProductCard = ({ product, getProducts }: ProductCardProps) => {
   console.log("product.image:", product.image);
   return (
     <div
-      className={`${product?.status === "activo" ? "max-w-[305px] h-[207px] flex border-[1px] rounded-[13px] border-Express-Cash-gray mb-10 font-book" : "max-w-[305px] h-[207px] flex border-[1px] rounded-[13px] border-Express-Cash-gray mb-10 font-book opacity-30"}`}
+      className={`${product?.status === "activo" ? "max-w-[305px] h-[207px] flex border-[1px] rounded-[13px] border-expresscash-gray mb-10 font-book" : "max-w-[305px] h-[207px] flex border-[1px] rounded-[13px] border-expresscash-gray mb-10 font-book opacity-30"}`}
     >
       <div className="flex flex-col justify-between pt-5  pb-3 pl-4">
-        <h4 className="w-[141px] text-[20px] font-book leading-[24px] text-Express-Cash-textos">
+        <h4 className="w-[141px] text-[20px] font-book leading-[24px] text-expresscash-textos">
           {product.name}
         </h4>
-        <p className="text-Express-Cash-red text-[20px] font-bold leading-[19px]">
+        <p className="text-expresscash-red text-[20px] font-bold leading-[19px]">
           ${parseInt(product?.value).toLocaleString("es-AR")}
         </p>
       </div>

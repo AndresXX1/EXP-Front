@@ -31,7 +31,7 @@ jobs:
           key: ${{ secrets.PRODUCTION_SSH_PRIVATE_KEY }}
           port: 22
           script: |
-            cd /root/repos/Express-Cash-frontend
+            cd /root/repos/expresscash-frontend
             git pull origin production
             cat <<EOF > .env
             VITE_PUBLIC_BACKEND_URL=${{ secrets.VITE_PUBLIC_BACKEND_URL }}

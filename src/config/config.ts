@@ -1,4 +1,4 @@
-export const baseUrl = import.meta.env.VITE_PUBLIC_BACKEND_URL ;
+export const baseUrl = import.meta.env.VITE_PUBLIC_BACKEND_URL;
 
 export const apiUrls = {
   // auth
@@ -13,15 +13,18 @@ export const apiUrls = {
   getUser: () => `${baseUrl}/api/admin`,
   avatarUser: (img: string) => `${baseUrl}/avatar/${img}`,
   putUserCuponizate: (userId: number) => `/api/user/cuponizate/${userId}`,
-  avatarUserimage:  () => `${baseUrl}/api/admin/avatar`, 
+  avatarUserimage: () => `${baseUrl}/api/admin/avatar`,
   putUserById: (userId: number) => `${baseUrl}/api/user/update/${userId}`,
-  putUserBlock: (userId: number) => `/api/user/${userId}/block`, 
-  putUserUnblock: (userId: number) => `/api/user/${userId}/unblock`, 
-   //  direcciónes para un usuario específico desde admin
-   createAddress: (userId: number) => `${baseUrl}/api/user/${userId}/address`, 
-   getUserAddresses: (userId: number) => `${baseUrl}/api/user/${userId}/addresses`,
-   editUserAddress: (userId: number, index: number) => `${baseUrl}/api/user/${userId}/address/${index}`,
-  deleteUserAddress: (userId: number, index: number) => `${baseUrl}/api/user/${userId}/address/${index}`,
+  putUserBlock: (userId: number) => `/api/user/${userId}/block`,
+  putUserUnblock: (userId: number) => `/api/user/${userId}/unblock`,
+  //  direcciónes para un usuario específico desde admin
+  createAddress: (userId: number) => `${baseUrl}/api/user/${userId}/address`,
+  getUserAddresses: (userId: number) =>
+    `${baseUrl}/api/user/${userId}/addresses`,
+  editUserAddress: (userId: number, index: number) =>
+    `${baseUrl}/api/user/${userId}/address/${index}`,
+  deleteUserAddress: (userId: number, index: number) =>
+    `${baseUrl}/api/user/${userId}/address/${index}`,
   //banner
   getBannersHome: () => `/api/banner/home`,
   getBannersCuponizate: () => `/api/banner/cuponizate`,
@@ -49,12 +52,13 @@ export const apiUrls = {
   getProductsAll: () => `/api/product/all`,
   changeOfVisibilityProduct: (id: string) => `/api/product/visibility/${id}`,
   //product por puntos
-  createProduct: () => '/api/product/create',
+  createProduct: () => "/api/product/create",
   allProducts: () => "/api/product/allProducts",
   updateProduct: (id: number | string) => `/api/product/update/${id}`,
   deleteProduct: (id: number) => `/api/product/deleteAdmin/${id}`,
   productImg: (img: string) => {
-    return `${baseUrl.replace(/\/$/, '')}/images/products/${img}`},
+    return `${baseUrl.replace(/\/$/, "")}/images/products/${img}`;
+  },
   //branch
   getBranches: () => `/api/branch`,
   BranchImg: (img: string) => `${baseUrl}/branch/${img}`,

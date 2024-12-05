@@ -7,5 +7,5 @@ export type UserProps = {
   full_name: string;
   avatar: string;
   role: string;
-  gender:string
+  gender: string;
 };

@@ -32,7 +32,7 @@ const EditPassword = ({ setModalPassword }: EditPasswordProps) => {
       onSubmit={handleSubmit}
     >
       <div className="flex justify-between items-center max-w-[640px] px-2">
-        <p className="text-[32px] text-Express-Cash-textos font-bold pb-6">
+        <p className="text-[32px] text-expresscash-textos font-bold pb-6">
           Cambiar contraseña
         </p>
         <p className="cursor-pointer" onClick={() => setModalPassword(false)}>
@@ -43,13 +43,13 @@ const EditPassword = ({ setModalPassword }: EditPasswordProps) => {
       <div className="flex flex-col gap-10 mx-auto">
         <div className="flex flex-col gap-1">
           <label
-            className="flex items-center gap-2 text-[14px] text-Express-Cash-textos font-bold"
+            className="flex items-center gap-2 text-[14px] text-expresscash-textos font-bold"
             htmlFor="password"
           >
             Contraseña vieja
           </label>
           <input
-            className="w-[625px] h-[54px] rounded-[5px] text-[14px] font-book text-Express-Cash-textos"
+            className="w-[625px] h-[54px] rounded-[5px] text-[14px] font-book text-expresscash-textos"
             type="password"
             name="password"
             value={data.password}
@@ -62,7 +62,7 @@ const EditPassword = ({ setModalPassword }: EditPasswordProps) => {
 
         <div className="flex flex-col gap-1">
           <label
-            className="text-[14px] text-Express-Cash-textos font-bold"
+            className="text-[14px] text-expresscash-textos font-bold"
             htmlFor="new_password"
           >
             Ingrese nueva contraseña
@@ -74,7 +74,7 @@ const EditPassword = ({ setModalPassword }: EditPasswordProps) => {
               onChange={handleChange}
               id="new_password"
               required
-              className="w-[625px] h-[54px] rounded-[5px] text-[14px] font-book text-Express-Cash-textos"
+              className="w-[625px] h-[54px] rounded-[5px] text-[14px] font-book text-expresscash-textos"
               type={showPassword ? "text" : "password"}
               placeholder="**************"
             />
@@ -92,13 +92,13 @@ const EditPassword = ({ setModalPassword }: EditPasswordProps) => {
         <button
           type="button"
           onClick={() => setModalPassword(false)}
-          className="border-[1px] border-solid border-Express-Cash-gray w-[109px] h-[38px] rounded-[5px] text-Express-Cash-gray text-[1rem] font-book"
+          className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-book"
         >
           Cancelar
         </button>
         <button
           type="submit"
-          className="bg-Express-Cash-skyBlue w-[109px] h-[38px] rounded-[5px] text-Express-Cash-white text-[1rem] font-book hover:bg-Express-Cash-blue hover:transition-colors duration-100"
+          className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-book hover:bg-expresscash-blue hover:transition-colors duration-100"
         >
           Guardar
         </button>

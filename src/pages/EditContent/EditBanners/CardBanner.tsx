@@ -8,7 +8,7 @@ import { deleteBannerById } from "@store/services/banners";
 interface CardBannerProps {
   banner: Banner;
   getBannersList: () => void;
-  type: string
+  type: string;
 }
 
 const CardBanner = ({ banner, getBannersList }: CardBannerProps) => {
@@ -29,7 +29,7 @@ const CardBanner = ({ banner, getBannersList }: CardBannerProps) => {
         element={
           <div className="px-6 py-6 flex flex-col justify-center w-[481px] h-[192px]">
             <div className="flex justify-between items-start">
-              <p className="text-[1rem] text-Express-Cash-textos font-bold max-w-[370px]">
+              <p className="text-[1rem] text-expresscash-textos font-bold max-w-[370px]">
                 ¿Está seguro que desea eliminar esta imagen del home banner?
               </p>
               <p
@@ -39,13 +39,13 @@ const CardBanner = ({ banner, getBannersList }: CardBannerProps) => {
                 <IconX />
               </p>
             </div>
-            <p className="text-[14px] font-book text-Express-Cash-gray w-[380px] mb-10 mt-1">
+            <p className="text-[14px] font-book text-expresscash-gray w-[380px] mb-10 mt-1">
               Si la elimina ya no se verá en el home de la app.
             </p>
             <div className="flex gap-4">
               <button
                 onClick={handleDelete}
-                className="bg-Express-Cash-red w-[109px] h-[38px] rounded-[5px] text-Express-Cash-white text-[1rem] font-book"
+                className="bg-expresscash-red w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-book"
               >
                 Eliminar
               </button>
@@ -53,7 +53,7 @@ const CardBanner = ({ banner, getBannersList }: CardBannerProps) => {
                 onClick={() => {
                   setModalDelete(false);
                 }}
-                className="border-[1px] border-solid border-Express-Cash-gray w-[109px] h-[38px] rounded-[5px] text-Express-Cash-gray text-[1rem] font-book"
+                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-book"
               >
                 Cancelar
               </button>
@@ -61,7 +61,7 @@ const CardBanner = ({ banner, getBannersList }: CardBannerProps) => {
           </div>
         }
       />
-      <div className="max-w-[306px] h-[200px] flex border-[1px] rounded-[13px] border-Express-Cash-gray">
+      <div className="max-w-[306px] h-[200px] flex border-[1px] rounded-[13px] border-expresscash-gray">
         <div className="rounded-[13px] bg-[#F9F9F9] flex items-center relative w-[306px]">
           <img
             className="w-full h-full overflow-hidden rounded-[13px]"
