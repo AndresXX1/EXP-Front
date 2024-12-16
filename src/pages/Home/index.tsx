@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { RootState } from "@store";
 import { getData } from "@store/services/admin";
 import { capitalizeFirstLetter, getFormattedDate } from "@utils/format";
@@ -15,11 +16,11 @@ import {
   Iconstatistics,
   IconSuscriber,
   IconTime,
-  LineHome,
 } from "@utils/svg";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { formatSecondsToMinutes } from "../../utils/format";
+import BarChartComponent from "./graficoCantUsers";
 
 type Props = {
   state: boolean;
@@ -257,64 +258,7 @@ const Home = () => {
         </div>
         <div className="border-[1px] border-expresscash-gray col-span-2 h-[207px] rounded-[13px] p-4">
           <div className="flex gap-3 items-center pb-5">
-            <p className="text-[22px] font-bold text-expresscash-textos">
-              Cantidad de usuarios
-            </p>
-            <IconSelector state={true} />
-            <ColorfulText state={true} text="+4%" />
-          </div>
-          <div className="flex gap-5">
-            <div className="flex flex-col gap-[13px]">
-              <p className="text-expresscash-gray2 text-[9.6px] font-book">
-                200k
-              </p>
-              <p className="text-expresscash-gray2 text-[9.6px] font-book">
-                150k
-              </p>
-              <p className="text-expresscash-gray2 text-[9.6px] font-book">
-                100k
-              </p>
-              <p className="text-expresscash-gray2 text-[9.6px] font-book">
-                50k
-              </p>
-            </div>
-            <div className="grid grid-cols-8 grid-rows-3 w-[90%] relative">
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <div className="border-[1px] h-[33px]"></div>
-              <LineHome className="absolute top-9" />
-              <div className="absolute bg-expresscash-blue w-[7.68px] h-[7.68px] rounded-[4px] top-[2.1rem] right-[16.25rem]"></div>
-            </div>
-          </div>
-          <div className="px-[22px] pt-3 flex gap-7">
-            {date.map((inf, key) => (
-              <div className="flex" key={key}>
-                <p className="text-[9.6px] text-expresscash-textos font-book">
-                  {inf.info}
-                </p>
-              </div>
-            ))}
+            <BarChartComponent />
           </div>
         </div>
         <div className="border-[1px] border-expresscash-gray row-span-2 h-[435px] rounded-[13px] p-5">

@@ -201,33 +201,30 @@ const Users = () => {
     setMenuPosition(menuPosition);
   };
 
-  const handleEditUser = (user: User) => {
-    // Convertir User a UserFormData
-    interface UserFormData {
-      firstName: string;
-      lastName: string;
-      phone: string;
-      email: string;
-      avatar: string;
-      id: number;
-      cuil: string;
-      gender: string;
-      birthday: string;
-      points: number;
-      address: Address[];
-      bank: string;
-      paymentDate: string;
-      lastLogin: string;
-      createdAt: string;
-      image: string;
-      status: string;
-      totalLoaned: number;
-      Prestamo: Prestamo[];
-      subscriptionStatus: string;
-      dni: string;
-      subscription_status: string; // Asegúrate de que esta línea esté presente
-    }
-
+  const handleEditUser = (_user: User) => {
+    setUserToEdit({
+      firstName: _user.first_name,
+      lastName: _user.last_name,
+      phone: _user.phone,
+      email: _user.email,
+      avatar: _user.avatar || "",
+      id: _user.id,
+      cuil: _user.cuil || "",
+      gender: _user.gender || "",
+      birthday: _user.birthday || "",
+      points: _user.points || 0,
+      address: _user.address || [{ street: "", city: "" }],
+      bank: _user.bank || "",
+      paymentDate: _user.paymentDate || "",
+      lastLogin: _user.last_login || "",
+      createdAt: _user.create || "",
+      image: _user.image || "",
+      status: _user.status || "",
+      totalLoaned: _user.totalLoaned || 0,
+      Prestamo: _user.Prestamo || [],
+      subscriptionStatus: _user.subscriptionStatus || "", // Cambiada de subscription_status a subscriptionStatus
+      dni: _user.dni || "",
+    });
     setModalEdit(true);
   };
 
@@ -388,14 +385,7 @@ const Users = () => {
                 <div className="text-expresscash-skyBlue truncate">
                   <button
                     className="text-expresscash-skyBlue w-full text-center"
-                    onClick={() => {
-                      // Verificar si el usuario tiene préstamos y seleccionar el primero
-                      const firstLoan =
-                        user.Prestamo && user.Prestamo.length > 0
-                          ? user.Prestamo[0]
-                          : null;
-                      setSelectedLoan(firstLoan);
-                    }}
+                    onClick={() => handleOpenDetailsModal(user)} // Aquí se pasa el usuario correctamente
                   >
                     {user.first_name} {user.last_name}
                   </button>
@@ -465,7 +455,7 @@ const Users = () => {
                         <p
                           onClick={e => {
                             e.stopPropagation();
-                            handleEditUser(user);
+                            handleEditUser(user); // Asegúrate de que se pasa el `user` correcto
                           }}
                           className="flex items-center mr-7 cursor-pointer hover:bg-gray-200 p-2 rounded-lg"
                         >
