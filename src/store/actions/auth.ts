@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useAppDispatch } from "@store/hooks";
@@ -5,11 +6,7 @@ import { IErrorResponse } from "@store/types/auth";
 import { apiUrls, baseUrl, tokenAccess } from "@config/config";
 import { alertConfirm, alertError } from "@utils/alerts";
 import { jwtDecode } from "jwt-decode";
-import { updateAvatar,updateUserById  } from "../services/users";
-
-
-
-
+import { updateAvatar, updateUserById } from "../services/users";
 
 export const axiosInstance = axios.create({
   baseURL: baseUrl,
@@ -66,28 +63,24 @@ export const updateAvatarAsync = createAsyncThunk<
   any,
   { avatarFile: File; token: string },
   { rejectValue: string }
->(
-  "user/updateAvatar",
-  async ({ avatarFile, token }, { rejectWithValue }) => {
-    if (!avatarFile) {
-      throw new Error("No avatar file selected");
-    }
+>("user/updateAvatar", async ({ avatarFile, token }, { rejectWithValue }) => {
+  if (!avatarFile) {
+    throw new Error("No avatar file selected");
+  }
 
-    try {
-      // Usamos el token que pasamos desde el componente
-      const response = await updateAvatar(avatarFile, token);
-      return response;
-    } catch (error) {
-      if (error instanceof Error) {
-        return rejectWithValue(error.message || 'Error desconocido');
-      } else {
-        console.error('An unknown error occurred:', error);
-        return rejectWithValue('Error desconocido');
-      }
+  try {
+    // Usamos el token que pasamos desde el componente
+    const response = await updateAvatar(avatarFile, token);
+    return response;
+  } catch (error) {
+    if (error instanceof Error) {
+      return rejectWithValue(error.message || "Error desconocido");
+    } else {
+      console.error("An unknown error occurred:", error);
+      return rejectWithValue("Error desconocido");
     }
   }
-);
-
+});
 
 const isTokenAboutToExpire = (extraTimeInSeconds = 30) => {
   const token = getToken();
@@ -265,7 +258,10 @@ export const logInAsync = createAsyncThunk(
       const response = await axios.post(apiUrls.logIn(), data);
       if (response.data.ok) {
         localStorage.setItem(tokenAccess.tokenName, response.data.token);
-        localStorage.setItem(tokenAccess.refreshTokenName, response.data.refreshToken);
+        localStorage.setItem(
+          tokenAccess.refreshTokenName,
+          response.data.refreshToken
+        );
         setupAxiosInterceptors(dispatch);
         setActive(false);
         alertConfirm("Sesión iniciada correctamente");
@@ -356,32 +352,41 @@ export const getMySessions = async (
   }
 };
 
-
 export const updateUserAsync = createAsyncThunk<
   any,
-  { userId: number; userData: { first_name: string; last_name: string; cuil: string; birthday: string; phone: string }; token: string },
+  {
+    userId: number;
+    userData: {
+      first_name: string;
+      last_name: string;
+      cuil: string;
+      birthday: string;
+      phone: string;
+    };
+    token: string;
+  },
   { rejectValue: string }
 >(
   "user/updateUser",
   async ({ userId, userData, token }, { rejectWithValue }) => {
     console.log("Token JWT:", token);
     if (!token) {
-      return rejectWithValue('Token no encontrado');
+      return rejectWithValue("Token no encontrado");
     }
 
     try {
       // Llamada al servicio de actualización de usuario
       const updatedUser = await updateUserById(userId, userData, token);
-      
+
       if (!updatedUser) {
-        return rejectWithValue('No se pudo actualizar el usuario');
+        return rejectWithValue("No se pudo actualizar el usuario");
       }
-      
+
       return updatedUser;
     } catch (error) {
-      console.error('Error al actualizar el usuario:', error);
+      console.error("Error al actualizar el usuario:", error);
       // Mensaje de error más detallado
-      return rejectWithValue(  'Error desconocido');
+      return rejectWithValue("Error desconocido");
     }
   }
 );

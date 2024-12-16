@@ -2,7 +2,7 @@ import { apiUrls } from "@config/config";
 import { axiosInstance } from "@store/actions/auth";
 import { alertError, alertConfirm } from "@utils/alerts";
 
-export const createProductService = async (formData: FormData) => {
+export const createProductservice = async (formData: FormData) => {
   try {
     const response = await axiosInstance.post(apiUrls.createProduct(), formData, {
       headers: {
@@ -30,7 +30,7 @@ const getAllProductsService = async () => {
     try {
       const response = await axiosInstance.get(apiUrls.allProducts()); 
       if (response.data.ok) {
-        return response.data.products; 
+        return response.data.Products; 
       } else {
         return null;
       }
@@ -42,7 +42,7 @@ const getAllProductsService = async () => {
 
 
 // Función para actualizar un producto
-export const updateProductService = async (id: number, productData: {
+export const updateProductservice = async (id: number, productData: {
   name: string;
   description: string;
   value: number;
@@ -65,7 +65,7 @@ export const updateProductService = async (id: number, productData: {
 };  
 
 
-export const deleteProductService = async (id: number) => {
+export const deleteProductservice = async (id: number) => {
   try {
     const response = await axiosInstance.delete(apiUrls.deleteProduct(id));
     
@@ -86,7 +86,7 @@ export const deleteProductService = async (id: number) => {
 
 export const uploadProductImage = async (formData: FormData): Promise<string> => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_PUBLIC_BACKEND_URL}/api/products/upload`, {
+    const response = await fetch(`${import.meta.env.VITE_PUBLIC_BACKEND_URL}/api/Products/upload`, {
       method: 'POST',
       body: formData,
     });

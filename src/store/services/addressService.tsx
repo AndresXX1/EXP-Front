@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { apiUrls, tokenAccess } from '@config/config';
-import { alertError, alertConfirm } from '@utils/alerts';
+import axios from "axios";
+import { apiUrls, tokenAccess } from "@config/config";
+import { alertError, alertConfirm } from "@utils/alerts";
 
 interface NewAddress {
   street: string;
@@ -11,11 +11,14 @@ interface NewAddress {
 }
 
 // Servicio para crear una nueva dirección
-export const createAddressService = async (userId: number, newAddress: NewAddress) => {
+export const createAddressService = async (
+  userId: number,
+  newAddress: NewAddress
+) => {
   const token = localStorage.getItem(tokenAccess.tokenName);
   if (!token) {
     alertError("No se encontró el token de autenticación");
-    throw new Error('No se encontró el token de autenticación');
+    throw new Error("No se encontró el token de autenticación");
   }
 
   try {
@@ -48,7 +51,7 @@ export const getUserAddressesService = async (userId: number) => {
   const token = localStorage.getItem(tokenAccess.tokenName);
   if (!token) {
     alertError("No se encontró el token de autenticación");
-    throw new Error('No se encontró el token de autenticación');
+    throw new Error("No se encontró el token de autenticación");
   }
 
   try {
@@ -67,11 +70,15 @@ export const getUserAddressesService = async (userId: number) => {
 };
 
 // Servicio para editar una dirección
-export const editAddressService = async (userId: number, index: number, updatedAddress: NewAddress) => {
+export const editAddressService = async (
+  userId: number,
+  index: number,
+  updatedAddress: NewAddress
+) => {
   const token = localStorage.getItem(tokenAccess.tokenName);
   if (!token) {
     alertError("No se encontró el token de autenticación");
-    throw new Error('No se encontró el token de autenticación');
+    throw new Error("No se encontró el token de autenticación");
   }
 
   try {
@@ -104,15 +111,18 @@ export const deleteAddressService = async (userId: number, index: number) => {
   const token = localStorage.getItem(tokenAccess.tokenName);
   if (!token) {
     alertError("No se encontró el token de autenticación");
-    throw new Error('No se encontró el token de autenticación');
+    throw new Error("No se encontró el token de autenticación");
   }
 
   try {
-    const response = await axios.delete(apiUrls.deleteUserAddress(userId, index), {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.delete(
+      apiUrls.deleteUserAddress(userId, index),
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     if (response.data.ok) {
       alertConfirm("Dirección eliminada correctamente");

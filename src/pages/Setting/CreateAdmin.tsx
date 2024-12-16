@@ -1,7 +1,7 @@
 import Modal from "@components/Modal";
 import { apiUrls } from "@config/config";
 import { createAdmin, uploadImgAvatar } from "@store/services/admin";
-import { IconDelete, IconEyes, IconPencil, IconUser, IconX } from "@utils/svg";
+import { IconDelete, IconEyes, IconPencil } from "@utils/svg";
 
 import { useState } from "react";
 
@@ -72,9 +72,7 @@ const CreateAdmin = ({ fetchAdmins }: CreateAdminProps) => {
               <p
                 className="cursor-pointer"
                 onClick={() => setModalCreate(false)}
-              >
-                <IconX />
-              </p>
+              ></p>
             </div>
             <div className="flex gap-[50px]">
               <div>
@@ -83,7 +81,7 @@ const CreateAdmin = ({ fetchAdmins }: CreateAdminProps) => {
                     src={
                       data.avatar
                         ? apiUrls.avatarUser(data.avatar)
-                        : "/products/image_default.png"
+                        : "/Products/image_default.png"
                     }
                     className="w-[84px] h-[84px] object-cover"
                   />
@@ -198,7 +196,7 @@ const CreateAdmin = ({ fetchAdmins }: CreateAdminProps) => {
           onClick={handlerOpenModal}
           className="w-[228px] h-[54px] bg-expresscash-skyBlue rounded-[13px] flex items-center justify-center text-expresscash-white gap-2 text-[15.36px] font-book hover:bg-expresscash-blue hover:transition-colors duration-100"
         >
-          <IconUser className="w-[20px] h-[20px]" color="#FFFFFF" />
+          <div className="w-[20px] h-[20px]" color="#FFFFFF" />
           Nuevo administrador
         </button>
       </div>

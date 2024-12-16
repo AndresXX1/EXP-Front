@@ -471,7 +471,7 @@ const Notifications = () => {
                     >
                       <option value="">Selecciona</option>
                       <option value="noticias">Noticias</option>
-                      <option value="prestamos">Mis préstamos</option>
+                      <option value="Products">Mis préstamos</option>
                       <option value="perfil">Perfil</option>
                       <option value="argencompras">ArgenCompras</option>
                       <option value="cuponizate">Cuponizate</option>
@@ -611,7 +611,7 @@ const Notifications = () => {
                   <div className="flex items-center justify-center rounded-[13px] w-[185px] h-[185px] bg-expresscash-gray3 border-[1px] border-solid border-expresscash-gray2">
                     <img
                       className="w-[84px] h-[84px]"
-                      src="/products/image_default.png"
+                      src="/Products/image_default.png"
                     />
                   </div>
                   <p className="flex gap-1 items-center pt-[18px] text-[14px] font-book text-expresscash-textos">
@@ -698,7 +698,7 @@ const Notifications = () => {
                     >
                       <option value="">Selecciona</option>
                       <option value="noticias">Noticias</option>
-                      <option value="prestamos">Mis préstamos</option>
+                      <option value="Products">Mis préstamos</option>
                       <option value="perfil">Perfil</option>
                       <option value="argencompras">ArgenCompras</option>
                       <option value="cuponizate">Cuponizate</option>

@@ -5,7 +5,7 @@ import Home from "@pages/Home";
 import Setting from "@pages/Setting";
 import Notifications from "@pages/Notifications";
 import EditContent from "@pages/EditContent";
-import Products from "@pages/Products";
+import Products from "@pages/Prestamos";
 import Users from "@pages/Users";
 import DashBoard from "@components/DashBoard";
 import ProtectedAuth from "@components/ProtectedAuth";
@@ -40,7 +40,7 @@ const App = (): JSX.Element => {
       >
         <Route index element={<Home />} />
         <Route path="users" element={<Users />} />
-        <Route path="products" element={<Products />} />
+        <Route path="Products" element={<Products />} />
         <Route path="edit-content" element={<EditContent />} />
         <Route path="edit-content/banners" element={<EditBanners />} />
         <Route path="edit-content/notices" element={<EditNotice />} />

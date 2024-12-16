@@ -15,8 +15,6 @@ import {
   Iconstatistics,
   IconSuscriber,
   IconTime,
-  IconUser,
-  IconUserMore,
   LineHome,
 } from "@utils/svg";
 import { useEffect, useState } from "react";
@@ -200,7 +198,7 @@ const Home = () => {
       <div className="grid grid-cols-3 grid-rows-5 gap-5 pt-5 pb-10">
         <div className="border-[1px] border-expresscash-gray col-span-1 h-[207px] rounded-[13px] px-5 py-5">
           <div className="flex gap-3 items-center pb-5">
-            <IconUser color="#C4C4C4" />
+            <div color="#C4C4C4" />
             <p className="text-[22px] font-bold text-expresscash-textos">
               Usuarios activos
             </p>
@@ -259,8 +257,6 @@ const Home = () => {
         </div>
         <div className="border-[1px] border-expresscash-gray col-span-2 h-[207px] rounded-[13px] p-4">
           <div className="flex gap-3 items-center pb-5">
-            <IconUserMore />
-
             <p className="text-[22px] font-bold text-expresscash-textos">
               Cantidad de usuarios
             </p>

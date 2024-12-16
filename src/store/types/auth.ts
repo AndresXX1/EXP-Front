@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { UserProps } from "@utils/interfaces";
 
 export interface IAuthState {
@@ -17,15 +18,15 @@ export interface IErrorResponse {
 
 export interface AuthPayload {
   token: string;
-  user?: any; 
+  user?: any;
 }
 
 export interface IAuthState {
-  authenticated: boolean;     
-  loading: boolean;           
-  user: UserProps | null;     
-  updatingAvatar: boolean;    
-  avatarUpdateError: string | null; 
+  authenticated: boolean;
+  loading: boolean;
+  user: UserProps | null;
+  updatingAvatar: boolean;
+  avatarUpdateError: string | null;
   updatingUser: boolean;
   userUpdateError: null | string;
 }

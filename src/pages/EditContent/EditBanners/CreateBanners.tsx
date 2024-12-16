@@ -91,7 +91,7 @@ if (!type) {
                     >
                     <option value="">Seleccionar</option>
                     <option value="noticias">Noticias</option>
-                    <option value="prestamos">Mis préstamos</option>
+                    <option value="Products">Mis préstamos</option>
                     <option value="perfil">Perfil</option>
                     <option value="argencompras">ArgenCompras</option>
                     <option value="cuponizate">Cuponizate</option>

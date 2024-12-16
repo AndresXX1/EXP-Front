@@ -1,5 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { blockUserAsync, unblockUserAsync } from '../actions/user';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { createSlice } from "@reduxjs/toolkit";
+import { blockUserAsync, unblockUserAsync } from "../actions/user";
 
 interface UserState {
   users: any[]; // Aquí puedes definir un tipo más específico para los usuarios
@@ -14,12 +15,12 @@ const initialState: UserState = {
 };
 
 export const BlockuserSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(blockUserAsync.pending, (state) => {
+      .addCase(blockUserAsync.pending, state => {
         state.loading = true;
         state.error = null;
       })
@@ -35,14 +36,16 @@ export const BlockuserSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
-      .addCase(unblockUserAsync.pending, (state) => {
+      .addCase(unblockUserAsync.pending, state => {
         state.loading = true;
         state.error = null;
       })
       .addCase(unblockUserAsync.fulfilled, (state, action) => {
         state.loading = false;
         const unblockedUser = action.payload;
-        const index = state.users.findIndex(user => user.id === unblockedUser.id);
+        const index = state.users.findIndex(
+          user => user.id === unblockedUser.id
+        );
         if (index !== -1) {
           state.users[index] = unblockedUser; // Actualizamos el estado del usuario
         }

@@ -220,6 +220,36 @@ export const IconPrestamos = ({ color }: SvgProps) => {
   );
 };
 
+export const IconPrestamosBig = ({ color }: SvgProps) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="100"
+      height="100"
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <path
+        d="M12 2 A 10 10 0 0 1 22 12 A 10 10 0 0 1 12 22 A 10 10 0 0 1 2 12 A 10 10 0 0 1 12 2 Z"
+        stroke={color || "#8CC63F"} // Si no se pasa un color, usa verde
+        strokeWidth="2"
+        fill="none"
+      />
+      <text
+        x="12"
+        y="14"
+        fontSize="16"
+        fontWeight="bold"
+        fill={color || "#8CC63F"} // Si no se pasa un color, usa verde
+        textAnchor="middle"
+        alignmentBaseline="middle"
+      >
+        $
+      </text>
+    </svg>
+  );
+};
+
 export const IconFilter = () => {
   return (
     <svg
@@ -652,6 +682,39 @@ export const IconMagnifyingGlass = ({ className, ...rest }: SvgProps) => {
         </defs>
       </svg>
     </div>
+  );
+};
+
+export const IconProhibited: React.FC<{ className?: string }> = ({
+  className,
+}) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={className}
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="10"
+        stroke="#AAAAAA"
+        strokeWidth="2"
+        fill="none"
+      />
+      <line
+        x1="4"
+        y1="4"
+        x2="20"
+        y2="20"
+        stroke="#AAAAAA"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
   );
 };
 

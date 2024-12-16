@@ -4,12 +4,12 @@ import { Product } from "../types/product";
 
 const initialState = {
   loading: false,
-  products: [] as Product[],
+  Products: [] as Product[],
   product: null as Product | null,
   error: null as string | null,
 };
 
-const productSlice = createSlice({
+const Productslice = createSlice({
   name: "product",
   initialState,
   reducers: {},
@@ -35,7 +35,7 @@ const productSlice = createSlice({
       })
       .addCase(getAllProductsAsync.fulfilled, (state, action) => {
         state.loading = false;
-        state.products = action.payload;
+        state.Products = action.payload;
       })
       .addCase(getAllProductsAsync.rejected, (state) => {
         state.loading = false;
@@ -49,7 +49,7 @@ const productSlice = createSlice({
       .addCase(updateProductAsync.fulfilled, (state, action) => {
         state.loading = false;
         const updatedProduct: Product = action.payload;
-        state.products = state.products.map((product) =>
+        state.Products = state.Products.map((product) =>
           product.id === updatedProduct.id ? updatedProduct : product
         );
       })
@@ -64,7 +64,7 @@ const productSlice = createSlice({
       })
       .addCase(deleteProductAsync.fulfilled, (state, action) => {
         state.loading = false;
-        state.products = state.products.filter(
+        state.Products = state.Products.filter(
           (product) => product.id !== action.payload
         );
       })
@@ -74,4 +74,4 @@ const productSlice = createSlice({
   },
 });
 
-export default productSlice.reducer;
+export default Productslice.reducer;

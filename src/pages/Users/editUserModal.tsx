@@ -9,21 +9,13 @@ import { RootState } from "@store";
 import axios from "axios";
 import UserAddresses from "./allAddress";
 import { alertError, alertConfirm } from "@utils/alerts";
-
-interface Address {
-  street: string;
-  number: number;
-  zipCode: string;
-  city: string;
-  province: string;
-}
+import { User, Prestamo, Address } from "../../store/types/user";
 
 export interface UserFormData {
   avatar: string;
   id: number;
   cuil: string;
   gender: string;
-  subscriptionStatus: string | number | readonly string[] | undefined;
   firstName: string;
   lastName: string;
   phone: string;
@@ -31,6 +23,16 @@ export interface UserFormData {
   points: number;
   image: string;
   address: Address[];
+  email: string;
+  dni: string;
+  Prestamo: Prestamo[];
+  bank: string;
+  paymentDate: string;
+  lastLogin: string;
+  createdAt: string;
+  status: string;
+  totalLoaned: number;
+  subscriptionStatus: string | number | readonly string[] | undefined;
 }
 
 interface EditUserModalProps {

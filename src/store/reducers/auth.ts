@@ -17,8 +17,8 @@ const initialState: IAuthState = {
   updatingAvatar: false,
   avatarUpdateError: null,
   token: undefined,
-  updatingUser: false, 
-  userUpdateError: null, 
+  updatingUser: false,
+  userUpdateError: null,
 };
 
 export const authSlice = createSlice({
@@ -59,7 +59,7 @@ export const authSlice = createSlice({
         state.authenticated = false;
         state.user = null;
       })
-      .addCase(updateAvatarAsync.pending, (state) => {
+      .addCase(updateAvatarAsync.pending, state => {
         state.updatingAvatar = true;
         state.avatarUpdateError = null;
       })
@@ -71,9 +71,9 @@ export const authSlice = createSlice({
       })
       .addCase(updateAvatarAsync.rejected, (state, action) => {
         state.updatingAvatar = false;
-        state.avatarUpdateError = action.payload?.toString() || 'Error desconocido';
-      })
-
+        state.avatarUpdateError =
+          action.payload?.toString() || "Error desconocido";
+      });
   },
 });
 
