@@ -45,7 +45,7 @@ export default function LoanDetails({
   const hasLoan = client.prestamos.length > 0;
 
   return (
-    <div className="max-w-xl mx-auto p-6 space-y-6">
+    <div className="max-w-[1400px] mx-auto p-6 space-y-6 bg-[white]">
       {/* Header */}
       <div className="flex items-center gap-4">
         {hasLoan && (
@@ -62,7 +62,7 @@ export default function LoanDetails({
         )}
       </div>
 
-      <div className="grid grid-cols-3 gap-8 w-[1200px]">
+      <div className="grid grid-cols-3 gap-8 w-[1100px]">
         {/* Amount and Installments Section */}
         {hasLoan && (
           <div className="col-span-2 space-y-6">

@@ -227,7 +227,7 @@ export default function LoansTable() {
   }
 
   return (
-    <div className="flex flex-col pl-18 pt-12 px-[40px] max-w-[clamp(1000px,67.2vw,1200px)]">
+    <div className="flex flex-col pl-18 pt-12 px-[40px] max-w-[clamp(1300px,67.2vw,1200px)] min-h-[800px] max-h-[1300px] bg-[white]">
       {selectedLoan === null ? (
         <>
           <div className="flex gap-2 mb-2">
@@ -333,10 +333,7 @@ export default function LoansTable() {
                     <div className="text-center">{user.totalLoaned}</div>
 
                     {/* Nombre del usuario - Clickeable */}
-                    <div
-                      className="text-center cursor-pointer text-expresscash-skyBlue hover:underline"
-                      onClick={() => handleOpenLoanDetails(user, 0)}
-                    >
+                    <div className="text-center text-expresscash-text">
                       {`${user.first_name} ${user.last_name}`}
                     </div>
 
@@ -497,10 +494,7 @@ export default function LoansTable() {
                     <div className="text-center">{user.totalLoaned}</div>
 
                     {/* Nombre del usuario - Clickeable */}
-                    <div
-                      className="text-center cursor-pointer text-expresscash-skyBlue hover:underline"
-                      onClick={() => handleOpenLoanDetails(user, 0)}
-                    >
+                    <div className="text-center text-expresscash-text">
                       {`${user.first_name} ${user.last_name}`}
                     </div>
 

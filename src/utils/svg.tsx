@@ -286,7 +286,7 @@ export const ArrowRight = ({ ...rest }: SvgProps) => {
   return (
     <div
       {...rest}
-      className={`transition-all p-4 cursor-pointer hover:scale-125 hover:text-expresscash-blue flex justify-center items-center rounded-lg`}
+      className={`transition-all p-4 cursor-pointer hover:scale-125 hover:text-expresscash-skyBlue flex justify-center items-center rounded-lg`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

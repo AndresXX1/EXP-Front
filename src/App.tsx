@@ -15,6 +15,7 @@ import { verifySessionAsync } from "@store/actions/auth";
 import EditBanners from "@pages/EditContent/EditBanners";
 import EditNotice from "@pages/EditContent/EditNotice";
 import EditBranches from "@pages/EditContent/EditBranches";
+import Sidebar from "@components/Sidebar";
 
 const App = (): JSX.Element => {
   const { loading } = useSelector((state: RootState) => state.auth);
@@ -27,28 +28,34 @@ const App = (): JSX.Element => {
   if (loading) {
     return <div>cargando</div>;
   }
+
   return (
-    <Routes>
-      <Route index element={<LogIn />} />
-      <Route
-        path="/dashboard/*"
-        element={
-          <ProtectedAuth>
-            <DashBoard />
-          </ProtectedAuth>
-        }
-      >
-        <Route index element={<Home />} />
-        <Route path="users" element={<Users />} />
-        <Route path="Products" element={<Products />} />
-        <Route path="edit-content" element={<EditContent />} />
-        <Route path="edit-content/banners" element={<EditBanners />} />
-        <Route path="edit-content/notices" element={<EditNotice />} />
-        <Route path="edit-content/branches" element={<EditBranches />} />
-        <Route path="notifications" element={<Notifications />} />
-        <Route path="setting" element={<Setting />} />
-      </Route>
-    </Routes>
+    <div className="flex h-screen">
+      <Sidebar />
+      <div className="flex-1 overflow-y-auto bg-gray-100">
+        <Routes>
+          <Route index element={<LogIn />} />
+          <Route
+            path="/dashboard/*"
+            element={
+              <ProtectedAuth>
+                <DashBoard />
+              </ProtectedAuth>
+            }
+          >
+            <Route index element={<Home />} />
+            <Route path="users" element={<Users />} />
+            <Route path="Products" element={<Products />} />
+            <Route path="edit-content" element={<EditContent />} />
+            <Route path="edit-content/banners" element={<EditBanners />} />
+            <Route path="edit-content/notices" element={<EditNotice />} />
+            <Route path="edit-content/branches" element={<EditBranches />} />
+            <Route path="notifications" element={<Notifications />} />
+            <Route path="setting" element={<Setting />} />
+          </Route>
+        </Routes>
+      </div>
+    </div>
   );
 };
 

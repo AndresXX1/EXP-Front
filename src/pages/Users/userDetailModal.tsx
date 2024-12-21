@@ -220,7 +220,7 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
   };
 
   return (
-    <div className="flex flex-col bg-white p-6 max-w-4xl w-full">
+    <div className="flex flex-col bg-white p-6 max-w-6.5xl w-full min-h-[1400px] max-h-[1400px]">
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-4">
@@ -236,7 +236,7 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
         </div>
         <button
           onClick={handleEditUser}
-          className="px-4 py-2 bg-expresscash-skyBlue text-white rounded-lg hover:bg-opacity-90 translate-x-[300px]"
+          className="px-4 py-2 bg-expresscash-skyBlue text-white rounded-lg hover:bg-opacity-90 "
         >
           Editar usuario
         </button>

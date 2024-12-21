@@ -11,13 +11,11 @@ import {
 } from "recharts";
 
 const data = [
-  { fecha: "Mayo 2/4", prestamos: 7 },
-  { fecha: "Mayo 3/4", prestamos: 14 },
-  { fecha: "Mayo 4/4", prestamos: 10 },
-  { fecha: "Julio 1/4", prestamos: 14 },
-  { fecha: "Junio 2/4", prestamos: 0 },
-  { fecha: "Junio 3/4", prestamos: 0 },
-  { fecha: "Junio 4/4", prestamos: 0 },
+  { method: "Tarjeta", value: 20 },
+  { method: "Crédito ArgenPesos", value: 15 },
+  { method: "Transferencia", value: 12 },
+  { method: "Mercado Pago", value: 10 },
+  { method: "Dos tarjetas", value: 5 },
 ];
 
 const CustomTooltip = ({ active, payload, label }: any) => {
@@ -38,20 +36,21 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-const PrestamosChart: React.FC = () => {
+const PaymentMethodsChart: React.FC = () => {
   return (
-    <div className=" rounded-lg p-4 w-full max-w-3xl mt-[-20px]">
+    <div className="rounded-lg p-4 w-full max-w-3xl mt-[-20px]">
       <div className="flex justify-between items-center mb-[15px] ml-[-20px]">
-        <h2 className="text-xl font-bold">Cantidad de préstamos</h2>
-        <span className="text-sm font-medium text-green-500">+4%</span>
+        <h2 className="text-xl font-bold text-gray-700">
+          Forma de pago más elegida
+        </h2>
       </div>
       <div
         style={{
           width: "130%",
           height: 250,
-          marginLeft: "-80px",
-          marginBottom: "-40px",
-          marginTop: "40px",
+          marginLeft: "-90px",
+          marginBottom: "-20px",
+          marginTop: "50px",
         }}
       >
         <ResponsiveContainer>
@@ -60,8 +59,8 @@ const PrestamosChart: React.FC = () => {
             margin={{
               top: 5,
               right: 30,
-              left: 20,
-              bottom: 5,
+              left: 40,
+              bottom: 20,
             }}
           >
             <CartesianGrid
@@ -70,7 +69,7 @@ const PrestamosChart: React.FC = () => {
               stroke="#e0e0e0"
             />
             <XAxis
-              dataKey="fecha"
+              dataKey="method"
               axisLine={false}
               tickLine={false}
               tick={{ fontSize: 12 }}
@@ -84,10 +83,10 @@ const PrestamosChart: React.FC = () => {
             />
             <Tooltip content={<CustomTooltip />} />
             <Bar
-              dataKey="prestamos"
+              dataKey="value"
               fill="#2D6F7C"
               radius={[4, 4, 0, 0]}
-              maxBarSize={40}
+              maxBarSize={50}
             />
           </BarChart>
         </ResponsiveContainer>
@@ -96,4 +95,4 @@ const PrestamosChart: React.FC = () => {
   );
 };
 
-export default PrestamosChart;
+export default PaymentMethodsChart;

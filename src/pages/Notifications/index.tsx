@@ -768,12 +768,12 @@ const Notifications = () => {
         }
       />
 
-      <div className="flex flex-col pl-12 pt-12 px-10 h-[100%]">
-        <p className="text-[3rem] text-expresscash-textos font-bold pb-14 translate-x-[60px]">
+      <div className="flex flex-col pl-12 pt-12 px-10 h-[250%] bg-[white]">
+        <p className="text-[3rem] text-expresscash-textos font-bold pb-14">
           Notificaciones
         </p>
 
-        <div className="flex gap-6 translate-x-[60px]">
+        <div className="flex gap-6">
           <input
             className="w-[735px] h-[54px] rounded-[13px] border-[1px] border-expresscash-textos border-solid px-10 text-expresscash-gray2 placeholder:text-expresscash-gray2 placeholder:font-book"
             type="search"
@@ -798,11 +798,11 @@ const Notifications = () => {
             Nueva notificación
           </button>
         </div>
-        <h4 className="text-[23px] font-bold text-expresscash-textos pt-5 mb-5 translate-x-[60px]">
+        <h4 className="text-[23px] font-bold text-expresscash-textos pt-5 mb-5">
           Próximas notificaciones
         </h4>
 
-        <div className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr_0.5fr] gap-8 my-8 translate-x-[60px]">
+        <div className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr_0.5fr] gap-8 my-8">
           <p className="text-[1rem] text-expresscash-textos font-bold">
             Nombre
           </p>
@@ -830,7 +830,7 @@ const Notifications = () => {
           {nextNotifications &&
             nextNotifications.map((inf, index) => (
               <div
-                className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_0.8fr_0.8fr] gap-6 my-8 translate-x-[60px]"
+                className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_0.8fr_0.8fr] gap-6 my-8"
                 key={index}
               >
                 <div className="flex items-center gap-1">
@@ -954,14 +954,14 @@ const Notifications = () => {
               </div>
             ))}
 
-          <h4 className="text-[23px] font-bold text-expresscash-textos mt-5 mb-10 translate-x-[60px]">
+          <h4 className="text-[23px] font-bold text-expresscash-textos mt-5 mb-10">
             Historial de notificaciones
           </h4>
           <div>
             {oldNotifications &&
               oldNotifications.map((inf, index) => (
                 <div
-                  className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr_0.6fr] gap-6 my-8 translate-x-[60px]"
+                  className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr_0.6fr] gap-6 my-8"
                   key={index}
                 >
                   <div className="flex items-center gap-1">

@@ -309,7 +309,7 @@ const Users = () => {
     <>
       {/* Si no hay un usuario seleccionado, se muestra la lista de usuarios */}
       {!selectedUser ? (
-        <div className="flex flex-col pl-18 pt-12 px-10 max-w-[clamp(1000px,67.2vw,1200px)]">
+        <div className="flex flex-col pl-18 pt-12 px-10 max-w-[clamp(1600px,67.2vw,1600px)] bg-[white]">
           <div className="flex gap-2 mb-2">
             <p className="text-[3rem] text-expresscash-textos font-bold">
               Clientes
@@ -594,7 +594,7 @@ const Users = () => {
                       setCopied(true); // Mostrar mensaje de "copiado"
                       setTimeout(() => setCopied(false), 6000); // Eliminar mensaje después de 2 segundos
                     }}
-                    className="ml-4 text-expresscash-skyBlue hover:text-expresscash-blue flex items-center"
+                    className="ml-4 text-expresscash-skyBlue hover:text-expresscash-skyBlue flex items-center"
                   >
                     <FaCopy className="w-5 h-5 mr-2" />
                     {copied ? (
