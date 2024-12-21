@@ -106,7 +106,7 @@ const Sidebar = () => {
             {links.map((link, index) => (
               <li
                 key={`${link.text}-${index}`}
-                className={`flex h-12 pl-3 gap-3 ${currentPath === link.to ? "text-expresscash-skyBlue border-l-8 pl-6 border-expresscash-skyBlue" : "text-expresscash-textos border-l-8 border-transparent pl-6"}`}
+                className={`flex h-12 pl-3 gap-3 ${currentPath === link.to ? "text-expresscash-skyBlue border-l-8 pl-6 border-expresscash-skyBlue" : "text-expresscash-textos"}`}
               >
                 <div className="flex items-center justify-center gap-5">
                   <link.Icon color={currentPath === link.to ? "#8CC63F" : ""} />
@@ -121,20 +121,20 @@ const Sidebar = () => {
               </li>
             ))}
           </ul>
-          <div className="mt-12 flex items-center justify-center border-[2px] border-expresscash-skyBlue w-[66px] h-[66px] mx-auto rounded-[15px]">
+          <div className="mt-12 flex items-center justify-center border-[2px] border-expresscash-skyBlue w-[66px] h-[66px] mx-auto rounded-[25px] overflow-hidden">
             {user && <img src={apiUrls.avatarUser(user.avatar)} alt="avatar" />}
           </div>
-          <p className="text-center mt-6 text-expresscash-textos text-[23px] font-book">
+          <p className="text-center mt-6 text-expresscash-textos text-[16px] font-book mb-[20px]">
             {user?.full_name ? user.full_name : "Nombre de usuario"}
           </p>
 
-          <p
-            className="flex items-center justify-center gap-1 text-[15.21px] text-expresscash-red mt-2 cursor-pointer font-book"
+          <button
+            className="flex items-center justify-center gap-1 text-[15.21px] text-white mt-2 cursor-pointer font-book border-2 border-expresscash-skyBlue bg-expresscash-skyBlue hover:bg-expresscash-green ml-[70px] hover:text-white rounded-lg p-2 transition-all"
             onClick={() => dispatch(logOutAsync())}
           >
             <IconLogout />
             Cerrar Sesión
-          </p>
+          </button>
         </div>
       </div>
 
