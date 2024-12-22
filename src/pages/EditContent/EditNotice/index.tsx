@@ -33,12 +33,12 @@ const EditNotice = () => {
           className="cursor-pointer"
           onClick={() => navigate("/dashboard/edit-content")}
         />
-        <p className="text-[40px] text-expresscash-textos font-book">
+        <p className="text-[40px] text-expresscash-textos font-poppins">
           Noticias
         </p>
       </div>
 
-      <p className="text-[23px] font-bold text-expresscash-textos mt-10 mb-5">
+      <p className="text-[23px] font-poppins text-expresscash-textos mt-10 mb-5">
         Noticias
       </p>
       <div className="flex flex-wrap gap-5 pb-12">

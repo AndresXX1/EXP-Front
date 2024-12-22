@@ -40,7 +40,7 @@ const PaymentMethodsChart: React.FC = () => {
   return (
     <div className="rounded-lg p-4 w-full max-w-3xl mt-[-20px]">
       <div className="flex justify-between items-center mb-[15px] ml-[-20px]">
-        <h2 className="text-xl font-bold text-gray-700">
+        <h2 className="text-xl text-gray-700 font-poppins">
           Forma de pago más elegida
         </h2>
       </div>

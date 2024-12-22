@@ -149,26 +149,26 @@ const AddressForm: React.FC<AddressFormProps> = ({
         element={
           <div className="px-6 py-6 flex flex-col justify-center gap-5 w-[481px] h-[192px]">
             <div className="flex justify-between items-center">
-              <p className="text-[1rem] text-expresscash-textos font-bold">
+              <p className="text-[1rem] text-expresscash-textos font-poppins">
                 ¿Está seguro que desea salir?
               </p>
               <p className="cursor-pointer" onClick={closeCancelModal}>
                 <IconX />
               </p>
             </div>
-            <p className="text-[14px] font-book text-expresscash-gray w-[380px]">
+            <p className="text-[14px] font-poppins text-expresscash-gray w-[380px]">
               Se descartarán los cambios realizados.
             </p>
             <div className="flex gap-4">
               <button
                 onClick={handleConfirmCancel}
-                className="bg-expresscash-red w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-book"
+                className="bg-expresscash-red w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-poppins"
               >
                 Salir
               </button>
               <button
                 onClick={closeCancelModal}
-                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-book"
+                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-poppins"
               >
                 Cancelar
               </button>
@@ -305,13 +305,13 @@ const AddressForm: React.FC<AddressFormProps> = ({
           <div className="flex justify-end gap-4 mt-10">
             <button
               onClick={handleCancel}
-              className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-book"
+              className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-poppins"
             >
               Cancelar
             </button>
             <button
               onClick={handleSave}
-              className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-book hover:bg-expresscash-blue hover:transition-colors duration-100"
+              className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-poppins hover:bg-expresscash-blue hover:transition-colors duration-100"
               disabled={loading}
             >
               {loading ? "Guardando..." : "Guardar"}

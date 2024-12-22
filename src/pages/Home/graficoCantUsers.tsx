@@ -42,7 +42,7 @@ const PrestamosChart: React.FC = () => {
   return (
     <div className=" rounded-lg p-4 w-full max-w-3xl mt-[-20px]">
       <div className="flex justify-between items-center mb-[15px] ml-[-20px]">
-        <h2 className="text-xl font-bold">Cantidad de préstamos</h2>
+        <h2 className="text-xl font-poppins">Cantidad de préstamos</h2>
         <span className="text-sm font-medium text-green-500">+4%</span>
       </div>
       <div

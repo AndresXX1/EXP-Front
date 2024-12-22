@@ -8,7 +8,6 @@ import {
   IconDownload,
   IconIncrease,
   IconLower,
-  IconMagnifyingGlass,
   IconStarts,
   IconSuscriber,
   IconTime,
@@ -91,7 +90,7 @@ const Home = () => {
   }) => {
     return (
       <p
-        className="text-[22px] font-book"
+        className="text-[22px] font-poppins"
         style={{ color: state ? "#05B922" : "#ED1A00", fontSize: fontSize }}
       >
         {text}
@@ -104,21 +103,21 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="flex flex-col px-4 sm:px-10 lg:px-16 py-12 bg-white min-h-[1800px] max-h-[1800px]">
+    <div className="flex flex-col px-4 sm:px-10 lg:px-16 py-12 bg-white min-h-[1800px] max-h-[1800px] font-poppins">
       {/* Header */}
-      <h2 className="text-2xl sm:text-4xl lg:text-5xl text-gray-800 font-bold">
+      <h2 className="text-2xl sm:text-4xl lg:text-5xl text-gray-800 font-poppins font-poppins">
         Bienvenido, {user?.full_name || "Felix"}.
       </h2>
 
       {/* Search and filters */}
       <div className="flex flex-wrap items-center gap-4 mt-6">
         <div className="flex items-center border border-expresscash-skyBlue rounded-lg px-4 h-[42px]">
-          <span className="text-sm text-gray-700">Semanal</span>
+          <span className="text-sm text-gray-700 font-poppins">Semanal</span>
           <ArrowLeft className="w-4 h-4 ml-2 rotate-90" />
         </div>
-        <button className="flex items-center gap-2 bg-[#8CC63F] text-white px-4 h-[42px] rounded-lg hover:bg-[#68A589] transition-colors">
+        <button className="flex items-center font-poppins gap-2 bg-[#8CC63F] text-white px-4 h-[42px] rounded-lg hover:bg-[#68A589] transition-colors">
           <IconDownload />
-          <span className="text-sm">Descargar planilla</span>
+          <span className="text-sm font-poppins">Descargar planilla</span>
         </button>
       </div>
 
@@ -136,17 +135,19 @@ const Home = () => {
             <div className="text-gray-400 mt-[-20px]">
               <IconStarts />
             </div>
-            <h3 className="text-[18px] font-medium text-gray-700 mt-[-20px]">
+            <h3 className="text-[18px] font-medium text-gray-700 mt-[-20px] font-poppins">
               Usuarios nuevos
             </h3>
           </div>
-          <p className="text-[30px] text-center font-semibold text-gray-900 mb-4">
+          <p className="text-[30px] text-center font-semibold text-gray-900 mb-4 font-poppins">
             102
           </p>
           <div className="flex items-center gap-2 text-center">
             <IconSelector state={true} />
             <ColorfulText state={true} text="+12%" />
-            <span className="text-sm text-gray-500">esta semana</span>
+            <span className="text-sm text-gray-500 font-poppins">
+              esta semana
+            </span>
           </div>
         </div>
 
@@ -155,36 +156,40 @@ const Home = () => {
             <div className="text-gray-400 mt-[-20px]">
               <IconTime />
             </div>
-            <h3 className="text-[18px] font-medium text-gray-700 mt-[-20px]">
+            <h3 className="text-[18px] font-medium text-gray-700 mt-[-20px] font-poppins">
               Nuevos préstamos
             </h3>
           </div>
-          <p className="text-[30px] font-semibold text-gray-900 mb-4 text-center">
+          <p className="text-[30px] font-semibold text-gray-900 mb-4 text-center font-poppins">
             12%
           </p>
           <div className="flex items-center gap-2">
             <IconSelector state={false} />
             <ColorfulText state={false} text="-11%" />
-            <span className="text-sm text-gray-500">esta semana</span>
+            <span className="text-sm text-gray-500 font-poppins">
+              esta semana
+            </span>
           </div>
         </div>
 
         <div className="bg-white rounded-lg border border-[#8CC63F] p-6 h-[140px]">
           <div className="flex items-center gap-3 mb-3">
-            <div className="text-gray-400 mt-[-20px]">
+            <div className="text-gray-400 mt-[-20px] font-poppins">
               <IconSuscriber />
             </div>
-            <h3 className="text-[16px] font-medium text-gray-700 mt-[-20px]">
+            <h3 className="text-[16px] font-medium text-gray-700 mt-[-20px] font-poppins">
               Abandono del carrito
             </h3>
           </div>
-          <p className="text-[30px] font-semibold text-gray-900 mb-4 text-center">
+          <p className="text-[30px] font-semibold text-gray-900 mb-4 text-center font-poppins">
             5%
           </p>
           <div className="flex items-center gap-2">
             <IconSelector state={false} />
             <ColorfulText state={false} text="+1%" />
-            <span className="text-sm text-gray-500">esta semana</span>
+            <span className="text-sm text-gray-500 font-poppins">
+              esta semana
+            </span>
           </div>
         </div>
       </div>

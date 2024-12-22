@@ -27,7 +27,7 @@ const CardBranches = ({ notice }: CardNoticeProps) => {
         element={
           <div className="px-6 py-6 flex flex-col justify-center w-[481px] h-[192px]">
             <div className="flex justify-between items-start">
-              <p className="text-[1rem] text-expresscash-textos font-bold max-w-[370px]">
+              <p className="text-[1rem] text-expresscash-textos font-poppins max-w-[370px]">
                 ¿Está seguro que desea eliminar esta noticia?
               </p>
               <p
@@ -37,13 +37,13 @@ const CardBranches = ({ notice }: CardNoticeProps) => {
                 <IconX />
               </p>
             </div>
-            <p className="text-[14px] font-book text-expresscash-gray w-[380px] mb-10 mt-1">
+            <p className="text-[14px] font-poppins text-expresscash-gray w-[380px] mb-10 mt-1">
               Si la elimina ya no se podrá recuperarla.
             </p>
             <div className="flex gap-4">
               <button
                 // onClick={handleDelete}
-                className="bg-expresscash-red w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-book"
+                className="bg-expresscash-red w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-poppins"
               >
                 Eliminar
               </button>
@@ -51,7 +51,7 @@ const CardBranches = ({ notice }: CardNoticeProps) => {
                 onClick={() => {
                   setModalDeleteNotice(false);
                 }}
-                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-book"
+                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-poppins"
               >
                 Cancelar
               </button>
@@ -64,7 +64,7 @@ const CardBranches = ({ notice }: CardNoticeProps) => {
         element={
           <div className="px-[54px] py-12 flex flex-col w-[969px] h-[668px]">
             <div className="flex justify-between items-center">
-              <p className="text-[32px] text-expresscash-textos font-bold">
+              <p className="text-[32px] text-expresscash-textos font-poppins">
                 Editar noticia
               </p>
               <p
@@ -84,11 +84,11 @@ const CardBranches = ({ notice }: CardNoticeProps) => {
                     />
                   </div>
                   <div className="flex gap-1 mt-3 mb-5">
-                    <p className="flex items-center gap-1 text-[14px] text-expresscash-textos font-book cursor-pointer">
+                    <p className="flex items-center gap-1 text-[14px] text-expresscash-textos font-poppins cursor-pointer">
                       <IconPencil />
                       Editar foto
                     </p>
-                    <p className="flex items-center text-[14px] text-expresscash-red font-book cursor-pointer">
+                    <p className="flex items-center text-[14px] text-expresscash-red font-poppins cursor-pointer">
                       <IconDelete className="w-[22px] h-[22px]" />
                       Eliminar
                     </p>
@@ -97,37 +97,37 @@ const CardBranches = ({ notice }: CardNoticeProps) => {
                 <div></div>
                 <div className="flex flex-col gap-4">
                   <label
-                    className="text-expresscash-textos font-bold text-[14px]"
+                    className="text-expresscash-textos font-poppins text-[14px]"
                     htmlFor=""
                   >
                     Título
                   </label>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-poppins"
                     type="text"
                     placeholder="Título"
                   />
 
                   <label
-                    className="text-expresscash-textos font-bold text-[14px]"
+                    className="text-expresscash-textos font-poppins text-[14px]"
                     htmlFor=""
                   >
                     Fecha
                   </label>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-poppins"
                     type="text"
                     placeholder="1 / 1 / 2025"
                   />
 
                   <label
-                    className="text-expresscash-textos font-bold text-[14px]"
+                    className="text-expresscash-textos font-poppins text-[14px]"
                     htmlFor=""
                   >
                     Descripción
                   </label>
                   <textarea
-                    className="w-[617px] h-[181px] text-[16px] font-book p-3 text-expresscash-textos align-top border border-expresscash-gray rounded-[5px] resize-none placeholder:text-expresscash-textos"
+                    className="w-[617px] h-[181px] text-[16px] font-poppins p-3 text-expresscash-textos align-top border border-expresscash-gray rounded-[5px] resize-none placeholder:text-expresscash-textos"
                     placeholder="Cuerpo de texto"
                   />
                 </div>
@@ -136,13 +136,13 @@ const CardBranches = ({ notice }: CardNoticeProps) => {
             <div className="flex justify-end gap-4 mt-10">
               <button
                 onClick={() => setModalEditNotice(false)}
-                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-book"
+                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-poppins"
               >
                 Cancelar
               </button>
               <button
                 // onClick={() => setModalCreateNotice(false)}
-                className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-book"
+                className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-poppins"
               >
                 Guardar
               </button>

@@ -14,7 +14,7 @@ import React, { useState, useRef, useEffect } from "react";
 import LoanDetails from "./prestamoDetail";
 import { User, Prestamo } from "../../store/types/user";
 import CreateUserModal from "../Users/createUserForm";
-// Inline Modal component
+
 const Modal: React.FC<{
   isShown: boolean;
   closeModal: () => void;
@@ -45,20 +45,18 @@ export default function LoansTable() {
   const [isModalOpenEmail, setIsModalOpenEmail] = useState(false);
   const [modalDelete, setModalDelete] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const [showPrestamoModal, setShowPrestamoModal] = useState(false); // Estado para controlar la visibilidad del modal
+  const [showPrestamoModal, setShowPrestamoModal] = useState(false);
   const [formData, setFormData] = useState<Prestamo | null>(null);
   const [copied, setCopied] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isActionsMenuOpen, setIsActionsMenuOpen] = useState<{
     [key: number]: boolean;
   }>({});
-
-  // Variables para manejar el índice visible y la posición del menú
-  const [visibleIndex, setVisibleIndex] = useState<number | null>(null); // Índice visible
+  const [visibleIndex, setVisibleIndex] = useState<number | null>(null);
   const [menuPosition, setMenuPosition] = useState<{
     top: number;
     left: number;
-  } | null>(null); // Posición del menú
+  } | null>(null);
   const actionsMenuRef = useRef<HTMLDivElement | null>(null);
 
   const users: User[] = [
@@ -128,9 +126,9 @@ export default function LoansTable() {
       prestamo: [],
     },
   ];
-  const closeModal = () => setIsModalOpen(false); // Función para cerrar el modal
+  const closeModal = () => setIsModalOpen(false);
   const openModal = () => setIsModalOpen(true);
-  // Detectar clics fuera del menú de acciones
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -150,11 +148,10 @@ export default function LoansTable() {
   const handleToggleActionsMenu = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     userId: number,
-    index?: number
+    _index?: number
   ) => {
     setMenuPosition({ top: event.clientY, left: event.clientX });
     setIsActionsMenuOpen(prevState => {
-      // Solo abre el menú para este usuario específico
       const newState = Object.keys(prevState).reduce(
         (acc, key) => {
           acc[parseInt(key)] = false;
@@ -195,20 +192,19 @@ export default function LoansTable() {
   const handleCloseWhatsappModal = () => setIsModalOpenWhatsapp(false);
 
   const handleEditLoan = (loan: Prestamo) => {
-    setFormData(loan); // Establece los datos del préstamo seleccionado en el estado formData
-    setShowPrestamoModal(true); // Muestra el modal de edición
+    setFormData(loan);
+    setShowPrestamoModal(true);
   };
 
   const handleClosePrestamoModal = () => {
-    setShowPrestamoModal(false); // Cierra el modal
-    setFormData(null); // Limpia los datos del préstamo
+    setShowPrestamoModal(false);
+    setFormData(null);
   };
 
   const handleSavePrestamo = (_event?: React.MouseEvent<HTMLButtonElement>) => {
     if (formData) {
       console.log("Saving changes in the loan:", formData);
-      // Add logic to save the changes here
-      handleClosePrestamoModal(); // Close the modal after saving
+      handleClosePrestamoModal();
     }
   };
 
@@ -222,27 +218,23 @@ export default function LoansTable() {
     }
   };
 
-  function handleConfirmDelete(id: any): void {
-    throw new Error("Function not implemented.");
-  }
-
   return (
     <div className="flex flex-col pl-18 pt-12 px-[40px] max-w-[clamp(1300px,67.2vw,1200px)] min-h-[800px] max-h-[1300px] bg-[white]">
       {selectedLoan === null ? (
         <>
           <div className="flex gap-2 mb-2">
-            <p className="text-[3rem] text-expresscash-textos font-bold">
+            <p className="text-[3rem] text-expresscash-textos font-poppins ">
               Préstamos
             </p>
-            <p className="text-[40px] text-expresscash-textos font-book mt-[6px]">
+            <p className="text-[40px] text-expresscash-textos font-poppins mt-[6px]">
               ({users.length})
             </p>
           </div>
 
           <div className="flex flex-col pl-[780px] translate-y-[-70px] text-expresscash-white translate-x-[125px]">
             <button
-              className="border border-expresscash-skyBlue border-solid border-1 rounded-lg bg-expresscash-skyBlue h-[40px] w-[240px] flex items-center justify-center gap-2"
-              onClick={openModal} // Abrir el modal cuando se haga clic
+              className="border border-expresscash-skyBlue font-poppins border-solid border-1 rounded-lg bg-expresscash-skyBlue h-[40px] w-[240px] flex items-center justify-center gap-2"
+              onClick={openModal}
             >
               <UserPlus className="w-8 h-5" />
               <span>Agregar nuevo cliente</span>
@@ -252,7 +244,7 @@ export default function LoansTable() {
           <div className="flex justify-between mb-8">
             <div className="relative flex">
               <input
-                className="w-[457px] h-[54px] rounded-[13px] border-[1px] border-argenpesos-textos border-solid px-10 placeholder:text-argenpesos-textos font-book text-argenpesos-textos text-[15.36px]"
+                className="w-[457px] h-[54px] rounded-[13px] border-[1px] border-argenpesos-textos border-solid px-10 placeholder:text-argenpesos-textos font-poppins text-argenpesos-textos text-[15.36px]"
                 type="search"
                 placeholder="Buscar préstamos por nombre, email, teléfono o número de préstamo"
                 value={searchQuery}
@@ -275,23 +267,29 @@ export default function LoansTable() {
 
           {/* Solicitudes de Préstamos Pendientes */}
           <div>
-            <div className="text-expresscash-textos text-[26px] text-left truncate mb-[50px]">
+            <div className="text-expresscash-textos text-[26px] text-left truncate mb-[50px] underline font-poppins">
               Solicitudes de Préstamo Pendientes
             </div>
             <div className="grid grid-cols-[minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)] gap-10 items-center">
               {/* Encabezados de la tabla */}
-              <div className="font-bold text-center truncate">
+              <div className="text-center truncate font-poppins font-bold text-expresscash-textos">
                 Último préstamo
               </div>
-              <div className="font-bold text-center truncate">
+              <div className="font-bold font-poppins text-expresscash-textos text-center truncate">
                 Total Prestado
               </div>
-              <div className="font-bold text-center truncate">Nombre</div>
-              <div className="font-bold text-center truncate">Contactar</div>
-              <div className="font-bold text-center truncate">
+              <div className="font-bold font-poppins text-expresscash-textos text-center truncate">
+                Nombre
+              </div>
+              <div className="font-bold font-poppins text-expresscash-textos text-center truncate">
+                Contactar
+              </div>
+              <div className="font-bold font-poppins text-expresscash-textos text-center truncate">
                 Estado del Préstamo
               </div>
-              <div className="font-bold text-center truncate">Acciones</div>
+              <div className="font-poppins font-bold text-expresscash-textos text-center truncate">
+                Acciones
+              </div>
               <div className="col-span-6 border-t border-gray-300"></div>
 
               {users
@@ -319,8 +317,8 @@ export default function LoansTable() {
                   >
                     {/* Último préstamo - Clickeable */}
                     <div
-                      className="text-center cursor-pointer text-expresscash-skyBlue hover:underline"
-                      onClick={() => handleOpenLoanDetails(user, 0)} // Muestra el primer préstamo pendiente
+                      className="text-center cursor-pointer text-expresscash-skyBlue hover:underline font-poppins"
+                      onClick={() => handleOpenLoanDetails(user, 0)}
                     >
                       {
                         user.Prestamo.find(
@@ -330,15 +328,17 @@ export default function LoansTable() {
                     </div>
 
                     {/* Total prestado - Clickeable */}
-                    <div className="text-center">{user.totalLoaned}</div>
+                    <div className="text-center font-poppins">
+                      {user.totalLoaned}
+                    </div>
 
                     {/* Nombre del usuario - Clickeable */}
-                    <div className="text-center text-expresscash-text">
+                    <div className="text-center text-expresscash-text font-poppins translate-x-[20px]">
                       {`${user.first_name} ${user.last_name}`}
                     </div>
 
                     {/* Botones para contactar */}
-                    <div className="text-center">
+                    <div className="text-center translate-x-[40px]">
                       <button onClick={() => handleOpenWhatsappModal(user)}>
                         <FaWhatsapp className="w-6 h-6 text-green-500" />
                       </button>
@@ -348,7 +348,7 @@ export default function LoansTable() {
                     </div>
 
                     {/* Estado del préstamo */}
-                    <div className="text-center">
+                    <div className="text-center font-poppins translate-x-[40px]">
                       {
                         user.Prestamo.find(
                           (p: { status: string }) => p.status === "pendiente"
@@ -357,7 +357,7 @@ export default function LoansTable() {
                     </div>
 
                     {/* Menú de acciones */}
-                    <div className="text-center">
+                    <div className="text-center translate-x-[60px]">
                       <div className="flex justify-center relative">
                         <button
                           className="p-2 rounded-full hover:bg-gray-100"
@@ -380,7 +380,7 @@ export default function LoansTable() {
                               <p
                                 onClick={e => {
                                   e.stopPropagation();
-                                  handleEditLoan(user.Prestamo[0]); // Pasa el primer préstamo pendiente para editar
+                                  handleEditLoan(user.Prestamo[0]);
                                 }}
                                 className="flex items-center mr-7 cursor-pointer hover:bg-gray-200 p-2 rounded-lg"
                               >
@@ -389,8 +389,8 @@ export default function LoansTable() {
                               <div
                                 onClick={e => {
                                   e.stopPropagation();
-                                  setSelectedUser(user); // Asegúrate de seleccionar el usuario
-                                  setModalDelete(true); // Abre el modal de bloqueo
+                                  setSelectedUser(user);
+                                  setModalDelete(true);
                                 }}
                                 className="flex items-center mr-2 cursor-pointer translate-y-[-10px] hover:bg-gray-200 p-2 rounded-lg"
                               >
@@ -409,15 +409,15 @@ export default function LoansTable() {
           {modalDelete && users?.some(user => user.id === selectedUser?.id) && (
             <Modal
               isShown={modalDelete}
-              closeModal={() => setModalDelete(false)} // Cierra el modal
+              closeModal={() => setModalDelete(false)}
               element={
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between items-start">
-                    <p className="text-[1rem] text-expresscash-textos font-bold">
+                    <p className="text-[1rem] text-expresscash-textos font-poppins">
                       ¿Está seguro que desea eliminar este préstamo?
                     </p>
                   </div>
-                  <p className="text-[14px] font-book text-expresscash-gray w-[380px] mb-10 mt-1">
+                  <p className="text-[14px] font-poppins text-expresscash-gray w-[380px] mb-10 mt-1">
                     Si elimina este préstamo no podrá recuperarlo.
                   </p>
                   <div className="flex gap-4">
@@ -425,21 +425,21 @@ export default function LoansTable() {
                       onClick={() => {
                         // Eliminar el préstamo al confirmar
                         if (visibleIndex !== null && users) {
-                          handleSavePrestamo(); // Llamamos a la función de eliminar préstamo
+                          handleSavePrestamo();
                         }
-                        setModalDelete(false); // Cerrar el modal después de la eliminación
-                        setVisibleIndex(null); // Cerrar el menú de opciones después de la eliminación
+                        setModalDelete(false);
+                        setVisibleIndex(null);
                       }}
-                      className="bg-expresscash-red w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-book"
+                      className="bg-expresscash-red w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-poppins"
                     >
                       Eliminar
                     </button>
                     <button
                       onClick={() => {
-                        setModalDelete(false); // Cerrar el modal si se cancela
-                        setVisibleIndex(null); // Cerrar el menú de opciones si se cancela
+                        setModalDelete(false);
+                        setVisibleIndex(null);
                       }}
-                      className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-book"
+                      className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-poppins"
                     >
                       Cancelar
                     </button>
@@ -451,7 +451,7 @@ export default function LoansTable() {
 
           {/* Historial de Préstamos */}
           <div className="mt-12">
-            <div className="text-expresscash-textos text-[25px] text-left truncate mb-[60px] mt-[50px]">
+            <div className="text-expresscash-textos text-[25px] text-left truncate mb-[60px] mt-[50px] underline font-poppins">
               Historial de Préstamos
             </div>
             <div className="grid grid-cols-[minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)] gap-10 items-center">
@@ -480,7 +480,7 @@ export default function LoansTable() {
                   >
                     {/* Último préstamo - Clickeable */}
                     <div
-                      className="text-center cursor-pointer text-expresscash-skyBlue hover:underline"
+                      className="text-center cursor-pointer text-expresscash-skyBlue hover:underline font-poppins"
                       onClick={() => handleOpenLoanDetails(user, 0)} // Muestra el primer préstamo no pendiente
                     >
                       {
@@ -491,15 +491,17 @@ export default function LoansTable() {
                     </div>
 
                     {/* Total prestado - Clickeable */}
-                    <div className="text-center">{user.totalLoaned}</div>
+                    <div className="text-center font-poppins">
+                      {user.totalLoaned}
+                    </div>
 
                     {/* Nombre del usuario - Clickeable */}
-                    <div className="text-center text-expresscash-text">
+                    <div className="text-center text-expresscash-text font-poppins translate-x-[20px]">
                       {`${user.first_name} ${user.last_name}`}
                     </div>
 
                     {/* Botones para contactar */}
-                    <div className="text-center">
+                    <div className="text-center translate-x-[40px]">
                       <button onClick={() => handleOpenWhatsappModal(user)}>
                         <FaWhatsapp className="w-6 h-6 text-green-500" />
                       </button>
@@ -509,7 +511,7 @@ export default function LoansTable() {
                     </div>
 
                     {/* Estado del préstamo */}
-                    <div className="text-center">
+                    <div className="text-center font-poppins translate-x-[40px]">
                       {
                         user.Prestamo.find(
                           (p: { status: string }) => p.status !== "pendiente"
@@ -518,7 +520,7 @@ export default function LoansTable() {
                     </div>
 
                     {/* Menú de acciones */}
-                    <div className="text-center">
+                    <div className="text-center translate-x-[60px]">
                       <div className="flex justify-center relative">
                         <button
                           className="p-2 rounded-full hover:bg-gray-100"
@@ -538,15 +540,14 @@ export default function LoansTable() {
 
           {/* Modal de Crear Usuario */}
           <Modal
-            isShown={isModalOpen} // Solo se mostrará cuando isModalOpen sea true
-            closeModal={closeModal} // Función para cerrar el modal
+            isShown={isModalOpen}
+            closeModal={closeModal}
             element={
               <CreateUserModal
-                onClose={closeModal} // Cierra el modal al hacer click en el botón de cerrar
+                onClose={closeModal}
                 onSave={formData => {
-                  // Lógica para guardar el nuevo cliente, puedes usar el formData aquí
                   console.log(formData);
-                  closeModal(); // Cierra el modal después de guardar
+                  closeModal();
                 }}
               />
             }
@@ -559,25 +560,25 @@ export default function LoansTable() {
               closeModal={handleClosePrestamoModal}
               element={
                 <div className="w-[400px] p-6 space-y-8">
-                  <h2 className="text-2xl font-medium text-expresscash-black mb-6">
+                  <h2 className="text-2xl text-expresscash-textos font-bold mb-6 font-poppins">
                     Editar préstamo
                   </h2>
                   <div className="space-y-4">
-                    <label className="text-sm text-expresscash-textos block">
+                    <label className="text-sm text-expresscash-textos font-poppins font-bold block">
                       Prestamo número:
                     </label>
-                    <label className="text-sm text-expresscash-skyBlue">
+                    <label className="text-sm text-expresscash-skyBlue font-poppins">
                       {"    " + formData.numero}
                     </label>
                   </div>
                   <div className="space-y-4">
-                    <label className="text-sm text-expresscash-textos block">
+                    <label className="text-sm text-expresscash-textos block font-poppins font-bold">
                       Fecha
                     </label>
-                    {formData.fecha}
+                    <div className="font-poppins">{formData.fecha}</div>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm text-expresscash-textos block">
+                    <label className="text-sm text-expresscash-textos block font-poppins font-bold">
                       Monto
                     </label>
                     <input
@@ -590,11 +591,11 @@ export default function LoansTable() {
                           [e.target.name]: e.target.value,
                         });
                       }}
-                      className="p-2 w-full border border-expresscash-gray3 rounded-lg"
+                      className="p-2 w-full border border-expresscash-gray3 rounded-lg font-poppins"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm text-expresscash-textos block">
+                    <label className="text-sm text-expresscash-textos block font-poppins font-bold">
                       Estado de pago
                     </label>
                     <select
@@ -606,7 +607,7 @@ export default function LoansTable() {
                           [e.target.name]: e.target.value,
                         });
                       }}
-                      className="p-2 w-full border border-expresscash-gray3 rounded-lg"
+                      className="p-2 w-full border border-expresscash-gray3 rounded-lg font-poppins"
                     >
                       <option value="pagado">Pagado</option>
                       <option value="en_mora">En Mora</option>
@@ -626,13 +627,13 @@ export default function LoansTable() {
                   <div className="flex justify-between mt-6">
                     <button
                       onClick={handleSavePrestamo}
-                      className="bg-expresscash-skyBlue text-white rounded-lg px-6 py-2"
+                      className="bg-expresscash-skyBlue text-white rounded-lg px-6 py-2 font-poppins font-bold"
                     >
                       Guardar
                     </button>
                     <button
                       onClick={handleClosePrestamoModal}
-                      className="text-expresscash-redDark hover:text-expresscash-redDark"
+                      className="text-expresscash-redDark hover:text-expresscash-redDark font-poppins font-bold"
                     >
                       Cancelar
                     </button>
@@ -651,25 +652,20 @@ export default function LoansTable() {
                 closeModal={handleCloseWhatsappModal}
                 element={
                   <div className="w-[490px] h-[320px] p-10 relative">
-                    {/* Botón para cerrar el modal */}
-
                     {selectedUser && (
                       <>
-                        {/* Título con separación */}
-                        <h3 className="text-2xl font-semibold mb-16">
+                        <h3 className="text-2xl font-bold mb-16 font-poppins text-expresscash-textos">
                           Contacto WhatsApp de {selectedUser.first_name}
                         </h3>
 
                         {/* Teléfono con icono de copiar */}
-                        <div className="flex items-center mb-[70px] ml-5">
-                          <p className="mr-2 text-lg">
-                            Teléfono: {selectedUser.phone}
-                          </p>
+                        <div className="flex items-center mb-[70px] ml-5 translate-x-20">
+                          <p className="mr-2 text-lg">{selectedUser.phone}</p>
                           <button
                             onClick={() => {
-                              navigator.clipboard.writeText(selectedUser.phone); // Copiar teléfono al portapapeles
-                              setCopied(true); // Mostrar mensaje de "copiado"
-                              setTimeout(() => setCopied(false), 6000); // Eliminar mensaje después de 2 segundos
+                              navigator.clipboard.writeText(selectedUser.phone);
+                              setCopied(true);
+                              setTimeout(() => setCopied(false), 6000);
                             }}
                             className="ml-4 text-expresscash-skyBlue hover:text-expresscash-blue flex items-center"
                           >
@@ -677,7 +673,7 @@ export default function LoansTable() {
                             {copied ? (
                               <span className="text-expresscash-skyBlue font-semibold">
                                 Copiado!
-                              </span> // Mensaje de confirmación
+                              </span>
                             ) : (
                               <span>Copiar</span>
                             )}
@@ -706,24 +702,24 @@ export default function LoansTable() {
                 closeModal={handleCloseMailModal}
                 element={
                   <div className="w-[490px] h-[320px] p-10 relative">
-                    {/* Botón para cerrar el modal */}
-
                     {selectedUser && (
                       <>
-                        {/* Título y dirección de correo */}
-                        <h3 className="text-2xl font-semibold mb-16">
+                        <h3 className="text-2xl font-bold mb-16 font-poppins text-expresscash-textos">
                           Contacto por Email de {selectedUser.first_name}
                         </h3>
 
                         <div className="flex items-center mb-20 ml-[50px]">
-                          <p className="mr-2 text-lg"> {selectedUser.email}</p>
+                          <p className="mr-2 text-lg font-poppins font-bold">
+                            {" "}
+                            {selectedUser.email}
+                          </p>
 
                           {/* Botón para copiar el correo */}
                           <button
                             onClick={() => {
-                              navigator.clipboard.writeText(selectedUser.email); // Copiar correo al portapapeles
-                              setCopied(true); // Mostrar mensaje de "copiado"
-                              setTimeout(() => setCopied(false), 6000); // Eliminar mensaje después de 2 segundos
+                              navigator.clipboard.writeText(selectedUser.email);
+                              setCopied(true);
+                              setTimeout(() => setCopied(false), 6000);
                             }}
                             className="ml-4 text-expresscash-skyBlue hover:text-expresscash-blue flex items-center"
                           >
@@ -731,7 +727,7 @@ export default function LoansTable() {
                             {copied ? (
                               <span className="text-expresscash-skyBlue font-semibold">
                                 Copiado!
-                              </span> // Mensaje de confirmación
+                              </span>
                             ) : (
                               <span>Copiar</span>
                             )}
@@ -743,9 +739,8 @@ export default function LoansTable() {
                           href={`mailto:${selectedUser.email}?subject=Consulta&body=Hola,%20tengo%20una%20pregunta.`}
                           className="inline-flex items-center text-white bg-blue-500 p-3 rounded-lg hover:bg-blue-600 transition duration-300 w-[400px] ml-2"
                         >
-                          <MailIcon className="w-6 h-5 mr-2 ml-[70px]" />{" "}
-                          {/* Icono con margen derecho para separación */}
-                          Enviar Email desde Gmail
+                          <MailIcon className="w-6 h-5 mr-2 ml-[70px]" /> Enviar
+                          Email desde Gmail
                         </a>
                       </>
                     )}

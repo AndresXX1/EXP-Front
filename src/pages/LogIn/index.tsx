@@ -73,16 +73,16 @@ const LogIn = () => {
       </figcaption>
       <div className="pt-[60px] mx-auto max-w-[560px]">
         <img className="mb-[25px] object-center" src="login/logo.svg" alt="" />
-        <h2 className="text-expresscash-textos text-[44px] font-bold leading-[48px] tracking-[-0.96px] mb-[13px] mx-auto">
+        <h2 className="text-expresscash-textos text-[44px] font-poppins leading-[48px] tracking-[-0.96px] mb-[13px] mx-auto">
           ¡Bienvenido de vuelta!
         </h2>
-        <p className="text-expresscash-textos text-[23px] font-book mb-[32px]">
+        <p className="text-expresscash-textos text-[23px] font-poppins mb-[32px]">
           Iniciá sesión para poder acceder al panel de administración.
         </p>
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col">
             <input
-              className="w-[560px] rounded-[8px] text-[19px] mb-[24px] h-[60px] px-[22px] border-1 border-expresscash-gray text-expresscash-gray font-book leading-[19px] placeholder:text-expresscash-gray"
+              className="w-[560px] rounded-[8px] text-[19px] mb-[24px] h-[60px] px-[22px] border-1 border-expresscash-gray text-expresscash-gray font-poppins leading-[19px] placeholder:text-expresscash-gray"
               type="text"
               placeholder="Email o alias"
               onChange={handleChange}
@@ -91,7 +91,7 @@ const LogIn = () => {
             />
             <div className="relative">
               <input
-                className="w-[560px] rounded-[8px] mb-[24px] text-[19px] h-[60px] px-[22px] border-1 border-expresscash-gray text-expresscash-gray font-book leading-[19px] placeholder:text-expresscash-gray"
+                className="w-[560px] rounded-[8px] mb-[24px] text-[19px] h-[60px] px-[22px] border-1 border-expresscash-gray text-expresscash-gray font-poppins leading-[19px] placeholder:text-expresscash-gray"
                 type={showPassword ? "text" : "password"}
                 placeholder="Contraseña"
                 onChange={handleChange}
@@ -120,11 +120,11 @@ const LogIn = () => {
                 className="rounded-[3px] focus:border-0 selection:border-0 text-expresscash-skyBlue"
                 type="checkbox"
               />
-              <p className="text-expresscash-textos text-[16px] font-book leading-[125%]">
+              <p className="text-expresscash-textos text-[16px] font-poppins leading-[125%]">
                 Recordarme
               </p>
             </div>
-            <p className="text-expresscash-skyBlue text-[16px] font-book leading-[125%]"></p>
+            <p className="text-expresscash-skyBlue text-[16px] font-poppins leading-[125%]"></p>
           </div>
           <button
             className="w-[560px] bg-expresscash-skyBlue h-[52px] text-white text-[19px] font-norma leading-[19px] disabled:bg-expresscash-gray rounded-[8px]"

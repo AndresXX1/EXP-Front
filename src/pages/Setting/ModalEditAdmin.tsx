@@ -62,11 +62,11 @@ const ModalEditAdmin = ({ setModalEdit }: ModalEditAdminProps) => {
         element={<EditPassword setModalPassword={setModalPassword} />}
       />
       <form
-        className="px-12 py-[50px] flex flex-col w-[969px] h-[540px]"
+        className="px-12 py-[50px] flex flex-col w-[969px] h-[540px] font-poppins"
         onSubmit={handleSubmit}
       >
         <div className="flex justify-between items-center">
-          <p className="text-[32px] text-expresscash-textos font-bold pb-6">
+          <p className="text-[32px] text-expresscash-textos font-poppins pb-6 ">
             Editar usuario
           </p>
           <p className="cursor-pointer" onClick={() => setModalEdit(false)}>
@@ -83,14 +83,14 @@ const ModalEditAdmin = ({ setModalEdit }: ModalEditAdminProps) => {
             )}
             <div className="flex gap-2 mt-3 mb-5">
               <p
-                className="flex items-center gap-1 text-[14px] text-expresscash-textos font-book cursor-pointer"
+                className="flex items-center gap-1 text-[14px] text-expresscash-textos font-poppins cursor-pointer"
                 onClick={handleEditPhoto}
               >
                 <IconPencil />
                 Editar foto
               </p>
               <p
-                className="flex items-center text-[14px] text-expresscash-red font-book cursor-pointer"
+                className="flex items-center text-[14px] text-expresscash-red font-poppins cursor-pointer"
                 onClick={handleDeletePhoto}
               >
                 <IconDelete className="w-[22px] h-[22px]" />
@@ -101,13 +101,13 @@ const ModalEditAdmin = ({ setModalEdit }: ModalEditAdminProps) => {
           <div className="flex flex-col gap-10">
             <div className="flex flex-col gap-1">
               <label
-                className="flex items-center gap-2 text-[14px] text-expresscash-textos font-bold"
+                className="flex items-center gap-2 text-[14px] text-expresscash-textos font-poppins"
                 htmlFor="full_name"
               >
                 Nombre y apellido
               </label>
               <input
-                className="w-[625px] h-[54px] rounded-[5px] text-[14px] font-book text-expresscash-textos"
+                className="w-[625px] h-[54px] rounded-[5px] text-[14px] font-poppins text-expresscash-textos"
                 type="text"
                 value={fullName}
                 onChange={e => setFullName(e.target.value)}
@@ -118,13 +118,13 @@ const ModalEditAdmin = ({ setModalEdit }: ModalEditAdminProps) => {
             </div>
             <div className="flex flex-col gap-1">
               <label
-                className="text-[14px] text-expresscash-textos font-bold flex gap-3 items-center"
+                className="text-[14px] text-expresscash-textos font-poppins flex gap-3 items-center "
                 htmlFor=""
               >
                 Email
               </label>
               <input
-                className="w-[625px] h-[54px] rounded-[5px] text-[14px] font-book text-expresscash-textos"
+                className="w-[625px] h-[54px] rounded-[5px] text-[14px] font-poppins text-expresscash-textos"
                 type="text"
                 placeholder={user?.email}
                 readOnly
@@ -132,7 +132,7 @@ const ModalEditAdmin = ({ setModalEdit }: ModalEditAdminProps) => {
             </div>
             <div className="flex flex-col gap-1">
               <label
-                className="text-[14px] text-expresscash-textos font-bold flex gap-3 items-center"
+                className="text-[14px] text-expresscash-textos font-poppins flex gap-3 items-center"
                 htmlFor=""
               >
                 Contraseña
@@ -145,7 +145,7 @@ const ModalEditAdmin = ({ setModalEdit }: ModalEditAdminProps) => {
               </label>
               <div className="relative">
                 <input
-                  className="w-[625px] h-[54px] rounded-[5px] text-[14px] font-book text-expresscash-textos"
+                  className="w-[625px] h-[54px] rounded-[5px] text-[14px] font-poppins text-expresscash-textos"
                   type="text"
                   placeholder="**************"
                 />
@@ -158,13 +158,13 @@ const ModalEditAdmin = ({ setModalEdit }: ModalEditAdminProps) => {
           <button
             onClick={() => setModalEdit(false)}
             type="button"
-            className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-book"
+            className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-poppins"
           >
             Cancelar
           </button>
           <button
             type="submit"
-            className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-book hover:bg-expresscash-blue hover:transition-colors duration-100"
+            className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-poppins hover:bg-expresscash-blue hover:transition-colors duration-100"
           >
             Guardar
           </button>

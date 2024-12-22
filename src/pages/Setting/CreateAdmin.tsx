@@ -66,7 +66,7 @@ const CreateAdmin = ({ fetchAdmins }: CreateAdminProps) => {
             onSubmit={handlerSubmit}
           >
             <div className="flex justify-between items-center">
-              <p className="text-[32px] text-expresscash-textos font-bold pb-6">
+              <p className="text-[32px] text-expresscash-textos font-poppins pb-6">
                 Nuevo Administrador
               </p>
               <p
@@ -88,14 +88,14 @@ const CreateAdmin = ({ fetchAdmins }: CreateAdminProps) => {
                 </div>
                 <div className="flex gap-2 mt-3 mb-5">
                   <p
-                    className="flex items-center gap-1 text-[14px] text-expresscash-textos font-book cursor-pointer"
+                    className="flex items-center gap-1 text-[14px] text-expresscash-textos font-poppins cursor-pointer"
                     onClick={handlerUploadImageAvatar}
                   >
                     <IconPencil />
                     Editar foto
                   </p>
                   <p
-                    className="flex items-center text-[14px] text-expresscash-red font-book cursor-pointer"
+                    className="flex items-center text-[14px] text-expresscash-red font-poppins cursor-pointer"
                     onClick={() => setData({ ...data, avatar: "" })}
                   >
                     <IconDelete className="w-[22px] h-[22px]" />
@@ -106,7 +106,7 @@ const CreateAdmin = ({ fetchAdmins }: CreateAdminProps) => {
               <div className="flex flex-col gap-10">
                 <div className="flex flex-col gap-1">
                   <label
-                    className="flex items-center gap-2 text-[14px] text-expresscash-textos font-bold"
+                    className="flex items-center gap-2 text-[14px] text-expresscash-textos font-poppins"
                     htmlFor="full_name"
                   >
                     Nombre y apellido
@@ -116,7 +116,7 @@ const CreateAdmin = ({ fetchAdmins }: CreateAdminProps) => {
                     value={data.full_name}
                     onChange={handlerChangeData}
                     id="full_name"
-                    className="w-[625px] h-[54px] rounded-[5px] text-[14px] font-book text-expresscash-textos"
+                    className="w-[625px] h-[54px] rounded-[5px] text-[14px] font-poppins text-expresscash-textos"
                     type="text"
                     placeholder="Nombre y Apellido"
                     required
@@ -124,7 +124,7 @@ const CreateAdmin = ({ fetchAdmins }: CreateAdminProps) => {
                 </div>
                 <div className="flex flex-col gap-1">
                   <label
-                    className="text-[14px] text-expresscash-textos font-bold flex gap-3 items-center"
+                    className="text-[14px] text-expresscash-textos font-poppins flex gap-3 items-center"
                     htmlFor="email"
                   >
                     Email
@@ -134,7 +134,7 @@ const CreateAdmin = ({ fetchAdmins }: CreateAdminProps) => {
                     value={data.email}
                     onChange={handlerChangeData}
                     id="email"
-                    className="w-[625px] h-[54px] rounded-[5px] text-[14px] font-book text-expresscash-textos"
+                    className="w-[625px] h-[54px] rounded-[5px] text-[14px] font-poppins text-expresscash-textos"
                     type="email"
                     required
                     placeholder="Email"
@@ -142,7 +142,7 @@ const CreateAdmin = ({ fetchAdmins }: CreateAdminProps) => {
                 </div>
                 <div className="flex flex-col gap-1">
                   <label
-                    className="text-[14px] text-expresscash-textos font-bold flex gap-3 items-center"
+                    className="text-[14px] text-expresscash-textos font-poppins flex gap-3 items-center"
                     htmlFor="password"
                   >
                     Contraseña
@@ -153,7 +153,7 @@ const CreateAdmin = ({ fetchAdmins }: CreateAdminProps) => {
                       value={data.password}
                       onChange={handlerChangeData}
                       id="password"
-                      className="w-[625px] h-[54px] rounded-[5px] text-[14px] font-book text-expresscash-textos"
+                      className="w-[625px] h-[54px] rounded-[5px] text-[14px] font-poppins text-expresscash-textos"
                       type={showPassword ? "text" : "password"}
                       placeholder="Contraseña"
                       required
@@ -173,12 +173,12 @@ const CreateAdmin = ({ fetchAdmins }: CreateAdminProps) => {
               <button
                 type="button"
                 onClick={() => setModalCreate(false)}
-                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-book"
+                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-poppins"
               >
                 Cancelar
               </button>
               <button
-                className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-book"
+                className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-poppins"
                 type="submit"
               >
                 Guardar
@@ -188,13 +188,13 @@ const CreateAdmin = ({ fetchAdmins }: CreateAdminProps) => {
         }
       />
       <div className="flex justify-between">
-        <h4 className="text-[23px] font-bold text-expresscash-textos mb-5">
+        <h4 className="text-[23px] font-poppins text-expresscash-textos mb-5">
           Permisos de administrador
         </h4>
 
         <button
           onClick={handlerOpenModal}
-          className="w-[228px] h-[54px] bg-expresscash-skyBlue rounded-[13px] flex items-center justify-center text-expresscash-white gap-2 text-[15.36px] font-book hover:bg-expresscash-blue hover:transition-colors duration-100"
+          className="w-[228px] h-[54px] bg-expresscash-skyBlue rounded-[13px] flex items-center justify-center text-expresscash-white gap-2 text-[15.36px] font-poppins hover:bg-expresscash-blue hover:transition-colors duration-100"
         >
           <div className="w-[20px] h-[20px]" color="#FFFFFF" />
           Nuevo administrador

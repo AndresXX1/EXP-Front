@@ -14,19 +14,16 @@ const Sidebar = () => {
   const { user } = useSelector((state: RootState) => state.auth);
   const location = useLocation();
   const currentPath = location.pathname;
-
-  // Estado para controlar si la barra lateral está abierta o cerrada
   const [isOpen, setIsOpen] = useState(false);
-
-  // Estado para manejar la visibilidad de la barra lateral en pantallas grandes
   const [isSidebarVisible, setIsSidebarVisible] = useState(true);
 
-  // Función para alternar el estado de la barra lateral
+  // Determina si la página actual es la raíz ("/") o el login ("/login")
+  const shouldHideSidebar = currentPath === "/" || currentPath === "/login";
+
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
-  // Cerrar la barra lateral cuando se hace clic fuera de ella
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const sidebarElement = document.getElementById("sidebar");
@@ -41,29 +38,22 @@ const Sidebar = () => {
       }
     };
 
-    // Agregar el evento de clic
     document.addEventListener("mousedown", handleClickOutside);
-
-    // Limpiar el evento cuando el componente se desmonta
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
-  // Detectar el tamaño de la ventana para cambiar la visibilidad de la barra lateral
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
-        setIsSidebarVisible(true); // Visible en pantallas grandes
+        setIsSidebarVisible(true);
       } else {
-        setIsSidebarVisible(isOpen); // Solo visible si está abierta en pantallas pequeñas
+        setIsSidebarVisible(isOpen);
       }
     };
-
-    // Detectar cambios de tamaño
     window.addEventListener("resize", handleResize);
 
-    // Llamar la función una vez al cargar el componente
     handleResize();
 
     return () => {
@@ -71,9 +61,12 @@ const Sidebar = () => {
     };
   }, [isOpen]);
 
+  if (shouldHideSidebar) {
+    return null; // Si la ruta es "/", "/login", no mostramos el Sidebar.
+  }
+
   return (
     <>
-      {/* Botón hamburguesa, solo visible en pantallas pequeñas */}
       <button
         id="sidebar-button"
         onClick={toggleSidebar}
@@ -89,12 +82,12 @@ const Sidebar = () => {
       {/* Barra lateral */}
       <div
         id="sidebar"
-        className={`flex w-[285px] font-book transition-transform duration-300 ease-in-out
+        className={`flex w-[285px] font-poppins transition-transform duration-300 ease-in-out
           md:transform-none md:translate-x-0
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
           fixed md:relative z-40`}
       >
-        <div className="bg-expresscash-white w-[285px] fixed">
+        <div className="bg-expresscash-white w-[285px] fixed h-[800px] font-poppins">
           <div className="flex gap-2 mt-9 mb-7 xl:mt-12 xl:mb-10">
             <img
               className="select-none w-[235px] h-[50px] mx-auto"
@@ -112,7 +105,7 @@ const Sidebar = () => {
                   <link.Icon color={currentPath === link.to ? "#8CC63F" : ""} />
                   <Link
                     to={link.to}
-                    className="font-book text-[20px]"
+                    className="font-poppins text-[20px]"
                     onClick={() => setIsOpen(false)}
                   >
                     {link.text}
@@ -121,15 +114,15 @@ const Sidebar = () => {
               </li>
             ))}
           </ul>
-          <div className="mt-12 flex items-center justify-center border-[2px] border-expresscash-skyBlue w-[66px] h-[66px] mx-auto rounded-[25px] overflow-hidden">
+          <div className="mt-12 flex items-center justify-center border-[2px] font-poppins border-expresscash-skyBlue w-[66px] h-[66px] mx-auto rounded-[25px] overflow-hidden">
             {user && <img src={apiUrls.avatarUser(user.avatar)} alt="avatar" />}
           </div>
-          <p className="text-center mt-6 text-expresscash-textos text-[16px] font-book mb-[20px]">
+          <p className="text-center mt-6 text-expresscash-textos text-[16px] font-poppins mb-[20px]">
             {user?.full_name ? user.full_name : "Nombre de usuario"}
           </p>
 
           <button
-            className="flex items-center justify-center gap-1 text-[15.21px] text-white mt-2 cursor-pointer font-book border-2 border-expresscash-skyBlue bg-expresscash-skyBlue hover:bg-expresscash-green ml-[70px] hover:text-white rounded-lg p-2 transition-all"
+            className="flex items-center justify-center gap-1 text-[15.21px]  text-white mt-2 cursor-pointer font-poppins border-2 border-expresscash-skyBlue bg-expresscash-skyBlue hover:bg-expresscash-green ml-[70px] hover:text-white rounded-lg p-2 transition-all"
             onClick={() => dispatch(logOutAsync())}
           >
             <IconLogout />
@@ -137,10 +130,8 @@ const Sidebar = () => {
           </button>
         </div>
       </div>
-
-      {/* Línea divisoria visible solo cuando la barra lateral está abierta en pantallas pequeñas o siempre en pantallas grandes */}
       <div
-        className={`fixed ml-[285px] z-[1] bg-expresscash-skyBlue w-[1px] h-full ${isSidebarVisible ? "" : "hidden"}`}
+        className={`fixed ml-[285px] z-[1] font-poppins bg-expresscash-skyBlue w-[1px] h-full ${isSidebarVisible ? "" : "hidden"}`}
       ></div>
     </>
   );

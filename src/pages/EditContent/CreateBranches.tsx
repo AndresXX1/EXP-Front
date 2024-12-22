@@ -71,7 +71,7 @@ const CreateBranches = ({ getNoticesList }: CreateNoticeProps) => {
             onSubmit={handleCreateNotice}
           >
             <div className="flex justify-between items-center">
-              <p className="text-[32px] text-expresscash-textos font-bold">
+              <p className="text-[32px] text-expresscash-textos font-poppins">
                 Nueva sucursal
               </p>
               <p
@@ -100,7 +100,7 @@ const CreateBranches = ({ getNoticesList }: CreateNoticeProps) => {
                       />
                     )}
                   </div>
-                  <p className="flex gap-1 items-center pt-[18px] text-[14px] font-book text-expresscash-textos">
+                  <p className="flex gap-1 items-center pt-[18px] text-[14px] font-poppins text-expresscash-textos">
                     <IconPencil />
                     Subir foto
                   </p>
@@ -108,13 +108,13 @@ const CreateBranches = ({ getNoticesList }: CreateNoticeProps) => {
                 <div></div>
                 <div className="flex flex-col gap-4">
                   <label
-                    className="text-[14px] text-expresscash-textos font-bold"
+                    className="text-[14px] text-expresscash-textos font-poppins"
                     htmlFor=""
                   >
                     Título
                   </label>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-poppins"
                     type="text"
                     placeholder="Título"
                     name="title"
@@ -124,13 +124,13 @@ const CreateBranches = ({ getNoticesList }: CreateNoticeProps) => {
                   />
 
                   <label
-                    className="text-[14px] text-expresscash-textos font-bold"
+                    className="text-[14px] text-expresscash-textos font-poppins"
                     htmlFor=""
                   >
                     Fecha
                   </label>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-poppins"
                     type="text"
                     placeholder="1 / 1 / 2025"
                     name="date"
@@ -139,13 +139,13 @@ const CreateBranches = ({ getNoticesList }: CreateNoticeProps) => {
                     required
                   />
                   <label
-                    className="text-[14px] text-expresscash-textos font-bold"
+                    className="text-[14px] text-expresscash-textos font-poppins"
                     htmlFor=""
                   >
                     Descripción
                   </label>
                   <input
-                    className="w-[617px] h-[181px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
+                    className="w-[617px] h-[181px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-poppins"
                     type="text"
                     placeholder="Cuerpo de texto"
                     name="description"
@@ -155,13 +155,13 @@ const CreateBranches = ({ getNoticesList }: CreateNoticeProps) => {
                   />
 
                   <label
-                    className="text-[14px] text-expresscash-textos font-bold"
+                    className="text-[14px] text-expresscash-textos font-poppins"
                     htmlFor=""
                   >
                     Número de WhatsApp
                   </label>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-poppins"
                     type="text"
                     placeholder="Número de WhatsApp"
                     name="date"
@@ -169,7 +169,7 @@ const CreateBranches = ({ getNoticesList }: CreateNoticeProps) => {
                     value={data.date}
                     required
                   />
-                  <p className="text-[14px] text-expresscash-textos font-bold">
+                  <p className="text-[14px] text-expresscash-textos font-poppins">
                     Ubicación
                   </p>
                 </div>
@@ -179,12 +179,12 @@ const CreateBranches = ({ getNoticesList }: CreateNoticeProps) => {
               <button
                 type="button"
                 onClick={() => setModalCreateNotice(false)}
-                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-book"
+                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-poppins"
               >
                 Cancelar
               </button>
               <button
-                className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-book"
+                className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-poppins"
                 type="submit"
               >
                 Guardar

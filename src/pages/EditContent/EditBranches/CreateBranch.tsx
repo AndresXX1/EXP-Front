@@ -80,7 +80,7 @@ const CreateBranch = ({ getBranchesList }: CreateBranchProps) => {
             onSubmit={handleCreateNotice}
           >
             <div className="flex justify-between items-center">
-              <p className="text-[32px] text-expresscash-textos font-bold">
+              <p className="text-[32px] text-expresscash-textos font-poppins">
                 Nueva sucursal
               </p>
               <p
@@ -109,7 +109,7 @@ const CreateBranch = ({ getBranchesList }: CreateBranchProps) => {
                       />
                     )}
                   </div>
-                  <p className="flex gap-1 items-center pt-[18px] text-[14px] font-book text-expresscash-textos">
+                  <p className="flex gap-1 items-center pt-[18px] text-[14px] font-poppins text-expresscash-textos">
                     <IconPencil />
                     Subir foto o video
                   </p>
@@ -118,7 +118,7 @@ const CreateBranch = ({ getBranchesList }: CreateBranchProps) => {
                 <div className="flex flex-col gap-4">
                   <label htmlFor="">Nombre</label>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-poppins"
                     type="text"
                     placeholder="Nombre"
                     name="name"
@@ -128,7 +128,7 @@ const CreateBranch = ({ getBranchesList }: CreateBranchProps) => {
                   />
                   <label htmlFor="">Dirección</label>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-poppins"
                     type="text"
                     placeholder="Dirección"
                     name="address"
@@ -138,7 +138,7 @@ const CreateBranch = ({ getBranchesList }: CreateBranchProps) => {
                   />
                   <label htmlFor="">Número de Teléfono</label>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-poppins"
                     type="text"
                     placeholder="Número de Teléfono"
                     name="phone"
@@ -148,7 +148,7 @@ const CreateBranch = ({ getBranchesList }: CreateBranchProps) => {
                   />
                   <label htmlFor="">Número de WhatsApp</label>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-poppins"
                     type="text"
                     placeholder="Número de WhatsApp"
                     name="whatsapp"
@@ -158,7 +158,7 @@ const CreateBranch = ({ getBranchesList }: CreateBranchProps) => {
                   />
                   <label htmlFor="">Horario 1</label>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-poppins"
                     type="text"
                     placeholder="Lun a Vier 9:00 a 18:45 hs"
                     name="schedules_1"
@@ -168,7 +168,7 @@ const CreateBranch = ({ getBranchesList }: CreateBranchProps) => {
                   />
                   <label htmlFor="">Horario 2</label>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-poppins"
                     type="text"
                     placeholder="Sab 9:00 a 13:00 hs"
                     name="schedules_2"
@@ -178,7 +178,7 @@ const CreateBranch = ({ getBranchesList }: CreateBranchProps) => {
                   />
                   <p>Ubicación</p>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-poppins"
                     type="text"
                     placeholder="https://www.google.com/maps/place/expresscash+Avellaneda/"
                     name="url"
@@ -193,12 +193,12 @@ const CreateBranch = ({ getBranchesList }: CreateBranchProps) => {
               <button
                 type="button"
                 onClick={() => setModalCreateBranch(false)}
-                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-book"
+                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-poppins"
               >
                 Cancelar
               </button>
               <button
-                className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-book"
+                className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-poppins"
                 type="submit"
               >
                 Guardar

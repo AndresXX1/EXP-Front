@@ -371,7 +371,7 @@ const Notifications = () => {
         element={
           <div className="px-[54px] py-12 flex flex-col w-[969px] h-[700px] mb-5">
             <div className="flex justify-between items-center">
-              <p className="text-[32px] text-expresscash-textos font-bold">
+              <p className="text-[32px] text-expresscash-textos font-poppins">
                 Nueva notificación
               </p>
               <p
@@ -405,11 +405,11 @@ const Notifications = () => {
                 </div>
                 <div></div>
                 <div className="flex flex-col gap-4">
-                  <label className="text-[14px] font-bold text-expresscash-textos">
+                  <label className="text-[14px] font-poppins text-expresscash-textos">
                     Título / Nombre de la Notificación
                   </label>
                   <input
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-poppins"
                     type="text"
                     name="title"
                     placeholder="Título"
@@ -423,11 +423,11 @@ const Notifications = () => {
 
                   <div className="flex">
                     <div>
-                      <label className="text-[14px] font-bold text-expresscash-textos">
+                      <label className="text-[14px] font-poppins text-expresscash-textos">
                         Fecha y Hora
                       </label>
                       <input
-                        className={`border-0 w-full h-[36px] pl-2 pr-10 border-b-[1px] leading-[27px] text-sofiaCall-dark font-poppinsMedium text-[13px] cursor-pointer ${error ? "border-red-500" : "border-[#C2C2C2]"}`}
+                        className={`border-0 w-full h-[36px] pl-2 pr-10 border-b-[1px] leading-[27px] text-sofiaCall-dark font-poppins text-[13px] cursor-pointer ${error ? "border-red-500" : "border-[#C2C2C2]"}`}
                         type="datetime-local"
                         id="start_time"
                         name="scheduledAt"
@@ -446,7 +446,7 @@ const Notifications = () => {
 
                   <label htmlFor="">Descripción</label>
                   <textarea
-                    className="w-[617px] h-[181px] text-[16px] font-book p-3 text-expresscash-textos align-top border border-expresscash-gray rounded-[5px] resize-none placeholder:text-expresscash-textos"
+                    className="w-[617px] h-[181px] text-[16px] font-poppins p-3 text-expresscash-textos align-top border border-expresscash-gray rounded-[5px] resize-none placeholder:text-expresscash-textos"
                     placeholder="Cuerpo de texto"
                     name="message"
                     value={data.message}
@@ -460,14 +460,14 @@ const Notifications = () => {
                     </p>
                   )}
                   <div className="w-full">
-                    <label className="block text-[14px] font-bold text-expresscash-textos">
+                    <label className="block text-[14px] font-poppins text-expresscash-textos">
                       Redirigir a:
                     </label>
                     <select
                       name="redirect"
                       value={data.redirect}
                       onChange={handleChange}
-                      className="block w-full pl-3 pr-10 py-3 text-base border border-gray-300 focus:outline-none focus:ring-primary focus:border-primary rounded-md text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
+                      className="block w-full pl-3 pr-10 py-3 text-base border border-gray-300 focus:outline-none focus:ring-primary focus:border-primary rounded-md text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-poppins"
                     >
                       <option value="">Selecciona</option>
                       <option value="noticias">Noticias</option>
@@ -481,7 +481,7 @@ const Notifications = () => {
                       </option>
                     </select>
                   </div>
-                  <p className="pt-5 text-[14px] font-bold text-expresscash-textos">
+                  <p className="pt-5 text-[14px] font-poppins text-expresscash-textos">
                     Incluye notificación Push
                   </p>
                   <div className="flex gap-5">
@@ -497,7 +497,7 @@ const Notifications = () => {
                       />
                       <label
                         htmlFor="push-notification-yes"
-                        className="text-[14px] font-book leading-[24px] text-expresscash-textos"
+                        className="text-[14px] font-poppins leading-[24px] text-expresscash-textos"
                       >
                         Si
                       </label>
@@ -514,14 +514,14 @@ const Notifications = () => {
                       />
                       <label
                         htmlFor="push-notification-no"
-                        className="text-[14px] font-book leading-[24px] text-expresscash-textos"
+                        className="text-[14px] font-poppins leading-[24px] text-expresscash-textos"
                       >
                         No
                       </label>
                     </div>
                   </div>
 
-                  <p className="pt-5 text-[14px] font-bold text-expresscash-textos">
+                  <p className="pt-5 text-[14px] font-poppins text-expresscash-textos">
                     Incluye notificación In-App
                   </p>
                   <div className="flex gap-5">
@@ -537,7 +537,7 @@ const Notifications = () => {
                       />
                       <label
                         htmlFor="in-app-notification-yes"
-                        className="text-[14px] font-book leading-[24px] text-expresscash-textos"
+                        className="text-[14px] font-poppins leading-[24px] text-expresscash-textos"
                       >
                         Si
                       </label>
@@ -554,7 +554,7 @@ const Notifications = () => {
                       />
                       <label
                         htmlFor="in-app-notification-no"
-                        className="text-[14px] font-book leading-[24px] text-expresscash-textos"
+                        className="text-[14px] font-poppins leading-[24px] text-expresscash-textos"
                       >
                         No
                       </label>
@@ -585,7 +585,7 @@ const Notifications = () => {
 
               <button
                 onClick={handleSubmit}
-                className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-book"
+                className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-poppins"
               >
                 Guardar
               </button>
@@ -598,7 +598,7 @@ const Notifications = () => {
         element={
           <div className="px-[54px] py-12 flex flex-col w-[969px] h-[700px] mb-5">
             <div className="flex justify-between items-center">
-              <p className="text-[32px] text-expresscash-textos font-bold">
+              <p className="text-[32px] text-expresscash-textos font-poppins">
                 Editar notificación
               </p>
               <p className="cursor-pointer" onClick={() => setModalEdit(false)}>
@@ -614,7 +614,7 @@ const Notifications = () => {
                       src="/Products/image_default.png"
                     />
                   </div>
-                  <p className="flex gap-1 items-center pt-[18px] text-[14px] font-book text-expresscash-textos">
+                  <p className="flex gap-1 items-center pt-[18px] text-[14px] font-poppins text-expresscash-textos">
                     <IconPencil />
                     Subir una imagen
                   </p>
@@ -623,7 +623,7 @@ const Notifications = () => {
                 <div className="flex flex-col gap-4">
                   <label
                     htmlFor=""
-                    className="text-[14px] font-bold text-expresscash-textos"
+                    className="text-[14px] font-poppins text-expresscash-textos"
                   >
                     Título / Nombre de la App
                   </label>
@@ -631,7 +631,7 @@ const Notifications = () => {
                     name="title"
                     value={data.title}
                     onChange={handleChange}
-                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-bold"
+                    className="w-[617px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-poppins"
                     type="text"
                     placeholder="Título"
                     maxLength={20}
@@ -644,7 +644,7 @@ const Notifications = () => {
                     name="message"
                     value={data.message}
                     onChange={handleChange}
-                    className="w-[617px] h-[181px] text-[16px] font-bold p-3 text-expresscash-textos align-top border border-expresscash-gray rounded-[5px] resize-none placeholder:text-expresscash-textos"
+                    className="w-[617px] h-[181px] text-[16px] font-poppins p-3 text-expresscash-textos align-top border border-expresscash-gray rounded-[5px] resize-none placeholder:text-expresscash-textos"
                     placeholder="Cuerpo de texto"
                     maxLength={50}
                   />
@@ -656,7 +656,7 @@ const Notifications = () => {
                   Fecha
                   <div className="flex">
                     <div className="flex items-center">
-                      <label className="text-[14px] font-bold text-expresscash-textos"></label>
+                      <label className="text-[14px] font-poppins text-expresscash-textos"></label>
                       <div className="relative">
                         <input
                           type="datetime-local"
@@ -677,7 +677,7 @@ const Notifications = () => {
                           max={maxDate}
                           required
                           onChange={handleDateChange}
-                          className="w-[298px] h-[54px] rounded-[5px] font-bold border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book pl-3 pr-10"
+                          className="w-[298px] h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-poppins pl-3 pr-10"
                         />
                         <div className="absolute right-3 top-1/2 transform -translate-y-1/2"></div>
                       </div>
@@ -687,14 +687,14 @@ const Notifications = () => {
                     </div>
                   </div>
                   <div className="w-full">
-                    <label className="block text-[14px] font-bold text-expresscash-textos">
+                    <label className="block text-[14px] font-poppins text-expresscash-textos">
                       Redirigir a:
                     </label>
                     <select
                       name="redirect"
                       value={data.redirect}
                       onChange={handleChange}
-                      className="block w-full pl-3 pr-10 py-3 text-base border font-bold border-gray-300 focus:outline-none focus:ring-primary focus:border-primary rounded-md text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-book"
+                      className="block w-full pl-3 pr-10 py-3 text-base border border-gray-300 focus:outline-none focus:ring-primary focus:border-primary rounded-md text-expresscash-textos placeholder:text-expresscash-gray text-[14px] font-poppins"
                     >
                       <option value="">Selecciona</option>
                       <option value="noticias">Noticias</option>
@@ -709,7 +709,7 @@ const Notifications = () => {
                     </select>
                   </div>
                   <div>
-                    <p className="pt-5 text-[14px] font-bold text-expresscash-textos">
+                    <p className="pt-5 text-[14px] font-poppins text-expresscash-textos">
                       Incluye notificación push
                     </p>
                     <select
@@ -721,14 +721,14 @@ const Notifications = () => {
                           isPush: e.target.value === "true",
                         })
                       }
-                      className="w-full h-[54px] font-bold rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos text-[14px] font-book px-3"
+                      className="w-full h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos text-[14px] font-poppins px-3"
                     >
                       <option value="true">Si</option>
                       <option value="false">No</option>
                     </select>
                   </div>
                   <div>
-                    <p className="pt-5 text-[14px] font-bold text-expresscash-textos">
+                    <p className="pt-5 text-[14px] font-poppins text-expresscash-textos">
                       Incluye notificación In-App
                     </p>
                     <select
@@ -740,7 +740,7 @@ const Notifications = () => {
                           saveInHistory: e.target.value === "true",
                         })
                       }
-                      className="w-full h-[54px] font-bold rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos text-[14px] font-book px-3"
+                      className="w-full h-[54px] rounded-[5px] border-[1px] border-solid border-expresscash-gray text-expresscash-textos text-[14px] font-poppins px-3"
                     >
                       <option value="true">Si</option>
                       <option value="false">No</option>
@@ -753,13 +753,13 @@ const Notifications = () => {
             <div className="flex justify-end gap-4 mt-10 pb-10">
               <button
                 onClick={() => setModalEdit(false)}
-                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-book"
+                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-poppins"
               >
                 Cancelar
               </button>
               <button
                 onClick={handleSaveEditNotification}
-                className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-book hover:bg-expresscash-blue hover:transition-colors duration-100"
+                className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-poppins hover:bg-expresscash-blue hover:transition-colors duration-100"
               >
                 Guardar
               </button>
@@ -769,13 +769,13 @@ const Notifications = () => {
       />
 
       <div className="flex flex-col pl-12 pt-12 px-10 h-[250%] bg-[white]">
-        <p className="text-[3rem] text-expresscash-textos font-bold pb-14">
+        <p className="text-[3rem] text-expresscash-textos font-poppins pb-14">
           Notificaciones
         </p>
 
         <div className="flex gap-6">
           <input
-            className="w-[735px] h-[54px] rounded-[13px] border-[1px] border-expresscash-textos border-solid px-10 text-expresscash-gray2 placeholder:text-expresscash-gray2 placeholder:font-book"
+            className="w-[735px] h-[54px] rounded-[13px] border-[1px] border-expresscash-textos border-solid px-10 text-expresscash-gray2 placeholder:text-expresscash-gray2 placeholder:font-poppins"
             type="search"
             placeholder="Buscar estadísticas o datos"
           />
@@ -798,33 +798,37 @@ const Notifications = () => {
             Nueva notificación
           </button>
         </div>
-        <h4 className="text-[23px] font-bold text-expresscash-textos pt-5 mb-5">
+        <h4 className="text-[23px] font-poppins text-expresscash-textos pt-5 mb-5 underline">
           Próximas notificaciones
         </h4>
 
         <div className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr_0.5fr] gap-8 my-8">
-          <p className="text-[1rem] text-expresscash-textos font-bold">
+          <p className="text-[1rem] text-expresscash-textos font-bold font-poppins">
             Nombre
           </p>
           <div className="flex gap-3 items-center">
-            <p className="text-[1rem] text-expresscash-textos font-bold">
+            <p className="text-[1rem] text-expresscash-textos font-bold font-poppins">
               Fecha
             </p>
             <ArrowBlue />
           </div>
 
-          <p className="text-[1rem] text-expresscash-textos font-bold">Hora</p>
-          <p className="text-[1rem] text-expresscash-textos font-bold">
+          <p className="text-[1rem] text-expresscash-textos font-bold font-poppins">
+            Hora
+          </p>
+          <p className="text-[1rem] text-expresscash-textos font-bold font-poppins">
             In-App
           </p>
-          <p className="text-[1rem] text-expresscash-textos font-bold">Push</p>
-          <p className="text-[1rem] text-expresscash-textos font-bold">
+          <p className="text-[1rem] text-expresscash-textos font-bold font-poppins">
+            Push
+          </p>
+          <p className="text-[1rem] text-expresscash-textos font-bold font-poppins">
             Mensaje
           </p>
-          <p className="text-[1rem] text-expresscash-textos font-bold">
+          <p className="text-[1rem] text-expresscash-textos font-bold font-poppins">
             Redireccionado
           </p>
-          <p className="text-[1rem] text-expresscash-textos font-bold"></p>
+          <p className="text-[1rem] text-expresscash-textos font-bold font-poppins"></p>
         </div>
         <div>
           {nextNotifications &&
@@ -834,26 +838,26 @@ const Notifications = () => {
                 key={index}
               >
                 <div className="flex items-center gap-1">
-                  <p className="text-[1rem] text-expresscash-textos font-book">
+                  <p className="text-[1rem] text-expresscash-textos font-poppins">
                     {inf.title}
                   </p>
                 </div>
-                <p className="text-[1rem] text-expresscash-textos font-book">
+                <p className="text-[1rem] text-expresscash-textos font-poppins">
                   {formatDate(inf.scheduledAt)}
                 </p>
-                <p className="text-[1rem] text-expresscash-textos font-book ml-1">
+                <p className="text-[1rem] text-expresscash-textos font-poppins ml-1">
                   {formatTime(inf.scheduledAt)}
                 </p>
-                <p className="text-[1rem] text-expresscash-textos font-book ml-6">
+                <p className="text-[1rem] text-expresscash-textos font-poppins ml-6">
                   {inf.saveInHistory ? "Si" : "No"}
                 </p>
-                <p className="text-[1rem] text-expresscash-textos font-book ml-6">
+                <p className="text-[1rem] text-expresscash-textos font-poppins ml-6">
                   {inf.isPush ? "Si" : "No"}
                 </p>
-                <p className="text-[1rem] text-expresscash-textos font-book truncate max-w-xs">
+                <p className="text-[1rem] text-expresscash-textos font-poppins truncate max-w-xs">
                   {inf.message}
                 </p>
-                <p className="text-[1rem] text-expresscash-textos font-book ml-6 truncate max-w-xs">
+                <p className="text-[1rem] text-expresscash-textos font-poppins ml-6 truncate max-w-xs">
                   {inf.redirect}
                 </p>
                 <div
@@ -917,7 +921,7 @@ const Notifications = () => {
                   element={
                     <div className="px-6 py-6 flex flex-col justify-center w-[481px] h-[192px]">
                       <div className="flex justify-between items-start">
-                        <p className="text-[1rem] text-expresscash-textos font-bold">
+                        <p className="text-[1rem] text-expresscash-textos font-poppins">
                           ¿Está seguro que desea eliminar esta Notificacion?
                         </p>
                         <p
@@ -927,7 +931,7 @@ const Notifications = () => {
                           <IconX />
                         </p>
                       </div>
-                      <p className="text-[14px] font-book text-expresscash-gray w-[380px] mb-10 mt-1">
+                      <p className="text-[14px] font-poppins text-expresscash-gray w-[380px] mb-10 mt-1">
                         Si la elimina ya no se podrá recuperarla.
                       </p>
                       <div className="flex gap-4">
@@ -935,7 +939,7 @@ const Notifications = () => {
                           onClick={() => {
                             handleConfirmDelete(inf.id);
                           }}
-                          className="bg-expresscash-red w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-book"
+                          className="bg-expresscash-red w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-poppins"
                         >
                           Eliminar
                         </button>
@@ -943,7 +947,7 @@ const Notifications = () => {
                           onClick={() => {
                             setModalDelete(false);
                           }}
-                          className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-book"
+                          className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-poppins"
                         >
                           Cancelar
                         </button>
@@ -954,7 +958,7 @@ const Notifications = () => {
               </div>
             ))}
 
-          <h4 className="text-[23px] font-bold text-expresscash-textos mt-5 mb-10">
+          <h4 className="text-[23px] font-poppins text-expresscash-textos mt-5 mb-10 underline">
             Historial de notificaciones
           </h4>
           <div>
@@ -965,26 +969,26 @@ const Notifications = () => {
                   key={index}
                 >
                   <div className="flex items-center gap-1">
-                    <p className="text-[1rem] text-expresscash-textos font-book">
+                    <p className="text-[1rem] text-expresscash-textos font-poppins">
                       {inf.title}
                     </p>
                   </div>
-                  <p className="text-[1rem] text-expresscash-textos font-book">
+                  <p className="text-[1rem] text-expresscash-textos font-poppins">
                     {formatDate(inf.scheduledAt)}
                   </p>
-                  <p className="text-[1rem] text-expresscash-textos font-book ml-1">
+                  <p className="text-[1rem] text-expresscash-textos font-poppins ml-1">
                     {formatTime(inf.scheduledAt)}
                   </p>
-                  <p className="text-[1rem] text-expresscash-textos font-book ml-6">
+                  <p className="text-[1rem] text-expresscash-textos font-poppins ml-6">
                     {inf.saveInHistory ? "Si" : "No"}
                   </p>
-                  <p className="text-[1rem] text-expresscash-textos font-book ml-6">
+                  <p className="text-[1rem] text-expresscash-textos font-poppins ml-6">
                     {inf.isPush ? "Si" : "No"}
                   </p>
-                  <p className="text-[1rem] text-expresscash-textos font-book truncate max-w-xs">
+                  <p className="text-[1rem] text-expresscash-textos font-poppins truncate max-w-xs">
                     {inf.message}
                   </p>
-                  <p className="text-[1rem] text-expresscash-textos font-book ml-6 truncate max-w-xs">
+                  <p className="text-[1rem] text-expresscash-textos font-poppins ml-6 truncate max-w-xs">
                     {inf.redirect}
                   </p>
                   <div className="relative flex items-center justify-center translate-x-[-20px]">
@@ -1027,7 +1031,7 @@ const Notifications = () => {
                     element={
                       <div className="px-6 py-6 flex flex-col justify-center w-[481px] h-[192px]">
                         <div className="flex justify-between items-start">
-                          <p className="text-[1rem] text-expresscash-textos font-bold">
+                          <p className="text-[1rem] text-expresscash-textos font-poppins">
                             ¿Está seguro que desea eliminar esta Notificacion?
                           </p>
                           <p
@@ -1037,13 +1041,13 @@ const Notifications = () => {
                             <IconX />
                           </p>
                         </div>
-                        <p className="text-[14px] font-book text-expresscash-gray w-[380px] mb-10 mt-1">
+                        <p className="text-[14px] font-poppins text-expresscash-gray w-[380px] mb-10 mt-1">
                           Si la elimina ya no se podrá recuperarla.
                         </p>
                         <div className="flex gap-4">
                           <button
                             onClick={handleConfirmDeleteOldNotification}
-                            className="bg-expresscash-red w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-book"
+                            className="bg-expresscash-red w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-poppins"
                           >
                             Eliminar
                           </button>
@@ -1051,7 +1055,7 @@ const Notifications = () => {
                             onClick={() => {
                               setModalDeleteOldNotification(false);
                             }}
-                            className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-book"
+                            className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-poppins"
                           >
                             Cancelar
                           </button>

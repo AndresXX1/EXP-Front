@@ -5,7 +5,7 @@
 import { ArrowLeft, Mail, MoreVertical, Phone } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import Modal from "@components/Modal";
-import { EditUserModal } from "./editUserModal"; // Asegúrate de que este componente exista
+import { EditUserModal } from "./editUserModal";
 import { Address } from "../../store/types/user";
 import { IconDelete, IconEdit, IconX } from "@utils/svg";
 import { User, Prestamo } from "../../store/types/user";
@@ -35,7 +35,7 @@ export interface UserFormData {
 }
 
 interface UserDetailsModalProps {
-  user?: User; // user es opcional, por lo que puede ser undefined
+  user?: User;
   onClose: () => void;
   onEdit: (user: User) => void;
   onDelete: (user: User) => void;
@@ -49,80 +49,69 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
   onEdit,
 }) => {
   const dropdownRef = React.createRef<HTMLDivElement>();
-  const [showPrestamoModal, setShowPrestamoModal] = useState(false); // Modal de edición de préstamo
-  const [formData, setFormData] = useState<Prestamo | null>(null); // Datos del préstamo a editar
-  const [modalDelete, setModalDelete] = useState(false); // Estado para abrir o cerrar el modal de eliminación
-  const [showUserEditModal, setShowUserEditModal] = useState(false); // Modal de edición de usuario
+  const [showPrestamoModal, setShowPrestamoModal] = useState(false);
+  const [formData, setFormData] = useState<Prestamo | null>(null);
+  const [modalDelete, setModalDelete] = useState(false);
+  const [showUserEditModal, setShowUserEditModal] = useState(false);
   const [visibleIndex, setVisibleIndex] = useState<number | null>(null);
   const [menuPosition, setMenuPosition] = useState<{
     top: number;
     left: number;
   } | null>(null);
-  // Detecta la tecla ArrowLeft y ejecuta onClose para volver al listado de usuarios
+
   useEffect(() => {
     const handleKeydown = (event: KeyboardEvent) => {
       if (event.key === "ArrowLeft") {
-        onClose(); // Cierra el modal al presionar ArrowLeft
+        onClose();
       }
     };
-
     window.addEventListener("keydown", handleKeydown);
-
-    // Limpiar el evento cuando el componente se desmonte
     return () => {
       window.removeEventListener("keydown", handleKeydown);
     };
   }, [onClose]);
 
   useEffect(() => {
-    // Función para detectar clics fuera del menú
     const handleClickOutside = (event: MouseEvent) => {
       if (
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
       ) {
-        setVisibleIndex(null); // Cierra el menú si el clic es fuera del dropdown
+        setVisibleIndex(null);
       }
     };
-
-    // Si el menú está visible, agregamos el event listener
     if (visibleIndex !== null) {
       document.addEventListener("click", handleClickOutside);
     } else {
       document.removeEventListener("click", handleClickOutside);
     }
-
-    // Limpiar el event listener cuando el componente se desmonte o el estado cambie
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, [visibleIndex]);
 
-  // Abre el modal de edición de usuario
   const handleEditUser = () => {
-    setShowUserEditModal(true); // Muestra el modal de edición de usuario
+    setShowUserEditModal(true);
   };
 
   const handleCloseUserEditModal = () => {
-    setShowUserEditModal(false); // Cierra el modal de edición de usuario
+    setShowUserEditModal(false);
   };
 
   const handleClosePrestamoModal = () => {
-    setShowPrestamoModal(false); // Cierra el modal de edición de préstamo
+    setShowPrestamoModal(false);
   };
 
-  // Guardar cambios del préstamo editado
   const handleSavePrestamo = () => {
     if (formData && user) {
       const updatedProducts = user.Prestamo.map(
         (prestamo: { numero: string }) =>
           prestamo.numero === formData.numero ? formData : prestamo
-      ); // Actualizar el usuario con el préstamo editado
-      setShowPrestamoModal(false); // Cerrar el modal
+      );
+      setShowPrestamoModal(false);
     }
   };
 
-  // Eliminar un préstamo
   const handleDeletePrestamo = (index: number) => {
     if (user) {
       const updatedProducts = user.Prestamo.filter(
@@ -131,7 +120,7 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
       onEdit({
         ...user,
         Prestamo: updatedProducts,
-      }); // Eliminar el préstamo del array
+      });
     }
   };
 
@@ -153,7 +142,7 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
     avatar: "",
     cuil: "",
     gender: "",
-    subscriptionStatus: "", // Ensure this matches the type in UserFormData
+    subscriptionStatus: "",
     Prestamo: user.Prestamo,
     birthday: "",
     points: 0,
@@ -197,30 +186,28 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
   };
 
   const toggleMenu = (event: React.MouseEvent, index: number) => {
-    event.stopPropagation(); // Evita que el clic se propague
+    event.stopPropagation();
 
-    // Verifica si index es un número válido
     if (typeof index !== "number") return;
 
-    // Obtener las coordenadas del clic para posicionar el menú correctamente
     const { clientX, clientY } = event;
 
     if (visibleIndex === index) {
-      setVisibleIndex(null); // Si ya está visible, lo cerramos
+      setVisibleIndex(null);
     } else {
-      setMenuPosition({ top: clientY, left: clientX }); // Actualizamos la posición del menú
-      setVisibleIndex(index); // Si no está visible, lo mostramos
+      setMenuPosition({ top: clientY, left: clientX });
+      setVisibleIndex(index);
     }
   };
 
   const handleEditPrestamo = (prestamo: Prestamo, _index: number) => {
-    setFormData(prestamo); // Establecer los datos del préstamo a editar
-    setShowPrestamoModal(true); // Abrir el modal de edición de préstamo
-    setVisibleIndex(null); // Cerrar el menú de tres puntos
+    setFormData(prestamo);
+    setShowPrestamoModal(true);
+    setVisibleIndex(null);
   };
 
   return (
-    <div className="flex flex-col bg-white p-6 max-w-6.5xl w-full min-h-[1400px] max-h-[1400px]">
+    <div className="flex flex-col bg-white p-6 max-w-8xl w-full min-h-[1400px] max-h-[1400px]">
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-4">
@@ -230,13 +217,13 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
           >
             <ArrowLeft className="w-6 h-6" />
           </button>
-          <h1 className="text-2xl font-medium text-expresscash-textos">
+          <h1 className="text-4xl font-medium text-expresscash-textos font-poppins">
             {user.first_name} {user.last_name}
           </h1>
         </div>
         <button
           onClick={handleEditUser}
-          className="px-4 py-2 bg-expresscash-skyBlue text-white rounded-lg hover:bg-opacity-90 "
+          className="px-4 py-2 bg-expresscash-skyBlue text-white rounded-lg hover:bg-opacity-90 font-poppins"
         >
           Editar usuario
         </button>
@@ -244,18 +231,18 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
 
       {/* Datos del cliente */}
       <div className="mb-12 mt-12">
-        <h2 className="text-2xl font-medium text-expresscash-textos mb-12">
+        <h2 className="text-2xl font-medium text-expresscash-textos mb-12 font-poppins">
           Datos del cliente
         </h2>
-        <div className="flex flex-wrap gap-[50px] mt-[20px] w-[1250px]">
+        <div className="flex flex-wrap gap-[50px] mt-[20px] w-[1550px]">
           {/* Nombre y apellido */}
           <div className="flex items-center gap-4 w-full sm:w-1/4 md:w-1/5 px-[10px]">
-            <div className="w-5 h-5 text-expresscash-textos" />
+            <div className="w-5 h-5 text-expresscash-textos font-poppins" />
             <div>
-              <p className="text-sm text-expresscash-textos">
+              <p className="text-sm text-expresscash-textos font-poppins">
                 Nombre y apellido
               </p>
-              <p className="text-expresscash-black">
+              <p className="text-expresscash-textos font-poppins font-bold">
                 {user.first_name} {user.last_name}
               </p>
             </div>
@@ -264,29 +251,41 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
           {/* Documento / ID */}
           <div className="flex items-center gap-4 w-full sm:w-1/4 md:w-1/5 px-[10px] ml-[20px]">
             <div className="w-5 h-5 flex items-center justify-center text-expresscash-textos">
-              <span className="text-sm font-medium">ID</span>
+              <span className="text-sm font-medium font-poppins">ID</span>
             </div>
             <div>
-              <p className="text-sm text-expresscash-textos">Documento</p>
-              <p className="text-expresscash-black">{user.dni}</p>
+              <p className="text-sm text-expresscash-textos font-poppins">
+                Documento
+              </p>
+              <p className="text-expresscash-textos font-poppins font-bold">
+                {user.dni}
+              </p>
             </div>
           </div>
 
           {/* Email */}
-          <div className="flex items-center gap-4 w-full sm:w-1/4 md:w-1/5 px-[10px] ml-[20px]">
+          <div className="flex items-center gap-4 w-full sm:w-1/4 md:w-1/5 px-[10px] ml-[20px] ">
             <Mail className="w-5 h-5 text-expresscash-textos" />
             <div>
-              <p className="text-sm text-expresscash-textos">Email</p>
-              <p className="text-expresscash-skyBlue">{user.email}</p>
+              <p className="text-sm text-expresscash-textos font-poppins font-bold">
+                Email
+              </p>
+              <p className="text-expresscash-skyBlue font-poppins">
+                {user.email}
+              </p>
             </div>
           </div>
 
           {/* Teléfono */}
           <div className="flex items-center gap-4 w-full sm:w-1/4 md:w-1/5 px-[10px] ml-[10px]">
-            <Phone className="w-5 h-5 text-expresscash-textos" />
+            <Phone className="w-5 h-5 text-expresscash-textos font-poppins" />
             <div>
-              <p className="text-sm text-expresscash-textos">Teléfono</p>
-              <p className="text-expresscash-skyBlue">{user.phone}</p>
+              <p className="text-sm text-expresscash-textos font-poppins font-bold">
+                Teléfono
+              </p>
+              <p className="text-expresscash-skyBlue font-poppins">
+                {user.phone}
+              </p>
             </div>
           </div>
         </div>
@@ -294,7 +293,7 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
 
       {/* Tabla de préstamos */}
       <div>
-        <h2 className="text-2xl font-medium text-expresscash-textos mb-8 mt-5">
+        <h2 className="text-2xl font-medium text-expresscash-textos mb-8 mt-5 font-poppins">
           Préstamos
         </h2>
         {/* Verificar si el array de préstamos está vacío */}
@@ -304,29 +303,29 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
               <div className="ml-[370px] mt-[150px]">
                 {/* <IconProductsBig /> */}
               </div>
-              <p className="text-center text-expresscash-textos">
+              <p className="text-center text-expresscash-textos font-poppins">
                 Este cliente no ha sacado ningún préstamo aún
               </p>
             </div>
           </>
         ) : (
-          <div className="overflow-x-auto w-[1200px] h-[500px] translate-x-[0px]">
+          <div className="overflow-x-auto w-[1320px] h-[500px] translate-x-[0px]">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-expresscash-gray">
-                  <th className="text-center py-3 px-4 min-w-[200px] text-expresscash-black font-medium">
+                  <th className="text-center py-3 px-4 min-w-[200px] text-expresscash-textos font-bold font-poppins">
                     Número
                   </th>
-                  <th className="text-center py-3 px-4 min-w-[200px] text-expresscash-black font-medium">
+                  <th className="text-center py-3 px-4 min-w-[200px] text-expresscash-textos font-bold font-poppins">
                     Fecha
                   </th>
-                  <th className="text-center py-3 px-4 min-w-[200px] text-expresscash-black font-medium">
+                  <th className="text-center py-3 px-4 min-w-[200px] text-expresscash-textos font-bold font-poppins">
                     Monto
                   </th>
-                  <th className="text-center py-3 px-4 min-w-[200px] text-expresscash-black font-medium">
+                  <th className="text-center py-3 px-4 min-w-[200px] text-expresscash-textos font-bold font-poppins">
                     Estado del pago
                   </th>
-                  <th className="text-center py-3 px-4 min-w-[200px] text-expresscash-black font-medium">
+                  <th className="text-center py-3 px-4 min-w-[200px] text-expresscash-textos font-bold font-poppins">
                     Acciones
                   </th>
                 </tr>
@@ -339,25 +338,25 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
                       index !== user.Prestamo.length - 1
                         ? "border-b border-expresscash-gray"
                         : ""
-                    }`} // Añade borde entre las filas, excepto después de la última
+                    }`}
                   >
-                    <td className="py-10 px-16 text-center text-expresscash-skyBlue min-w-[200px]">
+                    <td className="py-10 px-16 text-center text-expresscash-skyBlue min-w-[200px] font-poppins">
                       {prestamo.numero}
                     </td>
-                    <td className="py-10 px-16 text-center text-expresscash-textos min-w-[200px]">
+                    <td className="py-10 px-16 text-center text-expresscash-textos min-w-[200px] font-poppins">
                       {prestamo.fecha}
                     </td>
-                    <td className="py-10 px-16 text-center text-expresscash-textos min-w-[200px]">
+                    <td className="py-10 px-16 text-center text-expresscash-textos min-w-[200px] font-poppins">
                       ${prestamo.monto}
                     </td>
-                    <td className="py-10 px-16 text-center">
+                    <td className="py-10 px-16 text-center font-poppins">
                       <span
-                        className={`text-sm font-medium min-w-[200px] ${
+                        className={`text-sm font-medium min-w-[200px] font-poppins ${
                           prestamo.estado_pago === "pagado"
                             ? "text-expresscash-green"
-                            : prestamo.estado_pago === "en_mora"
+                            : prestamo.estado_pago === "en mora"
                               ? "text-expresscash-red"
-                              : prestamo.estado_pago === "en_proceso"
+                              : prestamo.estado_pago === "en proceso"
                                 ? "text-expresscash-yellow"
                                 : prestamo.estado_pago === "vencido"
                                   ? "text-expresscash-gray"
@@ -413,7 +412,7 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
                             <div
                               onClick={e => {
                                 e.stopPropagation();
-                                setModalDelete(true); // Mostramos el modal de confirmación
+                                setModalDelete(true);
                               }}
                               className="cursor-pointer hover:bg-gray-200 p-2 rounded-lg flex items-center"
                             >
@@ -440,25 +439,25 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
           closeModal={handleClosePrestamoModal}
           element={
             <div className="w-[400px] p-6 space-y-8">
-              <h2 className="text-2xl font-medium text-expresscash-black mb-6">
+              <h2 className="text-2xl text-expresscash-textos font-bold mb-6 font-poppins">
                 Editar préstamo
               </h2>
               <div className="space-y-4">
-                <label className="text-sm text-expresscash-textos block">
+                <label className="text-sm text-expresscash-textos font-poppins font-bold block">
                   Prestamo número:
                 </label>
-                <label className="text-sm text-expresscash-skyBlue">
+                <label className="text-sm text-expresscash-skyBlue font-poppins">
                   {"    " + formData.numero}
                 </label>
               </div>
               <div className="space-y-4">
-                <label className="text-sm text-expresscash-textos block">
+                <label className="text-sm text-expresscash-textos block font-poppins font-bold">
                   Fecha
                 </label>
-                {formData.fecha}
+                <div className="font-poppins">{formData.fecha}</div>
               </div>
               <div className="space-y-2">
-                <label className="text-sm text-expresscash-textos block">
+                <label className="text-sm text-expresscash-textos block font-poppins font-bold">
                   Monto
                 </label>
                 <input
@@ -471,11 +470,11 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
                       [e.target.name]: e.target.value,
                     });
                   }}
-                  className="p-2 w-full border border-expresscash-gray3 rounded-lg"
+                  className="p-2 w-full border border-expresscash-gray3 rounded-lg font-poppins"
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-sm text-expresscash-textos block">
+                <label className="text-sm text-expresscash-textos block font-poppins font-bold">
                   Estado de pago
                 </label>
                 <select
@@ -487,7 +486,7 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
                       [e.target.name]: e.target.value,
                     });
                   }}
-                  className="p-2 w-full border border-expresscash-gray3 rounded-lg"
+                  className="p-2 w-full border border-expresscash-gray3 rounded-lg font-poppins"
                 >
                   <option value="pagado">Pagado</option>
                   <option value="en_mora">En Mora</option>
@@ -507,13 +506,13 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
               <div className="flex justify-between mt-6">
                 <button
                   onClick={handleSavePrestamo}
-                  className="bg-expresscash-skyBlue text-white rounded-lg px-6 py-2"
+                  className="bg-expresscash-skyBlue text-white rounded-lg px-6 py-2 font-poppins font-bold"
                 >
                   Guardar
                 </button>
                 <button
                   onClick={handleClosePrestamoModal}
-                  className="text-expresscash-redDark hover:text-expresscash-redDark"
+                  className="text-expresscash-redDark hover:text-expresscash-redDark font-poppins font-bold"
                 >
                   Cancelar
                 </button>
@@ -527,48 +526,47 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
       <Modal
         isShown={modalDelete}
         closeModal={() => {
-          setModalDelete(false); // Cerrar el modal
-          setVisibleIndex(null); // Cerrar el menú de opciones de editar/eliminar
+          setModalDelete(false);
+          setVisibleIndex(null);
         }}
         element={
           <div className="px-6 py-6 flex flex-col justify-center w-[481px] h-[192px]">
             <div className="flex justify-between items-start">
-              <p className="text-[1rem] text-expresscash-textos font-bold">
+              <p className="text-[1rem] text-expresscash-textos font-poppins">
                 ¿Está seguro que desea eliminar este préstamo?
               </p>
               <p
                 className="cursor-pointer mt-[6px]"
                 onClick={() => {
-                  setModalDelete(false); // Cerrar el modal al hacer clic en la X
-                  setVisibleIndex(null); // Cerrar el menú de opciones
+                  setModalDelete(false);
+                  setVisibleIndex(null);
                 }}
               >
                 <IconX />
               </p>
             </div>
-            <p className="text-[14px] font-book text-expresscash-gray w-[380px] mb-10 mt-1">
+            <p className="text-[14px] font-poppins text-expresscash-gray w-[380px] mb-10 mt-1">
               Si elimina este préstamo no podrá recuperarlo.
             </p>
             <div className="flex gap-4">
               <button
                 onClick={() => {
-                  // Eliminar el préstamo al confirmar
                   if (visibleIndex !== null && user) {
-                    handleDeletePrestamo(visibleIndex); // Llamamos a la función de eliminar préstamo
+                    handleDeletePrestamo(visibleIndex);
                   }
-                  setModalDelete(false); // Cerrar el modal después de la eliminación
-                  setVisibleIndex(null); // Cerrar el menú de opciones después de la eliminación
+                  setModalDelete(false);
+                  setVisibleIndex(null);
                 }}
-                className="bg-expresscash-red w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-book"
+                className="bg-expresscash-red w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-poppins"
               >
                 Eliminar
               </button>
               <button
                 onClick={() => {
-                  setModalDelete(false); // Cerrar el modal si se cancela
-                  setVisibleIndex(null); // Cerrar el menú de opciones si se cancela
+                  setModalDelete(false);
+                  setVisibleIndex(null);
                 }}
-                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-book"
+                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-poppins"
               >
                 Cancelar
               </button>
@@ -587,7 +585,7 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
               user={transformUserToFormData(user)}
               onClose={handleCloseUserEditModal}
               onSave={handleEdit}
-              setModalEdit={setShowUserEditModal} // Proporcionar setModalEdit
+              setModalEdit={setShowUserEditModal}
               getUsersList={function (): Promise<void> {
                 throw new Error("Function not implemented.");
               }}

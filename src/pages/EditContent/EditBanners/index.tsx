@@ -72,11 +72,11 @@ const EditBanners = () => {
         >
           ←
         </button>
-        <p className="text-[40px] text-expresscash-textos font-book">Banners</p>
+        <p className="text-[40px] text-expresscash-textos font-poppins">Banners</p>
       </div>
 
       {/* Home banner */}
-      <p className="text-[23px] font-bold text-expresscash-textos mb-6">
+      <p className="text-[23px] font-poppins text-expresscash-textos mb-6">
         Home banner
       </p>
       <div className="flex items-center gap-3">
@@ -109,7 +109,7 @@ const EditBanners = () => {
       </div>
 
       {/* ArgenCompras banner */}
-      <p className="text-[23px] font-bold text-expresscash-textos mb-6 mt-6">
+      <p className="text-[23px] font-poppins text-expresscash-textos mb-6 mt-6">
         ArgenCompras banner
       </p>
       <div className="flex items-center gap-3">
@@ -156,7 +156,7 @@ const EditBanners = () => {
       </div>
 
       {/* Cuponizate banner */}
-      <p className="text-[23px] font-bold text-expresscash-textos mb-6 mt-6">
+      <p className="text-[23px] font-poppins text-expresscash-textos mb-6 mt-6">
         Cuponizate banner
       </p>
       <div className="flex items-center gap-3">

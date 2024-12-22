@@ -37,11 +37,11 @@ const EditBranches = () => {
           className="cursor-pointer"
           onClick={() => navigate("/dashboard/edit-content")}
         />
-        <p className="text-[40px] text-expresscash-textos font-book">
+        <p className="text-[40px] text-expresscash-textos font-poppins">
           Sucursales
         </p>
       </div>
-      <p className="text-[23px] font-bold text-expresscash-textos mb-6">
+      <p className="text-[23px] font-poppins text-expresscash-textos mb-6">
         Sucursales
       </p>
 

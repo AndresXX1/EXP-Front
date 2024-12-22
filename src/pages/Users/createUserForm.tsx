@@ -99,16 +99,13 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose, onSave }) => {
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]; // Obtiene el archivo seleccionado
+    const file = event.target.files?.[0];
     if (file) {
-      // Genera una URL para la vista previa de la imagen
       const previewUrl = URL.createObjectURL(file);
-      setImagePreview(previewUrl); // Establece la vista previa en el estado
-
-      // Si quieres guardar la imagen para el backend, puedes hacerlo aquí:
+      setImagePreview(previewUrl);
       setFormData(prevState => ({
         ...prevState,
-        image: previewUrl, // o guarda el archivo directamente
+        image: previewUrl,
       }));
     }
   };
@@ -124,24 +121,22 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose, onSave }) => {
         </button>
 
         <form className="p-6" onSubmit={handleSubmit}>
-          <h1 className="text-2xl font-bold mb-6">Crear nuevo usuario</h1>
+          <h1 className="text-2xl font-poppins mb-6">Crear nuevo usuario</h1>
 
           <div className="grid grid-cols-3 gap-6">
             {/* Columna de Imagen */}
             <div className="col-span-1">
               <img
                 className="w-full h-[230px] object-cover rounded-lg shadow-md"
-                src={
-                  formData.image || "/login/defaultUser1.jpeg" // Cambia esta URL por la de tu imagen por defecto
-                }
+                src={formData.image || "/login/defaultUser1.jpeg"}
                 alt={formData.firstName || "Avatar del usuario"}
               />
 
               <p
-                className="flex gap-1 items-center w-[140px] mt-[10px] ml-[60px]  text-[18px] font-book text-expresscash-textos cursor-pointer transition-transform duration-300 ease-in-out hover:text-blue-500 hover:scale-105 hover:brightness-110"
+                className="flex gap-1 items-center w-[140px] mt-[10px] ml-[60px]  text-[18px] font-poppins text-expresscash-textos cursor-pointer transition-transform duration-300 ease-in-out hover:text-expresscash-skyBlue  hover:scale-105 hover:brightness-110"
                 onClick={() => document.getElementById("image-upload")?.click()}
               >
-                <div className="transition-colors duration-300 ease-in-out hover:text-blue-500">
+                <div className="transition-colors duration-300 ease-in-out hover:text-expresscash-skyBlue font-poppins">
                   <IconPencil />
                 </div>{" "}
                 {userStatus ? "Cargar Foto" : "Añadir foto"}
@@ -158,14 +153,14 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose, onSave }) => {
             {/* Columna de Formulario de Inputs - Izquierda */}
             <div className="col-span-1 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-poppins font-bold text-gray-700 mb-1">
                   Nombre
                 </label>
                 <input
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleInputChange}
-                  className={`w-full px-3 py-2 rounded-md border ${formErrors.firstName ? "border-red-500" : "border-gray-300"}`}
+                  className={`w-full px-3 py-2 rounded-md border font-poppins ${formErrors.firstName ? "border-red-500" : "border-gray-300"}`}
                 />
                 {formErrors.firstName && (
                   <p className="text-red-500 text-xs mt-1">
@@ -175,14 +170,14 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose, onSave }) => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-bold font-poppins text-gray-700 mb-1">
                   Teléfono
                 </label>
                 <input
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className={`w-full px-3 py-2 rounded-md border ${formErrors.phone ? "border-red-500" : "border-gray-300"}`}
+                  className={`w-full px-3 py-2 rounded-md border font-poppins ${formErrors.phone ? "border-red-500" : "border-gray-300"}`}
                 />
                 {formErrors.phone && (
                   <p className="text-red-500 text-xs mt-1">
@@ -192,7 +187,7 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose, onSave }) => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-bold font-poppins text-gray-700 mb-1">
                   Fecha de nacimiento
                 </label>
                 <input
@@ -200,7 +195,7 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose, onSave }) => {
                   type="date"
                   value={formData.birthday}
                   onChange={handleInputChange}
-                  className={`w-full px-3 py-2 rounded-md border ${formErrors.birthday ? "border-red-500" : "border-gray-300"}`}
+                  className={`w-full px-3 py-2 rounded-md border font-poppins ${formErrors.birthday ? "border-red-500" : "border-gray-300"}`}
                 />
                 {formErrors.birthday && (
                   <p className="text-red-500 text-xs mt-1">
@@ -213,14 +208,14 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose, onSave }) => {
             {/* Columna de Formulario de Inputs - Derecha */}
             <div className="col-span-1 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-bold font-poppins text-gray-700 mb-1">
                   Apellido
                 </label>
                 <input
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleInputChange}
-                  className={`w-full px-3 py-2 rounded-md border ${formErrors.lastName ? "border-red-500" : "border-gray-300"}`}
+                  className={`w-full px-3 py-2 rounded-md border font-poppins ${formErrors.lastName ? "border-red-500" : "border-gray-300"}`}
                 />
                 {formErrors.lastName && (
                   <p className="text-red-500 text-xs mt-1">
@@ -230,14 +225,14 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose, onSave }) => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-bold font-poppins text-gray-700 mb-1">
                   CUIL
                 </label>
                 <input
                   name="cuil"
                   value={formData.cuil}
                   onChange={handleInputChange}
-                  className={`w-full px-3 py-2 rounded-md border ${formErrors.cuil ? "border-red-500" : "border-gray-300"}`}
+                  className={`w-full px-3 py-2 rounded-md border font-poppins ${formErrors.cuil ? "border-red-500" : "border-gray-300"}`}
                 />
                 {formErrors.cuil && (
                   <p className="text-red-500 text-xs mt-1">{formErrors.cuil}</p>
@@ -245,7 +240,7 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose, onSave }) => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-bold font-poppins text-gray-700 mb-1">
                   Puntos
                 </label>
                 <input
@@ -253,7 +248,7 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose, onSave }) => {
                   type="number"
                   value={formData.points}
                   onChange={handleInputChange}
-                  className={`w-full px-3 py-2 rounded-md border ${formErrors.points ? "border-red-500" : "border-gray-300"}`}
+                  className={`w-full px-3 py-2 rounded-md border font-poppins ${formErrors.points ? "border-red-500" : "border-gray-300"}`}
                 />
                 {formErrors.points && (
                   <p className="text-red-500 text-xs mt-1">
@@ -269,7 +264,7 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose, onSave }) => {
             <h2 className="text-xl font-semibold mb-4 mt-[-20px]"></h2>
             <div className="grid grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-bold font-poppins text-gray-700 mb-1">
                   Calle
                 </label>
                 <input
@@ -277,7 +272,7 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose, onSave }) => {
                   maxLength={20}
                   value={formData.address?.street || ""}
                   onChange={e => handleAddressChange("street", e.target.value)}
-                  className={`w-full px-3 py-2 rounded-md border ${formErrors.street ? "border-red-500" : "border-gray-300"}`}
+                  className={`w-full px-3 py-2 rounded-md border font-poppins ${formErrors.street ? "border-red-500" : "border-gray-300"}`}
                 />
                 {formErrors.street && (
                   <p className="text-red-500 text-xs mt-1">
@@ -287,7 +282,7 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose, onSave }) => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-bold font-poppins text-gray-700 mb-1">
                   Número
                 </label>
                 <input
@@ -304,7 +299,7 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose, onSave }) => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-bold font-poppins text-gray-700 mb-1">
                   Código Postal
                 </label>
                 <input
@@ -312,7 +307,7 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose, onSave }) => {
                   maxLength={5}
                   value={formData.address?.zipCode}
                   onChange={e => handleAddressChange("zipCode", e.target.value)}
-                  className={`w-full px-3 py-2 rounded-md border ${formErrors.zipCode ? "border-red-500" : "border-gray-300"}`}
+                  className={`w-full px-3 py-2 rounded-md border font-poppins ${formErrors.zipCode ? "border-red-500" : "border-gray-300"}`}
                 />
                 {formErrors.zipCode && (
                   <p className="text-red-500 text-xs mt-1">
@@ -322,7 +317,7 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose, onSave }) => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-bold font-poppins text-gray-700 mb-1">
                   Ciudad
                 </label>
                 <input
@@ -338,7 +333,7 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose, onSave }) => {
               </div>
 
               <div className="col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-bold font-poppins text-gray-700 mb-1">
                   Provincia
                 </label>
                 <select
@@ -346,7 +341,7 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose, onSave }) => {
                   onChange={e =>
                     handleAddressChange("province", e.target.value)
                   }
-                  className={`w-full px-3 py-2 rounded-md border ${formErrors.province ? "border-red-500" : "border-gray-300"}`}
+                  className={`w-full px-3 py-2 rounded-md border font-poppins ${formErrors.province ? "border-red-500" : "border-gray-300"}`}
                 >
                   <option value="">Seleccione una provincia</option>
                   {provinces.map((province, idx) => (
@@ -356,7 +351,7 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose, onSave }) => {
                   ))}
                 </select>
                 {formErrors.province && (
-                  <p className="text-red-500 text-xs mt-1">
+                  <p className="text-red-500 text-xs mt-1 font-poppins">
                     {formErrors.province}
                   </p>
                 )}
@@ -369,13 +364,13 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose, onSave }) => {
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+              className="px-4 py-2 border border-gray-300 rounded-md font-poppins font-bold text-gray-700 hover:bg-gray-50"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-expresscash-skyBlue rounded-md text-white hover:bg-opacity-90"
+              className="px-4 py-2 bg-expresscash-skyBlue rounded-md font-poppins text-white hover:bg-opacity-90"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Guardando..." : "Guardar"}

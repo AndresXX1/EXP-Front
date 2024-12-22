@@ -40,7 +40,7 @@ const DeliveryMethodsChart: React.FC = () => {
   return (
     <div className="rounded-lg p-4 w-full max-w-3xl mt-[-20px]">
       <div className="flex justify-between items-center mb-[15px] ml-[-20px]">
-        <h2 className="text-xl font-bold text-gray-700">
+        <h2 className="text-xl font-poppins text-gray-700">
           Forma de entrega más elegida
         </h2>
       </div>

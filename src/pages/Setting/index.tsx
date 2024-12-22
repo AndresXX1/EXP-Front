@@ -27,21 +27,21 @@ const Setting = () => {
   return (
     <>
       <div className="flex flex-col pl-16 pt-12 px-10 h-[250%] w-[1300px] bg-[white]">
-        <p className="text-[3rem] text-expresscash-textos font-bold pb-14">
+        <p className="text-[3rem] text-expresscash-textos font-poppins pb-14">
           Configuración
         </p>
         <CreateAdmin fetchAdmins={fetchAdmins} />
 
         {admins.length !== 0 && (
           <div className="flex justify-between gap-5 my-8 max-w-[950px]">
-            <p className="text-[1rem] text-expresscash-textos font-bold">
+            <p className="text-[1rem] text-expresscash-textos font-poppins">
               Nombre
             </p>
 
-            <p className="text-[1rem] text-expresscash-textos font-bold">
+            <p className="text-[1rem] text-expresscash-textos font-poppins">
               Email
             </p>
-            <p className="text-[1rem] text-expresscash-textos font-bold"></p>
+            <p className="text-[1rem] text-expresscash-textos font-poppins"></p>
           </div>
         )}
         {admins.map(admin => {

@@ -56,11 +56,13 @@ const PrestamosChart: React.FC = () => {
             <rect width="20" height="14" x="2" y="5" rx="2" />
             <line x1="2" x2="22" y1="10" y2="10" />
           </svg>
-          <h2 className="text-xl font-bold text-gray-700">
+          <h2 className="text-xl font-poppins text-gray-700">
             Monto total prestado
           </h2>
         </div>
-        <span className="text-sm font-medium text-green-500">+4%</span>
+        <span className="text-sm font-medium text-green-500 font-poppins">
+          +4%
+        </span>
       </div>
       <div style={{ width: "120%", height: 250, marginLeft: "-70px" }}>
         <ResponsiveContainer>

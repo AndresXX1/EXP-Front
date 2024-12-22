@@ -9,7 +9,7 @@ import { RootState } from "@store";
 import axios from "axios";
 import UserAddresses from "./allAddress";
 import { alertError, alertConfirm } from "@utils/alerts";
-import { User, Prestamo, Address } from "../../store/types/user";
+import { Prestamo, Address } from "../../store/types/user";
 
 export interface UserFormData {
   avatar: string;
@@ -340,7 +340,9 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({
         </button>
 
         <div className="p-5">
-          <h1 className="text-lg mb-3">Editar usuario {user.firstName}</h1>
+          <h1 className="text-lg mb-3 font-poppins">
+            Editar usuario {user.firstName}
+          </h1>
           <div className="grid grid-cols-[0.7fr_1fr_1fr] gap-4">
             <div className="w-[144px] translate-y-[35px] translate-x-[40px]">
               <div className="rounded-[11px] w-[140px] h-[152px] bg-expresscash-gray3 border border-expresscash-gray2 mb-12">
@@ -354,7 +356,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({
                 />
                 <button
                   onClick={handleOpenModal}
-                  className="flex items-center cursor-pointer text-gray-700 w-[500px] truncate  translate-y-[30px]"
+                  className="flex items-center cursor-pointer text-expresscash-textos font-bold w-[500px] truncate  translate-y-[30px] font-poppins"
                 >
                   <IconEdit />
                   Direcciones
@@ -364,7 +366,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({
 
             <div className="col-span-2 grid grid-cols-2 gap-x-6 gap-y-2.5 mt-2.5">
               <div>
-                <label className="block text-sm text-gray-700 mb-0.5">
+                <label className="block text-sm text-expresscash-textos mb-0.5 font-poppins font-bold">
                   Nombre
                 </label>
                 <input
@@ -376,17 +378,17 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({
                   onPaste={handlePaste}
                   pattern="[A-Za-záéíóúÁÉÍÓÚ\s]+"
                   title="Solo letras y espacios son permitidos"
-                  className={`w-[300px] h-[54px] rounded-[5px] border-[1px] border-solid ${formErrors.firstName ? "border-red-500" : "border-expresscash-gray"}`}
+                  className={`w-[300px] h-[54px] rounded-[5px] font-poppins border-[1px] border-solid ${formErrors.firstName ? "border-red-500" : "border-expresscash-gray"}`}
                 />
                 {formErrors.firstName && (
-                  <p className="text-red-500 text-xs mt-1">
+                  <p className="text-red-500 text-xs mt-1 font-poppins">
                     {formErrors.firstName}
                   </p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm text-gray-700 mb-0.5">
+                <label className="block text-sm text-expresscash-textos font-bold mb-0.5 font-poppins">
                   Apellido
                 </label>
                 <input
@@ -396,17 +398,17 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({
                   onKeyDown={handleKeydown}
                   onPaste={handlePaste}
                   onChange={handleInputChange}
-                  className={`w-[300px] h-[54px] rounded-[5px] border-[1px] border-solid ${formErrors.lastName ? "border-red-500" : "border-expresscash-gray"}`}
+                  className={`w-[300px] h-[54px] rounded-[5px] font-poppins border-[1px] border-solid ${formErrors.lastName ? "border-red-500" : "border-expresscash-gray"}`}
                 />
                 {formErrors.lastName && (
-                  <p className="text-red-500 text-xs mt-1">
+                  <p className="text-red-500 text-xs mt-1 font-poppins">
                     {formErrors.lastName}
                   </p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm text-gray-700 mb-0.5 mt-[20px]">
+                <label className="block text-sm text-expresscash-textos font-poppins font-bold mb-0.5 mt-[20px]">
                   Teléfono
                 </label>
                 <input
@@ -418,17 +420,17 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({
                   maxLength={15}
                   pattern="[0-9+]{8,15}"
                   title="Teléfono válido (8-15 dígitos, puede incluir +)"
-                  className={`w-[300px] h-[54px] rounded-[5px] border-[1px] border-solid ${formErrors.phone ? "border-red-500" : "border-expresscash-gray"}`}
+                  className={`w-[300px] h-[54px] rounded-[5px] font-poppins border-[1px] border-solid ${formErrors.phone ? "border-red-500" : "border-expresscash-gray"}`}
                 />
                 {formErrors.phone && (
-                  <p className="text-red-500 text-xs mt-1">
+                  <p className="text-red-500 text-xs mt-1 font-poppins">
                     {formErrors.phone}
                   </p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm text-gray-700 mb-0.5 mt-[20px]">
+                <label className="block text-sm text-expresscash-textos font-poppins font-bold mb-0.5 mt-[20px] ">
                   Cuil
                 </label>
                 <input
@@ -443,12 +445,14 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({
                   className={`w-[300px] h-[54px] rounded-[5px] border-[1px] border-solid ${formErrors.cuil ? "border-red-500" : "border-expresscash-gray"}`}
                 />
                 {formErrors.cuil && (
-                  <p className="text-red-500 text-xs mt-1">{formErrors.cuil}</p>
+                  <p className="text-red-500 text-xs mt-1 font-poppins">
+                    {formErrors.cuil}
+                  </p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm text-gray-700 mb-0.5 mt-[20px]">
+                <label className="block text-sm text-expresscash-textos font-poppins font-bold mb-0.5 mt-[20px]">
                   Fecha de nacimiento
                 </label>
                 <input
@@ -456,17 +460,17 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({
                   type="date"
                   value={formData.birthday || ""}
                   onChange={handleInputChange}
-                  className={`w-[300px] h-[54px] rounded-[5px] border-[1px] border-solid ${formErrors.birthday ? "border-red-500" : "border-expresscash-gray"}`}
+                  className={`w-[300px] h-[54px] font-poppins rounded-[5px] border-[1px] border-solid ${formErrors.birthday ? "border-red-500" : "border-expresscash-gray"}`}
                 />
                 {formErrors.birthday && (
-                  <p className="text-red-500 text-xs mt-1">
+                  <p className="text-red-500 text-xs mt-1 font-poppins">
                     {formErrors.birthday}
                   </p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm text-gray-700 mb-0.5 mt-[20px]">
+                <label className="block text-sm text-expresscash-textos font-bold mb-0.5 mt-[20px] font-poppins ">
                   Puntos
                 </label>
                 <input
@@ -505,7 +509,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({
                       points: Math.max(0, Math.min(cleanedValue, 99999)),
                     }));
                   }}
-                  className="w-[300px] h-[54px] px-2.5 border rounded-md"
+                  className="w-[300px] h-[54px] px-2.5 border rounded-md font-poppins"
                 />
               </div>
             </div>
@@ -543,13 +547,13 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({
             <div>
               <button
                 onClick={onClose}
-                className="border-[1px] border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-book"
+                className="border-[1px]  border-solid border-expresscash-gray w-[109px] h-[38px] rounded-[5px] text-expresscash-gray text-[1rem] font-poppins"
               >
                 Cancelar
               </button>
               <button
                 onClick={handleSave}
-                className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-book hover:bg-argentpesos-blue hover:transition-colors duration-100"
+                className="bg-expresscash-skyBlue w-[109px] h-[38px] rounded-[5px] text-expresscash-white text-[1rem] font-poppins hover:bg-argentpesos-blue hover:transition-colors duration-100"
                 disabled={updatingUser}
               >
                 {updatingUser ? "Guardando..." : "Guardar"}

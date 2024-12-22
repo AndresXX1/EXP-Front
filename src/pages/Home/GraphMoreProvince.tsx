@@ -40,7 +40,7 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
 export default function MoreProvinceChart() {
   return (
     <div className="w-full max-w-3xl bg-white rounded-lg p-6">
-      <h2 className="text-xl font-semibold text-gray-700 mb-6 mt-[-32px]">
+      <h2 className="text-xl font-poppins text-gray-700 mb-6 mt-[-32px] ">
         Más préstamos por provincia
       </h2>
       <div className="h-[400px]">
@@ -87,7 +87,7 @@ export default function MoreProvinceChart() {
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <div className="flex items-center justify-between text-sm text-gray-500 mt-[60px] mb-[-0px]">
+      <div className="flex items-center justify-between text-sm text-gray-500 mt-[60px] mb-[-0px] font-poppins">
         <span>1-5 provincias de 23</span>
         <div className="flex gap-2">
           <button className="p-1 hover:bg-gray-100 rounded">

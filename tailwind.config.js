@@ -61,6 +61,7 @@ module.exports = {
         },
       },
       fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
         light: ["Gotham Light", "sans-serif"],
         regular: ["Gotham Regular", "sans-serif"],
         medium: ["Gotham Medium", "sans-serif"],

@@ -36,11 +36,11 @@ const AdminCard = ({ admin, fetchAdmins }: AdminCardProps) => {
             src={apiUrls.avatarUser(admin.avatar)}
             alt={admin.full_name}
           />
-          <p className="text-[1rem] text-expresscash-textos font-book">
+          <p className="text-[1rem] text-expresscash-textos font-poppins">
             {admin.full_name || "Nombre sin asignar"}
           </p>
         </div>
-        <p className="text-[1rem] text-expresscash-textos font-book">
+        <p className="text-[1rem] text-expresscash-textos font-poppins">
           {admin.email}
         </p>
         <div
@@ -48,7 +48,9 @@ const AdminCard = ({ admin, fetchAdmins }: AdminCardProps) => {
           onClick={handleDeleteAdmin}
         >
           <IconDelete />
-          <p className="text-[1rem] font-book text-expresscash-red">Eliminar</p>
+          <p className="text-[1rem] font-poppins text-expresscash-red">
+            Eliminar
+          </p>
         </div>
       </div>
       <div className="w-[100%] h-[1px] bg-expresscash-gray2 mt-7 col-span-6 mb-7"></div>
