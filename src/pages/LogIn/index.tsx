@@ -44,7 +44,6 @@ const LogIn = () => {
 
     setActive(true);
 
-    // Aquí agregamos el console.log para observar la respuesta
     dispatch(logInAsync({ data, setActive, setError, dispatch }))
       .then(response => {
         if (response.payload) {
@@ -67,7 +66,7 @@ const LogIn = () => {
   }
 
   return (
-    <div className="flex w-full flex-row max-h-[110vh]">
+    <div className="flex w-full flex-row max-h-[110vh] bg-white">
       <figcaption className="overflow-hidden w-[50%]">
         <img className="object-center" src="login/image_login.png"></img>
       </figcaption>

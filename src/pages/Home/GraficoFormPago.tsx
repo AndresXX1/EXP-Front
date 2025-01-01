@@ -12,7 +12,7 @@ import {
 
 const data = [
   { method: "Tarjeta", value: 20 },
-  { method: "Crédito ArgenPesos", value: 15 },
+  { method: "Crédito expresscash", value: 15 },
   { method: "Transferencia", value: 12 },
   { method: "Mercado Pago", value: 10 },
   { method: "Dos tarjetas", value: 5 },

@@ -23,7 +23,7 @@ const App = (): JSX.Element => {
 
   useEffect(() => {
     dispatch(verifySessionAsync({ dispatch }));
-  }, []);
+  }, [dispatch]);
 
   if (loading) {
     return <div>cargando</div>;
@@ -31,7 +31,11 @@ const App = (): JSX.Element => {
 
   return (
     <div className="flex h-screen">
-      <Sidebar />
+      {/* Sidebar protegido */}
+      <ProtectedAuth>
+        <Sidebar />
+      </ProtectedAuth>
+
       <div className="flex-1 overflow-y-auto bg-gray-100">
         <Routes>
           <Route index element={<LogIn />} />

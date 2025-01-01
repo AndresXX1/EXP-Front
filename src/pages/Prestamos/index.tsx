@@ -4,12 +4,11 @@ import {
   ArrowLeft,
   ArrowRight,
   Mail,
-  MailIcon,
   MoreVertical,
   Search,
   UserPlus,
 } from "lucide-react";
-import { FaCopy, FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
 import React, { useState, useRef, useEffect } from "react";
 import LoanDetails from "./prestamoDetail";
 import { User, Prestamo } from "../../store/types/user";
@@ -41,13 +40,10 @@ export default function LoansTable() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages] = useState(1);
   const [selectedLoan, setSelectedLoan] = useState<Prestamo | null>(null);
-  const [isModalOpenWhatsapp, setIsModalOpenWhatsapp] = useState(false);
-  const [isModalOpenEmail, setIsModalOpenEmail] = useState(false);
   const [modalDelete, setModalDelete] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [showPrestamoModal, setShowPrestamoModal] = useState(false);
   const [formData, setFormData] = useState<Prestamo | null>(null);
-  const [copied, setCopied] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isActionsMenuOpen, setIsActionsMenuOpen] = useState<{
     [key: number]: boolean;
@@ -177,20 +173,6 @@ export default function LoansTable() {
     setSelectedLoan(null);
   };
 
-  const handleOpenMailModal = (user: User) => {
-    setSelectedUser(user);
-    setIsModalOpenEmail(true);
-  };
-
-  const handleCloseMailModal = () => setIsModalOpenEmail(false);
-
-  const handleOpenWhatsappModal = (user: User) => {
-    setSelectedUser(user);
-    setIsModalOpenWhatsapp(true);
-  };
-
-  const handleCloseWhatsappModal = () => setIsModalOpenWhatsapp(false);
-
   const handleEditLoan = (loan: Prestamo) => {
     setFormData(loan);
     setShowPrestamoModal(true);
@@ -224,7 +206,7 @@ export default function LoansTable() {
         <>
           <div className="flex gap-2 mb-2">
             <p className="text-[3rem] text-expresscash-textos font-poppins ">
-              Préstamos
+              Solicitudes de préstamos
             </p>
             <p className="text-[40px] text-expresscash-textos font-poppins mt-[6px]">
               ({users.length})
@@ -237,14 +219,14 @@ export default function LoansTable() {
               onClick={openModal}
             >
               <UserPlus className="w-8 h-5" />
-              <span>Agregar nuevo cliente</span>
+              <span>Nueva solicitud</span>
             </button>
           </div>
 
           <div className="flex justify-between mb-8">
             <div className="relative flex">
               <input
-                className="w-[457px] h-[54px] rounded-[13px] border-[1px] border-argenpesos-textos border-solid px-10 placeholder:text-argenpesos-textos font-poppins text-argenpesos-textos text-[15.36px]"
+                className="w-[457px] h-[54px] rounded-[13px] border-[1px] border-expresscash-textos border-solid px-10 placeholder:text-expresscash-textos font-poppins text-expresscash-textos text-[15.36px]"
                 type="search"
                 placeholder="Buscar préstamos por nombre, email, teléfono o número de préstamo"
                 value={searchQuery}
@@ -267,9 +249,6 @@ export default function LoansTable() {
 
           {/* Solicitudes de Préstamos Pendientes */}
           <div>
-            <div className="text-expresscash-textos text-[26px] text-left truncate mb-[50px] underline font-poppins">
-              Solicitudes de Préstamo Pendientes
-            </div>
             <div className="grid grid-cols-[minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)] gap-10 items-center">
               {/* Encabezados de la tabla */}
               <div className="text-center truncate font-poppins font-bold text-expresscash-textos">
@@ -333,22 +312,36 @@ export default function LoansTable() {
                     </div>
 
                     {/* Nombre del usuario - Clickeable */}
-                    <div className="text-center text-expresscash-text font-poppins translate-x-[20px]">
+                    <div className="text-center text-expresscash-text font-poppins">
                       {`${user.first_name} ${user.last_name}`}
                     </div>
 
                     {/* Botones para contactar */}
-                    <div className="text-center translate-x-[40px]">
-                      <button onClick={() => handleOpenWhatsappModal(user)}>
-                        <FaWhatsapp className="w-6 h-6 text-green-500" />
-                      </button>
-                      <button onClick={() => handleOpenMailModal(user)}>
-                        <Mail className="w-6 ml-[20px] h-6 text-black-500" />
-                      </button>
+                    <div className="text-center">
+                      {/* Botón para abrir WhatsApp directamente */}
+                      <a
+                        href={`https://wa.me/${user.phone}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <button>
+                          <FaWhatsapp className="w-6 h-6 text-green-500" />
+                        </button>
+                      </a>
+
+                      {/* Botón para abrir el correo directamente */}
+                      <a
+                        href={`mailto:${user.email}?subject=Consulta&body=Hola,%20tengo%20una%20pregunta.`}
+                        className="ml-[20px]"
+                      >
+                        <button>
+                          <Mail className="w-6 h-6 text-black-500" />
+                        </button>
+                      </a>
                     </div>
 
                     {/* Estado del préstamo */}
-                    <div className="text-center font-poppins translate-x-[40px]">
+                    <div className="text-center font-poppins">
                       {
                         user.Prestamo.find(
                           (p: { status: string }) => p.status === "pendiente"
@@ -357,7 +350,7 @@ export default function LoansTable() {
                     </div>
 
                     {/* Menú de acciones */}
-                    <div className="text-center translate-x-[60px]">
+                    <div className="text-center">
                       <div className="flex justify-center relative">
                         <button
                           className="p-2 rounded-full hover:bg-gray-100"
@@ -448,95 +441,6 @@ export default function LoansTable() {
               }
             />
           )}
-
-          {/* Historial de Préstamos */}
-          <div className="mt-12">
-            <div className="text-expresscash-textos text-[25px] text-left truncate mb-[60px] mt-[50px] underline font-poppins">
-              Historial de Préstamos
-            </div>
-            <div className="grid grid-cols-[minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)] gap-10 items-center">
-              {users
-                .filter(
-                  user =>
-                    user.Prestamo.some(
-                      (prestamo: { status: string }) =>
-                        prestamo.status !== "pendiente"
-                    ) &&
-                    (user.first_name
-                      .toLowerCase()
-                      .includes(searchQuery.toLowerCase()) ||
-                      user.last_name
-                        .toLowerCase()
-                        .includes(searchQuery.toLowerCase()) ||
-                      user.email
-                        .toLowerCase()
-                        .includes(searchQuery.toLowerCase()) ||
-                      user.dni.includes(searchQuery))
-                )
-                .map((user, index) => (
-                  <div
-                    key={user.id}
-                    className="grid grid-cols-[minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)] gap-10 items-center"
-                  >
-                    {/* Último préstamo - Clickeable */}
-                    <div
-                      className="text-center cursor-pointer text-expresscash-skyBlue hover:underline font-poppins"
-                      onClick={() => handleOpenLoanDetails(user, 0)} // Muestra el primer préstamo no pendiente
-                    >
-                      {
-                        user.Prestamo.find(
-                          (p: { status: string }) => p.status !== "pendiente"
-                        )?.numero
-                      }
-                    </div>
-
-                    {/* Total prestado - Clickeable */}
-                    <div className="text-center font-poppins">
-                      {user.totalLoaned}
-                    </div>
-
-                    {/* Nombre del usuario - Clickeable */}
-                    <div className="text-center text-expresscash-text font-poppins translate-x-[20px]">
-                      {`${user.first_name} ${user.last_name}`}
-                    </div>
-
-                    {/* Botones para contactar */}
-                    <div className="text-center translate-x-[40px]">
-                      <button onClick={() => handleOpenWhatsappModal(user)}>
-                        <FaWhatsapp className="w-6 h-6 text-green-500" />
-                      </button>
-                      <button onClick={() => handleOpenMailModal(user)}>
-                        <Mail className="w-6 h-6 ml-[20px] text-black-500" />
-                      </button>
-                    </div>
-
-                    {/* Estado del préstamo */}
-                    <div className="text-center font-poppins translate-x-[40px]">
-                      {
-                        user.Prestamo.find(
-                          (p: { status: string }) => p.status !== "pendiente"
-                        )?.status
-                      }
-                    </div>
-
-                    {/* Menú de acciones */}
-                    <div className="text-center translate-x-[60px]">
-                      <div className="flex justify-center relative">
-                        <button
-                          className="p-2 rounded-full hover:bg-gray-100"
-                          onClick={event =>
-                            handleToggleActionsMenu(event, user.id, index)
-                          }
-                        >
-                          <MoreVertical className="w-5 h-5" />
-                        </button>
-                      </div>
-                    </div>
-                    <div className="col-span-5 border-t border-gray-300"></div>
-                  </div>
-                ))}
-            </div>
-          </div>
 
           {/* Modal de Crear Usuario */}
           <Modal
@@ -641,113 +545,6 @@ export default function LoansTable() {
                 </div>
               }
             />
-          )}
-
-          {/* Modales de WhatsApp y Email */}
-          {selectedUser && (
-            <>
-              {/* Modal de WhatsApp */}
-              <Modal
-                isShown={isModalOpenWhatsapp}
-                closeModal={handleCloseWhatsappModal}
-                element={
-                  <div className="w-[490px] h-[320px] p-10 relative">
-                    {selectedUser && (
-                      <>
-                        <h3 className="text-2xl font-bold mb-16 font-poppins text-expresscash-textos">
-                          Contacto WhatsApp de {selectedUser.first_name}
-                        </h3>
-
-                        {/* Teléfono con icono de copiar */}
-                        <div className="flex items-center mb-[70px] ml-5 translate-x-20">
-                          <p className="mr-2 text-lg">{selectedUser.phone}</p>
-                          <button
-                            onClick={() => {
-                              navigator.clipboard.writeText(selectedUser.phone);
-                              setCopied(true);
-                              setTimeout(() => setCopied(false), 6000);
-                            }}
-                            className="ml-4 text-expresscash-skyBlue hover:text-expresscash-blue flex items-center"
-                          >
-                            <FaCopy className="w-5 h-5 mr-2" />
-                            {copied ? (
-                              <span className="text-expresscash-skyBlue font-semibold">
-                                Copiado!
-                              </span>
-                            ) : (
-                              <span>Copiar</span>
-                            )}
-                          </button>
-                        </div>
-
-                        {/* Botón de WhatsApp */}
-                        <a
-                          href={`https://wa.me/${selectedUser.phone}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-center bg-green-500 text-white rounded-lg p-4 hover:bg-green-600 transition duration-300"
-                        >
-                          <FaWhatsapp className="w-6 h-6 mr-2" />
-                          Enviar mensaje
-                        </a>
-                      </>
-                    )}
-                  </div>
-                }
-              />
-
-              {/* Modal de Email */}
-              <Modal
-                isShown={isModalOpenEmail}
-                closeModal={handleCloseMailModal}
-                element={
-                  <div className="w-[490px] h-[320px] p-10 relative">
-                    {selectedUser && (
-                      <>
-                        <h3 className="text-2xl font-bold mb-16 font-poppins text-expresscash-textos">
-                          Contacto por Email de {selectedUser.first_name}
-                        </h3>
-
-                        <div className="flex items-center mb-20 ml-[50px]">
-                          <p className="mr-2 text-lg font-poppins font-bold">
-                            {" "}
-                            {selectedUser.email}
-                          </p>
-
-                          {/* Botón para copiar el correo */}
-                          <button
-                            onClick={() => {
-                              navigator.clipboard.writeText(selectedUser.email);
-                              setCopied(true);
-                              setTimeout(() => setCopied(false), 6000);
-                            }}
-                            className="ml-4 text-expresscash-skyBlue hover:text-expresscash-blue flex items-center"
-                          >
-                            <FaCopy className="w-5 h-5 mr-2" />
-                            {copied ? (
-                              <span className="text-expresscash-skyBlue font-semibold">
-                                Copiado!
-                              </span>
-                            ) : (
-                              <span>Copiar</span>
-                            )}
-                          </button>
-                        </div>
-
-                        {/* Enlace para enviar correo, con asunto predefinido */}
-                        <a
-                          href={`mailto:${selectedUser.email}?subject=Consulta&body=Hola,%20tengo%20una%20pregunta.`}
-                          className="inline-flex items-center text-white bg-blue-500 p-3 rounded-lg hover:bg-blue-600 transition duration-300 w-[400px] ml-2"
-                        >
-                          <MailIcon className="w-6 h-5 mr-2 ml-[70px]" /> Enviar
-                          Email desde Gmail
-                        </a>
-                      </>
-                    )}
-                  </div>
-                }
-              />
-            </>
           )}
         </>
       ) : (

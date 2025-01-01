@@ -313,7 +313,7 @@ const Users = () => {
           <div className="flex justify-between mb-8">
             <div className="relative flex">
               <input
-                className="w-[457px] h-[54px] rounded-[13px] border-[1px] border-argenpesos-textos border-solid px-10 placeholder:text-argenpesos-textos font-poppins text-argenpesos-textos text-[15.36px]"
+                className="w-[457px] h-[54px] rounded-[13px] border-[1px] border-expresscash-textos border-solid px-10 placeholder:text-expresscash-textos font-poppins text-expresscash-textos text-[15.36px]"
                 type="search"
                 placeholder="Buscar usuarios por nombre, email, teléfono o dirección"
                 value={searchQuery}
