@@ -99,7 +99,7 @@ const Sidebar = () => {
             {links.map((link, index) => (
               <li
                 key={`${link.text}-${index}`}
-                className={`flex h-12 pl-3 gap-3 ${currentPath === link.to ? "text-expresscash-skyBlue border-l-8 pl-6 border-expresscash-skyBlue" : "text-expresscash-textos"}`}
+                className={`flex h-12 pl-3 gap-3 ${currentPath === link.to ? "text-expresscash-skyBlue border-l-4  border-expresscash-skyBlue" : "text-expresscash-textos"}`}
               >
                 <div className="flex items-center justify-center gap-5">
                   <link.Icon color={currentPath === link.to ? "#8CC63F" : ""} />

@@ -77,87 +77,31 @@ export default function LoanDetails({
               <div className="space-y-4">
                 <div className="flex justify-between items-center text-sm">
                   <span className="text-expresscash-textos font-poppins">
-                    Cuotas pagadas
+                    Cuotas solicitadas
                   </span>
-                  <span className="text-gray-900">
-                    {installments?.paid}/{installments?.total}
-                  </span>
+                  <span className="text-gray-900">{installments?.total}</span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
                   <span className="text-expresscash-textos font-poppins">
-                    Monto pagado
+                    Monto Solicitado
                   </span>
                   <span className="text-gray-900">
-                    ${amounts?.paid.toLocaleString()}
+                    ${amounts?.total.toLocaleString()}
                   </span>
                 </div>
-                <div className="flex justify-between items-center text-sm">
-                  <span className="text-expresscash-textos font-poppins">
-                    Monto restante
-                  </span>
-                  <span className="text-gray-900">
-                    ${amounts?.remaining.toLocaleString()}
-                  </span>
-                </div>
-                <div className="pt-4 border-t">
-                  <div className="flex justify-between items-center font-medium">
-                    <span className="text-gray-900 font-poppins">
-                      Monto total prestado
-                    </span>
-                    <span className="text-gray-900 font-poppins">
-                      ${amounts?.total.toLocaleString()}
-                    </span>
-                  </div>
-                </div>
+                <div className="flex justify-between items-center text-sm"></div>
               </div>
             </div>
 
             {/* Payment Method Section */}
-            <div className="bg-white rounded-lg border border-black p-6">
-              <div className="flex items-center gap-2 mb-6">
-                <CreditCard className="w-5 h-5 text-gray-500" />
-                <h2 className="text-lg font-medium text-gray-900 font-poppins">
-                  Forma de pago
-                </h2>
-              </div>
-              <hr className="border-t border-gray-300 mb-6" />
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-2">
-                    <span className="px-3 py-1 text-sm font-medium text-yellow-800 bg-yellow-100 rounded-full font-poppins">
-                      {payment?.status}
-                    </span>
-                    <span className="text-sm text-gray-600 font-poppins">
-                      {payment?.method}
-                    </span>
-                  </div>
-                </div>
 
-                <div className="space-y-3 pt-4">
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-gray-600 font-poppins">Subtotal</span>
-                    <span className="text-gray-900">
-                      ${payment?.subtotal.toLocaleString()}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-gray-600 font-poppins">
-                      Costo de envío
-                    </span>
-                    <span className="text-gray-900">
-                      ${payment?.shippingCost.toLocaleString()}
-                    </span>
-                  </div>
-                  <div className="pt-3 border-t">
-                    <div className="flex justify-between items-center font-medium">
-                      <span className="text-gray-900">Total</span>
-                      <span className="text-gray-900">
-                        ${payment?.total.toLocaleString()}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div className="flex gap-4">
+              <button className="px-4 py-2 bg-expresscash-skyBlue text-white rounded-md hover:bg-expresscash-green">
+                Aprobar Préstamo
+              </button>
+              <button className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
+                Denegar Préstamo
+              </button>
             </div>
           </div>
         )}

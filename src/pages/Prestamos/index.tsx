@@ -12,7 +12,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import React, { useState, useRef, useEffect } from "react";
 import LoanDetails from "./prestamoDetail";
 import { User, Prestamo } from "../../store/types/user";
-import CreateUserModal from "../Users/createUserForm";
+import CreateLoanRequestModal from "./createLoanRequest";
 
 const Modal: React.FC<{
   isShown: boolean;
@@ -65,6 +65,7 @@ export default function LoansTable() {
       dni: "39690691",
       email: "andres@hotmail.com",
       status: "activo",
+      score: "612",
       Prestamo: [
         {
           numero: "#512",
@@ -103,6 +104,7 @@ export default function LoansTable() {
       phone: "3511425568",
       address: [],
       dni: "39690691",
+      score: "512",
       email: "andres2@hotmail.com",
       totalLoaned: 0,
       status: "pendiente",
@@ -246,19 +248,18 @@ export default function LoansTable() {
               </button>
             </div>
           </div>
-
           {/* Solicitudes de Préstamos Pendientes */}
           <div>
             <div className="grid grid-cols-[minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)] gap-10 items-center">
               {/* Encabezados de la tabla */}
               <div className="text-center truncate font-poppins font-bold text-expresscash-textos">
-                Último préstamo
-              </div>
-              <div className="font-bold font-poppins text-expresscash-textos text-center truncate">
-                Total Prestado
-              </div>
-              <div className="font-bold font-poppins text-expresscash-textos text-center truncate">
                 Nombre
+              </div>
+              <div className="font-bold font-poppins text-expresscash-textos text-center truncate">
+                Score
+              </div>
+              <div className="font-bold font-poppins text-expresscash-textos text-center truncate">
+                Total Solicitado
               </div>
               <div className="font-bold font-poppins text-expresscash-textos text-center truncate">
                 Contactar
@@ -269,133 +270,109 @@ export default function LoansTable() {
               <div className="font-poppins font-bold text-expresscash-textos text-center truncate">
                 Acciones
               </div>
+
               <div className="col-span-6 border-t border-gray-300"></div>
 
-              {users
-                .filter(
-                  user =>
-                    user.Prestamo.some(
-                      (prestamo: { status: string }) =>
-                        prestamo.status === "pendiente"
-                    ) &&
-                    (user.first_name
-                      .toLowerCase()
-                      .includes(searchQuery.toLowerCase()) ||
-                      user.last_name
-                        .toLowerCase()
-                        .includes(searchQuery.toLowerCase()) ||
-                      user.email
-                        .toLowerCase()
-                        .includes(searchQuery.toLowerCase()) ||
-                      user.dni.includes(searchQuery))
-                )
-                .map((user, index) => (
+              {users.map((user, index) => (
+                <React.Fragment key={user.id}>
+                  {/* Nombre */}
                   <div
-                    key={user.id}
-                    className="grid grid-cols-[minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)] gap-10 items-center"
+                    className="text-center cursor-pointer text-expresscash-skyBlue hover:underline font-poppins"
+                    onClick={() => handleOpenLoanDetails(user, 0)}
                   >
-                    {/* Último préstamo - Clickeable */}
-                    <div
-                      className="text-center cursor-pointer text-expresscash-skyBlue hover:underline font-poppins"
-                      onClick={() => handleOpenLoanDetails(user, 0)}
+                    {user.first_name}
+                  </div>
+
+                  {/* Score */}
+                  <div className="text-center font-poppins text-bold">
+                    <span
+                      className={`text-${user.score >= 612 ? "green-500" : "red-500"}`}
                     >
-                      {
-                        user.Prestamo.find(
-                          (p: { status: string }) => p.status === "pendiente"
-                        )?.numero
-                      }
-                    </div>
+                      {user.score}
+                    </span>
+                  </div>
 
-                    {/* Total prestado - Clickeable */}
-                    <div className="text-center font-poppins">
-                      {user.totalLoaned}
-                    </div>
+                  {/* Total Solicitado */}
+                  <div className="text-center font-poppins">
+                    ${user.totalLoaned.toLocaleString()}
+                  </div>
 
-                    {/* Nombre del usuario - Clickeable */}
-                    <div className="text-center text-expresscash-text font-poppins">
-                      {`${user.first_name} ${user.last_name}`}
-                    </div>
+                  {/* Contactar */}
+                  <div className="text-center flex justify-center gap-4">
+                    <a
+                      href={`https://wa.me/${user.phone}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:opacity-80"
+                    >
+                      <FaWhatsapp className="w-6 h-6 text-green-500" />
+                    </a>
+                    <a
+                      href={`mailto:${user.email}?subject=Consulta&body=Hola,%20tengo%20una%20pregunta.`}
+                      className="hover:opacity-80"
+                    >
+                      <Mail className="w-6 h-6 text-black-500" />
+                    </a>
+                  </div>
 
-                    {/* Botones para contactar */}
-                    <div className="text-center">
-                      {/* Botón para abrir WhatsApp directamente */}
-                      <a
-                        href={`https://wa.me/${user.phone}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                  {/* Estado del Préstamo */}
+                  <div className="text-center font-poppins">
+                    {user.Prestamo.find(
+                      (p: { status: string }) => p.status === "pendiente"
+                    )?.status || "N/A"}
+                  </div>
+
+                  {/* Acciones */}
+                  <div className="text-center">
+                    <div className="flex justify-center relative">
+                      <button
+                        className="p-2 rounded-full hover:bg-gray-100"
+                        onClick={event =>
+                          handleToggleActionsMenu(event, user.id, index)
+                        }
                       >
-                        <button>
-                          <FaWhatsapp className="w-6 h-6 text-green-500" />
-                        </button>
-                      </a>
-
-                      {/* Botón para abrir el correo directamente */}
-                      <a
-                        href={`mailto:${user.email}?subject=Consulta&body=Hola,%20tengo%20una%20pregunta.`}
-                        className="ml-[20px]"
-                      >
-                        <button>
-                          <Mail className="w-6 h-6 text-black-500" />
-                        </button>
-                      </a>
-                    </div>
-
-                    {/* Estado del préstamo */}
-                    <div className="text-center font-poppins">
-                      {
-                        user.Prestamo.find(
-                          (p: { status: string }) => p.status === "pendiente"
-                        )?.status
-                      }
-                    </div>
-
-                    {/* Menú de acciones */}
-                    <div className="text-center">
-                      <div className="flex justify-center relative">
-                        <button
-                          className="p-2 rounded-full hover:bg-gray-100"
-                          onClick={event =>
-                            handleToggleActionsMenu(event, user.id, index)
-                          }
+                        <MoreVertical className="w-5 h-5" />
+                      </button>
+                      {isActionsMenuOpen[user.id] && menuPosition && (
+                        <div
+                          ref={actionsMenuRef}
+                          className="absolute z-10 bg-expresscash-white border border-expresscash-gray rounded-lg shadow-lg w-40"
+                          style={{
+                            top: "100%",
+                            right: 0,
+                            marginTop: "0.5rem",
+                          }}
                         >
-                          <MoreVertical className="w-5 h-5" />
-                        </button>
-                        {isActionsMenuOpen[user.id] && menuPosition && (
-                          <div
-                            ref={actionsMenuRef}
-                            className="absolute z-10 transition-all duration-200 ease-in-out opacity-100 max-h-[90px] bg-expresscash-white border-[1px] border-solid border-expresscash-gray rounded-[7px] w-[158px]"
-                            style={{
-                              top: `${menuPosition.top - 440}px`,
-                              left: `${menuPosition.left - 1510}px`,
-                            }}
-                          >
-                            <div className="flex flex-col w-full gap-3 items-center justify-center h-full">
-                              <p
-                                onClick={e => {
-                                  e.stopPropagation();
-                                  handleEditLoan(user.Prestamo[0]);
-                                }}
-                                className="flex items-center mr-7 cursor-pointer hover:bg-gray-200 p-2 rounded-lg"
-                              >
-                                Editar
-                              </p>
-                              <div
-                                onClick={e => {
-                                  e.stopPropagation();
-                                  setSelectedUser(user);
-                                  setModalDelete(true);
-                                }}
-                                className="flex items-center mr-2 cursor-pointer translate-y-[-10px] hover:bg-gray-200 p-2 rounded-lg"
-                              >
-                                Eliminar
-                              </div>
-                            </div>
+                          <div className="py-2">
+                            <button
+                              onClick={e => {
+                                e.stopPropagation();
+                                handleEditLoan(user.Prestamo[0]);
+                              }}
+                              className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                            >
+                              Editar
+                            </button>
+                            <button
+                              onClick={e => {
+                                e.stopPropagation();
+                                setSelectedUser(user);
+                                setModalDelete(true);
+                              }}
+                              className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600"
+                            >
+                              Eliminar
+                            </button>
                           </div>
-                        )}
-                      </div>
+                        </div>
+                      )}
                     </div>
                   </div>
-                ))}
+                  {index < users.length - 1 && (
+                    <div className="col-span-6 border-t border-gray-200 my-4"></div>
+                  )}
+                </React.Fragment>
+              ))}
             </div>
           </div>
           {/* Modal de Bloqueo */}
@@ -447,10 +424,10 @@ export default function LoansTable() {
             isShown={isModalOpen}
             closeModal={closeModal}
             element={
-              <CreateUserModal
+              <CreateLoanRequestModal
                 onClose={closeModal}
                 onSave={formData => {
-                  console.log(formData);
+                  console.log("Solicitud de préstamo creada:", formData);
                   closeModal();
                 }}
               />
