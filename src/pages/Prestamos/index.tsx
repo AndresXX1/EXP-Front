@@ -13,6 +13,9 @@ import React, { useState, useRef, useEffect } from "react";
 import LoanDetails from "./prestamoDetail";
 import { User, Prestamo } from "../../store/types/user";
 import CreateLoanRequestModal from "./createLoanRequest";
+import { Check } from "lucide-react";
+import { X } from "lucide-react";
+import { IconFilter, IconMagnifyingGlass } from "@utils/svg";
 
 const Modal: React.FC<{
   isShown: boolean;
@@ -45,6 +48,8 @@ export default function LoansTable() {
   const [showPrestamoModal, setShowPrestamoModal] = useState(false);
   const [formData, setFormData] = useState<Prestamo | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAllChecked, setIsAllChecked] = useState(false);
+  const [selectedUsers, setSelectedUsers] = useState<number[]>([]);
   const [isActionsMenuOpen, setIsActionsMenuOpen] = useState<{
     [key: number]: boolean;
   }>({});
@@ -202,8 +207,22 @@ export default function LoansTable() {
     }
   };
 
+  const handleSelectAll = (checked: boolean) => {
+    setIsAllChecked(checked);
+    setSelectedUsers(checked ? users.map(user => user.id) : []);
+  };
+
+  const handleCheck = (userId: number, checked: boolean) => {
+    setSelectedUsers(prevSelected =>
+      checked
+        ? [...prevSelected, userId]
+        : prevSelected.filter(id => id !== userId)
+    );
+    setIsAllChecked(users.length === selectedUsers.length + (checked ? 1 : -1));
+  };
+
   return (
-    <div className="flex flex-col pl-18 pt-12 px-[40px] max-w-[clamp(1300px,67.2vw,1200px)] min-h-[800px] max-h-[1300px] bg-[white]">
+    <div className="flex flex-col pl-18 pt-12 px-[40px] max-w-[clamp(1600px,67.2vw,1600px)] min-h-[800px] max-h-[1300px] bg-[white]">
       {selectedLoan === null ? (
         <>
           <div className="flex gap-2 mb-2">
@@ -225,33 +244,53 @@ export default function LoansTable() {
             </button>
           </div>
 
-          <div className="flex justify-between mb-8">
+          <div className="flex justify-between mb-10">
             <div className="relative flex">
               <input
                 className="w-[457px] h-[54px] rounded-[13px] border-[1px] border-expresscash-textos border-solid px-10 placeholder:text-expresscash-textos font-poppins text-expresscash-textos text-[15.36px]"
                 type="search"
-                placeholder="Buscar préstamos por nombre, email, teléfono o número de préstamo"
+                placeholder="Buscar usuarios por nombre, email, teléfono o dirección"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
+                autoComplete="search"
               />
-              <Search className="absolute top-[18px] left-4" />
+              <IconMagnifyingGlass className="absolute top-[18px] left-4" />
+              <div className="flex w-[120px] h-[54px] ml-4 border-[1px] border-expresscash-textos items-center justify-center gap-2 rounded-[13px]">
+                <IconFilter />
+                <p className="text-[15.36px] font-poppins text-expresscash-textos">
+                  Filtros
+                </p>
+              </div>
             </div>
-            <div className="flex gap-10">
-              <button onClick={handlePrevPage} disabled={currentPage === 1}>
-                <ArrowLeft />
-              </button>
-              <button
-                onClick={handleNextPage}
-                disabled={currentPage === totalPages}
-              >
-                <ArrowRight />
-              </button>
+            <div className="flex gap-20 items-center">
+              <p className="text-expresscash-textos">
+                {currentPage} - {totalPages} de {users.length}
+              </p>
+              <div className="flex gap-10">
+                <button onClick={handlePrevPage} disabled={currentPage === 1}>
+                  <ArrowLeft />
+                </button>
+                <button
+                  onClick={handleNextPage}
+                  disabled={currentPage === totalPages}
+                >
+                  <ArrowRight />
+                </button>
+              </div>
             </div>
           </div>
           {/* Solicitudes de Préstamos Pendientes */}
           <div>
-            <div className="grid grid-cols-[minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)_minmax(160px,1fr)] gap-10 items-center">
+            <div className="grid grid-cols-[minmax(40px,40px)_minmax(190px,1fr)_minmax(190px,1fr)_minmax(190px,1fr)_minmax(190px,1fr)_minmax(10px,1fr)] gap-10 items-center">
               {/* Encabezados de la tabla */}
+              <div className="text-center">
+                <input
+                  type="checkbox"
+                  onChange={e => handleSelectAll(e.target.checked)}
+                  checked={isAllChecked}
+                  style={{ borderRadius: "5px", color: "#8CC63F" }}
+                />
+              </div>
               <div className="text-center truncate font-poppins font-bold text-expresscash-textos">
                 Nombre
               </div>
@@ -264,9 +303,6 @@ export default function LoansTable() {
               <div className="font-bold font-poppins text-expresscash-textos text-center truncate">
                 Contactar
               </div>
-              <div className="font-bold font-poppins text-expresscash-textos text-center truncate">
-                Estado del Préstamo
-              </div>
               <div className="font-poppins font-bold text-expresscash-textos text-center truncate">
                 Acciones
               </div>
@@ -275,6 +311,15 @@ export default function LoansTable() {
 
               {users.map((user, index) => (
                 <React.Fragment key={user.id}>
+                  {/* Checkbox */}
+                  <div className="text-center">
+                    <input
+                      type="checkbox"
+                      onChange={e => handleCheck(user.id, e.target.checked)}
+                      checked={selectedUsers.includes(user.id)}
+                      style={{ borderRadius: "5px", color: "#8CC63F" }}
+                    />
+                  </div>
                   {/* Nombre */}
                   <div
                     className="text-center cursor-pointer text-expresscash-skyBlue hover:underline font-poppins"
@@ -284,17 +329,19 @@ export default function LoansTable() {
                   </div>
 
                   {/* Score */}
-                  <div className="text-center font-poppins text-bold">
+                  <div className="text-left translate-x-[60px] font-poppins font-bold">
                     <span
-                      className={`text-${user.score >= 612 ? "green-500" : "red-500"}`}
+                      className={`flex items-rigth gap-2 ${
+                        user.score >= 612 ? "text-green-500" : "text-red-500"
+                      }`}
                     >
+                      {user.score >= 612 ? <Check /> : <X />}
                       {user.score}
                     </span>
                   </div>
-
-                  {/* Total Solicitado */}
+                  {/* total prestado */}
                   <div className="text-center font-poppins">
-                    ${user.totalLoaned.toLocaleString()}
+                    {user.totalLoaned}
                   </div>
 
                   {/* Contactar */}
@@ -305,21 +352,14 @@ export default function LoansTable() {
                       rel="noopener noreferrer"
                       className="hover:opacity-80"
                     >
-                      <FaWhatsapp className="w-6 h-6 text-green-500" />
+                      <FaWhatsapp className="w-5 h-5 text-green-500" />
                     </a>
                     <a
                       href={`mailto:${user.email}?subject=Consulta&body=Hola,%20tengo%20una%20pregunta.`}
                       className="hover:opacity-80"
                     >
-                      <Mail className="w-6 h-6 text-black-500" />
+                      <Mail className="w-5 h-5 text-black-500" />
                     </a>
-                  </div>
-
-                  {/* Estado del Préstamo */}
-                  <div className="text-center font-poppins">
-                    {user.Prestamo.find(
-                      (p: { status: string }) => p.status === "pendiente"
-                    )?.status || "N/A"}
                   </div>
 
                   {/* Acciones */}
@@ -368,13 +408,12 @@ export default function LoansTable() {
                       )}
                     </div>
                   </div>
-                  {index < users.length - 1 && (
-                    <div className="col-span-6 border-t border-gray-200 my-4"></div>
-                  )}
+                  <div className="col-span-6 border-t border-gray-300"></div>
                 </React.Fragment>
               ))}
             </div>
           </div>
+
           {/* Modal de Bloqueo */}
           {modalDelete && users?.some(user => user.id === selectedUser?.id) && (
             <Modal

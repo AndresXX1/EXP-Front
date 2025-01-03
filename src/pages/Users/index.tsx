@@ -10,13 +10,13 @@ import {
   IconProhibited,
   IconX,
 } from "@utils/svg";
-import { Mail, MailIcon, MoreVertical, UserIcon } from "lucide-react";
+import { Mail, MoreVertical, UserIcon } from "lucide-react";
 import Modal from "@components/Modal";
 import React from "react";
 import { EditUserModal, UserFormData } from "./editUserModal";
 import UserDetailsModal from "./userDetailModal";
 import CreateUserModal from "./createUserForm";
-import { FaWhatsapp, FaCopy } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
 import { User, Prestamo } from "../../store/types/user";
 
 const Users = () => {
@@ -96,12 +96,11 @@ const Users = () => {
   const totalPages = Math.ceil(users.length / itemsPerPage);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [visibleIndex, setVisibleIndex] = useState<number | null>(null);
-  const [isModalOpenWhatsapp, setIsModalOpenWhatsapp] = useState(false);
-  const [isModalOpenEmail, setIsModalOpenEmail] = useState(false);
-  const [contactUser, setContactUser] = useState<User | null>(null);
-  const [copied, setCopied] = useState(false);
-  const [, setShowDetailsModal] = useState(false);
+  const [isModalOpenWhatsapp] = useState(false);
+  const [isModalOpenEmail] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUsers, setSelectedUsers] = useState<number[]>([]);
+  const [isAllChecked, setIsAllChecked] = useState(false);
   const [filteredUsers, setFilteredUsers] = useState<User[]>(users);
   const [menuPosition, setMenuPosition] = useState<{
     top: number;
@@ -150,25 +149,10 @@ const Users = () => {
     currentPage * itemsPerPage
   );
 
-  const handleOpenModal = (type: "whatsapp" | "email", user: User) => {
-    setContactUser(user);
-    setShowDetailsModal(false);
-    if (type === "whatsapp") {
-      setIsModalOpenWhatsapp(true);
-    } else if (type === "email") {
-      setIsModalOpenEmail(true);
-    }
-  };
-
   const handleOpenDetailsModal = (user?: User) => {
     if (!isModalOpenWhatsapp && !isModalOpenEmail) {
       setSelectedUser(user ?? null);
     }
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpenWhatsapp(false);
-    setIsModalOpenEmail(false);
   };
 
   const toggleMenu = (
@@ -287,10 +271,24 @@ const Users = () => {
     setCurrentPage(prevPage => prevPage - 1);
   };
 
+  const handleSelectAll = (checked: boolean) => {
+    setIsAllChecked(checked);
+    setSelectedUsers(checked ? users.map(user => user.id) : []);
+  };
+
+  const handleCheck = (userId: number, checked: boolean) => {
+    setSelectedUsers(prevSelected =>
+      checked
+        ? [...prevSelected, userId]
+        : prevSelected.filter(id => id !== userId)
+    );
+    setIsAllChecked(users.length === selectedUsers.length + (checked ? 1 : -1));
+  };
+
   return (
     <>
       {!selectedUser ? (
-        <div className="flex flex-col pl-18 pt-12 px-10 max-w-[clamp(1600px,67.2vw,1600px)] bg-[white]">
+        <div className="flex flex-col  pl-18 pt-12 px-[40px] max-w-[clamp(1600px,67.2vw,1600px)] bg-[white]">
           <div className="flex gap-2 mb-2">
             <p className="text-[3rem] text-expresscash-textos font-poppins">
               Clientes
@@ -310,7 +308,7 @@ const Users = () => {
             </button>
           </div>
 
-          <div className="flex justify-between mb-8">
+          <div className="flex justify-between mb-7">
             <div className="relative flex">
               <input
                 className="w-[457px] h-[54px] rounded-[13px] border-[1px] border-expresscash-textos border-solid px-10 placeholder:text-expresscash-textos font-poppins text-expresscash-textos text-[15.36px]"
@@ -347,8 +345,16 @@ const Users = () => {
           </div>
 
           {/* Mostrar listado de usuarios */}
-          <div className="grid grid-cols-[minmax(220px,1fr)_minmax(220px,1fr)_minmax(220px,1fr)_minmax(220px,1fr)_minmax(120px,1fr)] gap-10 items-center">
+          <div className="grid grid-cols-[minmax(40px,40px)_minmax(190px,1fr)_minmax(190px,1fr)_minmax(190px,1fr)_minmax(190px,1fr)_minmax(10px,1fr)] gap-10 items-center">
             {/* Encabezados */}
+            <div className="text-center">
+              <input
+                type="checkbox"
+                onChange={e => handleSelectAll(e.target.checked)}
+                checked={isAllChecked}
+                style={{ borderRadius: "5px", color: "#8CC63F" }}
+              />
+            </div>
             <div className="font-poppins text-center truncate font-bold text-expresscash-textos">
               Nombre
             </div>
@@ -366,15 +372,24 @@ const Users = () => {
             </div>
 
             {/* Separador */}
-            <div className="col-span-5 border-t border-gray-300"></div>
+            <div className="col-span-6 border-t border-gray-300"></div>
 
             {/* Información de los usuarios */}
             {currentUsers.map((user, index) => (
               <React.Fragment key={user.id}>
-                <div className="text-expresscash-skyBlue truncate font-poppins">
+                {/* Checkbox */}
+                <div className="text-center">
+                  <input
+                    type="checkbox"
+                    onChange={e => handleCheck(user.id, e.target.checked)}
+                    checked={selectedUsers.includes(user.id)}
+                    style={{ borderRadius: "5px", color: "#8CC63F" }}
+                  />
+                </div>
+                <div className="text-expresscash-skyBlue truncate font-poppins text-center">
                   <button
-                    className="text-expresscash-skyBlue w-full text-center font-poppins"
-                    onClick={() => handleOpenDetailsModal(user)} // Aquí se pasa el usuario correctamente
+                    className="text-expresscash-skyBlue text-center font-poppins"
+                    onClick={() => handleOpenDetailsModal(user)}
                   >
                     {user.first_name} {user.last_name}
                   </button>
@@ -407,19 +422,21 @@ const Users = () => {
                 </div>
 
                 {/* Contactar */}
-                <div className="flex justify-center space-x-4 truncate">
-                  <button
-                    className="p-2 rounded-full hover:bg-gray-100"
-                    onClick={() => handleOpenModal("email", user)}
-                  >
-                    <Mail className="w-5 h-5" />
-                  </button>
-                  <button
-                    className="p-2 rounded-full hover:bg-gray-100"
-                    onClick={() => handleOpenModal("whatsapp", user)}
+                <div className="text-center flex justify-center gap-4">
+                  <a
+                    href={`https://wa.me/${user.phone}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:opacity-80"
                   >
                     <FaWhatsapp className="w-5 h-5 text-green-500" />
-                  </button>
+                  </a>
+                  <a
+                    href={`mailto:${user.email}?subject=Consulta&body=Hola,%20tengo%20una%20pregunta.`}
+                    className="hover:opacity-80"
+                  >
+                    <Mail className="w-5 h-5 text-black-500" />
+                  </a>
                 </div>
 
                 {/* Acciones */}
@@ -505,7 +522,7 @@ const Users = () => {
                     }
                   />
                 )}
-                <div className="col-span-5 border-t border-gray-300"></div>
+                <div className="col-span-6 border-t border-gray-300"></div>
               </React.Fragment>
             ))}
           </div>
@@ -554,125 +571,6 @@ const Users = () => {
           }
         />
       )}
-      {/* Modal de WhatsApp */}
-      <Modal
-        isShown={isModalOpenWhatsapp}
-        closeModal={handleCloseModal}
-        element={
-          <div className="w-[490px] h-[320px] p-10">
-            <button
-              className="absolute top-2 right-2 text-lg font-bold"
-              onClick={handleCloseModal}
-            >
-              X
-            </button>
-
-            {contactUser && (
-              <>
-                {/* Título con separación */}
-                <h3 className="text-2xl font-bold text-expresscash-textos mb-16 font-poppins">
-                  Contacto WhatsApp de {contactUser.first_name}
-                </h3>
-
-                {/* Teléfono con icono de copiar */}
-                <div className="flex items-center mb-[70px] ml-5 translate-x-10">
-                  <p className="mr-2 text-lg font-poppins font-bold text-center">
-                    {contactUser.phone}
-                  </p>
-                  <button
-                    onClick={() => {
-                      navigator.clipboard.writeText(contactUser.email);
-                      setCopied(true);
-                      setTimeout(() => setCopied(false), 6000);
-                    }}
-                    className="ml-4 text-expresscash-skyBlue hover:text-expresscash-skyBlue flex items-center"
-                  >
-                    <FaCopy className="w-5 h-5 mr-2" />
-                    {copied ? (
-                      <span className="text-expresscash-skyBlue font-semibold">
-                        Copiado!
-                      </span>
-                    ) : (
-                      <span>Copiar</span>
-                    )}
-                  </button>
-                </div>
-
-                {/* Botón de WhatsApp */}
-                <a
-                  href={`https://wa.me/${contactUser.phone}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center bg-green-500 text-white rounded-lg p-4 hover:bg-green-600 transition duration-300"
-                >
-                  <FaWhatsapp className="w-6 h-6 mr-2" />
-                  Enviar mensaje
-                </a>
-              </>
-            )}
-          </div>
-        }
-      />
-      {/* Modal de Email */}
-      <Modal
-        isShown={isModalOpenEmail}
-        closeModal={handleCloseModal}
-        element={
-          <div className="w-[490px] h-[320px] p-10">
-            {/* Cerrar modal */}
-            <button
-              className="absolute top-2 right-2 text-lg font-bold"
-              onClick={handleCloseModal}
-            >
-              X
-            </button>
-
-            {contactUser && (
-              <>
-                {/* Título y dirección de correo */}
-                <h3 className="text-2xl font-bold mb-16 font-poppins text-expresscash-textos">
-                  Contacto por Email de {contactUser.first_name}
-                </h3>
-
-                <div className="flex items-center mb-20 ml-[50px]">
-                  <p className="mr-2 text-lg font-poppins font-bold">
-                    {" "}
-                    {contactUser.email}
-                  </p>
-
-                  {/* Botón para copiar el correo */}
-                  <button
-                    onClick={() => {
-                      navigator.clipboard.writeText(contactUser.email);
-                      setCopied(true);
-                      setTimeout(() => setCopied(false), 6000);
-                    }}
-                    className="ml-4 text-expresscash-skyBlue hover:text-expresscash-blue flex items-center"
-                  >
-                    <FaCopy className="w-5 h-5 mr-2" />
-                    {copied ? (
-                      <span className="text-expresscash-skyBlue font-semibold">
-                        Copiado!
-                      </span> // Mensaje de confirmación
-                    ) : (
-                      <span>Copiar</span>
-                    )}
-                  </button>
-                </div>
-
-                {/* Enlace para enviar correo, con asunto predefinido */}
-                <a
-                  href={`mailto:${contactUser.email}?subject=Consulta&body=Hola,%20tengo%20una%20pregunta.`}
-                  className="inline-flex items-center text-white bg-blue-500 p-3 rounded-lg hover:bg-blue-600 transition duration-300 w-[400px] ml-2"
-                >
-                  <MailIcon className="w-6 h-5 mr-2 ml-[70px]" /> Enviar Email
-                  desde Gmail
-                </a>
-              </>
-            )}
-          </div>
-        }
-      />
     </>
   );
 };

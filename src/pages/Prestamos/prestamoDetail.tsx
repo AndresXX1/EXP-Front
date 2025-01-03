@@ -39,7 +39,6 @@ export default function LoanDetails({
   status,
   installments,
   amounts,
-  payment,
   client,
 }: LoanDetailsProps) {
   const hasLoan = client.prestamos.length > 0;
@@ -50,7 +49,7 @@ export default function LoanDetails({
       <div className="flex items-center gap-4">
         {hasLoan && (
           <>
-            <h1 className="text-2xl font-semibold text-gray-900 font-poppins">
+            <h1 className="text-2xl font-bold text-gray-900 font-poppins">
               Préstamo {loanNumber}
             </h1>
             <span className="px-3 py-1 text-sm font-bold font-poppins text-green-700 bg-green-100 rounded-full">
@@ -69,7 +68,7 @@ export default function LoanDetails({
             <div className="bg-white rounded-lg border border-black p-6">
               <div className="flex items-center gap-2 mb-6">
                 <CreditCard className="w-5 h-5 text-gray-500" />
-                <h2 className="text-lg font-medium text-gray-900 font-poppins">
+                <h2 className="text-lg font-bold text-gray-900 font-poppins">
                   Monto y cuotas
                 </h2>
               </div>
