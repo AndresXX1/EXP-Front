@@ -203,6 +203,7 @@ const Users = () => {
       Prestamo: _user.Prestamo || [],
       subscriptionStatus: _user.subscriptionStatus || "",
       dni: _user.dni || "",
+      score: _user.score || 0, // Add this line
     });
     setModalEdit(true);
   };
@@ -253,6 +254,7 @@ const Users = () => {
       Prestamo: user.Prestamo || [],
       subscriptionStatus: user.subscriptionStatus || "",
       dni: user.dni || "",
+      score: user.score || 0, // Add this line
     });
     setModalEdit(true);
   }
@@ -279,12 +281,13 @@ const Users = () => {
   };
 
   const handleCheck = (userId: number, checked: boolean) => {
-    setSelectedUsers(prevSelected =>
-      checked
-        ? [...prevSelected, userId]
-        : prevSelected.filter(id => id !== userId)
-    );
-    setIsAllChecked(users.length === selectedUsers.length + (checked ? 1 : -1));
+    setSelectedUsers(prevSelected => {
+      if (prevSelected.includes(userId)) {
+        return prevSelected.filter(id => id !== userId);
+      }
+      return [userId];
+    });
+    setIsAllChecked(false);
   };
 
   return (
@@ -391,9 +394,10 @@ const Users = () => {
                     style={{ borderRadius: "5px", color: "#8CC63F" }}
                   />
                 </div>
-                <div className="text-expresscash-skyBlue truncate font-poppins text-center">
+                {/* nombre */}
+                <div className=" text-expresscash-skyBlue truncate font-poppins text-center ">
                   <button
-                    className="text-expresscash-skyBlue text-center font-poppins"
+                    className="text-expresscash-skyBlue text-center font-poppins hover:underline mt-1"
                     onClick={() => handleOpenDetailsModal(user)}
                   >
                     {user.first_name} {user.last_name}

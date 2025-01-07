@@ -351,6 +351,7 @@ export const EditUserModal: React.FC<EditUserModalProps> = ({
                   className="w-full h-full object-cover rounded-[11px]"
                   src={
                     user.image ||
+                    "/defaultUser1.jpeg" ||
                     `https://back5.maylandlabs.com/avatar/${user.image}`
                   }
                   alt={user.firstName}

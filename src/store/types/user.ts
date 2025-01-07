@@ -35,5 +35,5 @@ export interface Prestamo {
   monto: number;
   estado_pago: string;
   status: string;
-  user?: User; // Opcional si no siempre está presente
+  user?: User;
 }

@@ -308,23 +308,23 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
             </div>
           </>
         ) : (
-          <div className="overflow-x-auto w-[1100px] h-[500px] translate-x-[10px]">
+          <div className="overflow-x-auto w-[1200px] h-[500px]">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-expresscash-gray">
-                  <th className="text-center py-3 px-4 min-w-[220px] text-expresscash-textos font-bold font-poppins">
+                  <th className="text-center py-3 px-4 min-w-[100px] text-expresscash-textos font-bold font-poppins">
                     Número
                   </th>
-                  <th className="text-center py-3 px-4 min-w-[220px] text-expresscash-textos font-bold font-poppins">
+                  <th className="text-center py-3 px-4 min-w-[100px] text-expresscash-textos font-bold font-poppins">
                     Fecha
                   </th>
-                  <th className="text-center py-3 px-4 min-w-[220px] text-expresscash-textos font-bold font-poppins">
+                  <th className="text-center py-3 px-4 min-w-[100px] text-expresscash-textos font-bold font-poppins">
                     Monto
                   </th>
-                  <th className="text-center py-3 px-4 min-w-[220px] text-expresscash-textos font-bold font-poppins">
+                  <th className="text-center py-3 px-4 min-w-[100px] text-expresscash-textos font-bold font-poppins">
                     Estado del pago
                   </th>
-                  <th className="text-center py-3 px-4 min-w-[220px] text-expresscash-textos font-bold font-poppins">
+                  <th className="text-center py-3 px-4 min-w-[100px] text-expresscash-textos font-bold font-poppins">
                     Acciones
                   </th>
                 </tr>
@@ -456,24 +456,7 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
               </div>
               <div className="space-y-2">
                 <label className="text-sm text-expresscash-textos block font-poppins font-bold">
-                  Monto
-                </label>
-                <input
-                  type="number"
-                  name="monto"
-                  value={formData.monto}
-                  onChange={e => {
-                    setFormData({
-                      ...formData,
-                      [e.target.name]: e.target.value,
-                    });
-                  }}
-                  className="p-2 w-full border border-expresscash-gray3 rounded-lg font-poppins"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm text-expresscash-textos block font-poppins font-bold">
-                  Estado de pago
+                  Cuotas
                 </label>
                 <select
                   name="estado_pago"
@@ -486,18 +469,60 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
                   }}
                   className="p-2 w-full border border-expresscash-gray3 rounded-lg font-poppins"
                 >
-                  <option value="pagado">Pagado</option>
-                  <option value="en_mora">En Mora</option>
-                  <option value="en_proceso">En Proceso</option>
-                  <option value="vencido">Vencido</option>
-                  <option value="pendiente">Pendiente</option>{" "}
-                  {/* Otra opción adicional */}
-                  <option value="parcialmente_pagado">
-                    Parcialmente Pagado
-                  </option>{" "}
-                  {/* Otra opción */}
-                  <option value="reprogramado">Reprogramado</option>{" "}
-                  {/* Opción adicional */}
+                  <option value="">Seleccione cuotas</option>
+                  <option value="50000">1 cuota</option>
+                  <option value="100000">3 cutas</option>
+                  <option value="150000">5 cuotas</option>
+                  <option value="200000">9 cuotas</option>
+                  <option value="200000">12 cuotas</option>
+                  <option value="200000">18 cuotas</option>
+                </select>
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm text-expresscash-textos block font-poppins font-bold">
+                  Monto
+                </label>
+                <select
+                  name="estado_pago"
+                  value={formData.estado_pago}
+                  onChange={e => {
+                    setFormData({
+                      ...formData,
+                      [e.target.name]: e.target.value,
+                    });
+                  }}
+                  className="p-2 w-full border border-expresscash-gray3 rounded-lg font-poppins"
+                >
+                  <option value="">Seleccione un monto</option>
+                  <option value="50000">50,000</option>
+                  <option value="100000">100,000</option>
+                  <option value="150000">150,000</option>
+                  <option value="200000">200,000</option>
+                </select>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm text-expresscash-textos block font-poppins font-bold">
+                  Interes
+                </label>
+                <select
+                  name="estado_pago"
+                  value={formData.estado_pago}
+                  onChange={e => {
+                    setFormData({
+                      ...formData,
+                      [e.target.name]: e.target.value,
+                    });
+                  }}
+                  className="p-2 w-full border border-expresscash-gray3 rounded-lg font-poppins"
+                >
+                  <option value="">Seleccione Interes</option>
+                  <option value="50000">10 porciento</option>
+                  <option value="100000">13 porciento</option>
+                  <option value="150000">16 porciento</option>
+                  <option value="200000">19 porciento</option>
+                  <option value="200000">25 porciento</option>
+                  <option value="200000">30 porciento</option>
                 </select>
               </div>
 

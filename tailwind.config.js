@@ -125,5 +125,6 @@ module.exports = {
     require("autoprefixer"),
     require("@tailwindcss/forms"),
     require("tailwindcss-animate"),
+    require("tailwind-scrollbar"),
   ],
 };

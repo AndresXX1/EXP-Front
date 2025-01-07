@@ -14,7 +14,12 @@ import { User, Prestamo } from "../../store/types/user";
 import CreateLoanRequestModal from "./createLoanRequest";
 import { Check } from "lucide-react";
 import { X } from "lucide-react";
-import { IconFilter, IconMagnifyingGlass } from "@utils/svg";
+import {
+  IconDelete,
+  IconEdit,
+  IconFilter,
+  IconMagnifyingGlass,
+} from "@utils/svg";
 
 const Modal: React.FC<{
   isShown: boolean;
@@ -47,8 +52,10 @@ export default function LoansTable() {
   const [showPrestamoModal, setShowPrestamoModal] = useState(false);
   const [formData, setFormData] = useState<Prestamo | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [isAllChecked, setIsAllChecked] = useState(false);
-  const [selectedUsers, setSelectedUsers] = useState<number[]>([]);
+  const [selectedLoans, setSelectedLoans] = useState<Prestamo[]>([]);
+  const menuRef = useRef<HTMLDivElement>(null);
   const [isActionsMenuOpen, setIsActionsMenuOpen] = useState<{
     [key: string]: boolean;
   }>({});
@@ -157,6 +164,20 @@ export default function LoansTable() {
     };
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event: { target: any }) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsOpen(false); // Cerrar el menú si el clic es fuera del contenedor
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside); // Detectar clics fuera del menú
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside); // Limpiar el eventListener cuando el componente se desmonte
+    };
+  }, []);
+
   const handleToggleActionsMenu = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     prestamoNumero: string
@@ -209,16 +230,20 @@ export default function LoansTable() {
 
   const handleSelectAll = (checked: boolean) => {
     setIsAllChecked(checked);
-    setSelectedUsers(checked ? users.map(user => user.id) : []);
+    if (checked) {
+      const allLoans = filteredLoans.flatMap(user => user.Prestamo);
+      setSelectedLoans(allLoans);
+    } else {
+      setSelectedLoans([]);
+    }
   };
 
-  const handleCheck = (userId: number, checked: boolean) => {
-    setSelectedUsers(prevSelected =>
+  const handleCheck = (prestamo: Prestamo, checked: boolean) => {
+    setSelectedLoans(prevSelected =>
       checked
-        ? [...prevSelected, userId]
-        : prevSelected.filter(id => id !== userId)
+        ? [...prevSelected, prestamo]
+        : prevSelected.filter(p => p.numero !== prestamo.numero)
     );
-    setIsAllChecked(users.length === selectedUsers.length + (checked ? 1 : -1));
   };
 
   const countTotalLoans = () => {
@@ -226,13 +251,11 @@ export default function LoansTable() {
   };
 
   const filteredUsers = users.filter(user => {
-    // Filtrar los usuarios que coinciden con el `searchQuery`
     const userSearchString =
       `${user.first_name} ${user.last_name} ${user.email} ${user.phone} ${user.address.join(" ")}`.toLowerCase();
     return userSearchString.includes(searchQuery.toLowerCase());
   });
 
-  // Luego dentro de los usuarios filtrados, filtras los préstamos:
   const filteredLoans = useMemo(() => {
     return filteredUsers
       .map(user => {
@@ -246,8 +269,25 @@ export default function LoansTable() {
 
         return { ...user, Prestamo: filteredPrestamos };
       })
-      .filter(user => user.Prestamo.length > 0); // Filtrar usuarios que tienen préstamos visibles
-  }, [searchQuery, filteredUsers]); // Dependencias ajustadas para recalcular cuando cambia el filtro
+      .filter(user => user.Prestamo.length > 0);
+  }, [searchQuery, filteredUsers]);
+
+  // opciones para el filtro
+  const options = [
+    "Préstamos a vencer en 30 días",
+    "Préstamos a vencer en 15 días",
+    "Préstamos a vencer en 5 días",
+    "Préstamos con más de una cuota vencida",
+    "Préstamos con cuotas vencidas",
+    "Préstamos en mora por más de 30 días",
+    "Préstamos con tasa de interés elevada",
+    "Préstamos sin pagos realizados",
+  ];
+
+  // Función para manejar el clic en el botón del filtro
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
     <div className="flex flex-col pl-18 pt-12 px-[40px] max-w-[clamp(1600px,67.2vw,1600px)] min-h-[800px] max-h-[1300px] bg-[white]">
@@ -283,12 +323,37 @@ export default function LoansTable() {
                 autoComplete="search"
               />
               <IconMagnifyingGlass className="absolute top-[18px] left-4" />
-              <div className="flex w-[120px] h-[54px] ml-4 border-[1px] border-expresscash-textos items-center justify-center gap-2 rounded-[13px]">
-                <IconFilter />
-                <p className="text-[15.36px] font-poppins text-expresscash-textos">
-                  Filtros
-                </p>
-              </div>
+
+              <button onClick={toggleMenu}>
+                <div className="flex w-[120px] h-[54px] ml-4 border-[1px] border-expresscash-textos items-center justify-center gap-2 rounded-[13px]">
+                  <IconFilter />
+                  <p className="text-[15.36px] font-poppins text-expresscash-textos">
+                    Filtros
+                  </p>
+                </div>
+              </button>
+
+              {isOpen && (
+                <div
+                  ref={menuRef} // Asignamos la referencia al contenedor del menú
+                  className="absolute top-full mt-2 w-[370px] ml-[470px] bg-white border-[1px] border-expresscash-textos rounded-[10px] shadow-lg z-10 max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-expresscash-skyBlue scrollbar-track-transparent scrollbar-rounded-md hover:scrollbar-thumb-expresscash-darkBlue"
+                >
+                  <ul className="list-none p-0 m-0">
+                    {options.map((option, index) => (
+                      <li
+                        key={index}
+                        className="p-3 cursor-pointer hover:bg-expresscash-skyBlue hover:text-white rounded-[8px] border-b border-expresscash-borderGray last:border-b-0"
+                        onClick={() => {
+                          console.log(option);
+                          setIsOpen(false); // Cerrar el menú al seleccionar una opción
+                        }}
+                      >
+                        {option}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
             <div className="flex gap-20 items-center">
               <p className="text-expresscash-textos">
@@ -350,24 +415,18 @@ export default function LoansTable() {
                           <input
                             type="checkbox"
                             onChange={e =>
-                              handleCheck(
-                                Number(prestamo.numero),
-                                e.target.checked
-                              )
+                              handleCheck(prestamo, e.target.checked)
                             }
-                            checked={selectedUsers.includes(
-                              Number(prestamo.numero)
+                            checked={selectedLoans.some(
+                              selected => selected.numero === prestamo.numero
                             )}
                             style={{ borderRadius: "5px", color: "#8CC63F" }}
                           />
                         </div>
                         {/* Nombre */}
                         <div className="font-poppins text-center">
-                          <div className="font-bold text-expresscash-textos">
-                            {prestamo.numero}
-                          </div>
                           <div
-                            className="text-expresscash-skyBlue font-poppins text-sm cursor-pointer hover:underline mt-1"
+                            className="text-expresscash-skyBlue font-poppins text-lm cursor-pointer hover:underline mt-1"
                             onClick={() =>
                               handleOpenLoanDetails(user, prestamoIndex)
                             }
@@ -387,8 +446,13 @@ export default function LoansTable() {
                         </div>
 
                         {/* Fecha */}
-                        <div className="text-center font-poppins">
-                          {prestamo.fecha}
+                        <div className="text-center font-poppins flex justify-center items-center">
+                          <div className="font-bold text-expresscash-skyBlue mr-4">
+                            {prestamo.numero}
+                          </div>
+                          <div className="text-expresscash-textos">
+                            {prestamo.fecha}
+                          </div>
                         </div>
 
                         {/* Monto */}
@@ -443,8 +507,12 @@ export default function LoansTable() {
                                         e.stopPropagation();
                                         handleEditLoan(user.Prestamo[0]);
                                       }}
-                                      className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                                      className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center"
                                     >
+                                      <IconEdit
+                                        color="#575757"
+                                        className="mr-2"
+                                      />
                                       Editar
                                     </button>
                                     <button
@@ -453,8 +521,9 @@ export default function LoansTable() {
                                         setSelectedUser(user);
                                         setModalDelete(true);
                                       }}
-                                      className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600"
+                                      className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600 flex items-center"
                                     >
+                                      <IconDelete className="mr-2" />
                                       Eliminar
                                     </button>
                                   </div>
@@ -556,24 +625,7 @@ export default function LoansTable() {
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm text-expresscash-textos block font-poppins font-bold">
-                      Monto
-                    </label>
-                    <input
-                      type="number"
-                      name="monto"
-                      value={formData.monto}
-                      onChange={e => {
-                        setFormData({
-                          ...formData,
-                          [e.target.name]: e.target.value,
-                        });
-                      }}
-                      className="p-2 w-full border border-expresscash-gray3 rounded-lg font-poppins"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm text-expresscash-textos block font-poppins font-bold">
-                      Estado de pago
+                      Cuotas
                     </label>
                     <select
                       name="estado_pago"
@@ -586,21 +638,62 @@ export default function LoansTable() {
                       }}
                       className="p-2 w-full border border-expresscash-gray3 rounded-lg font-poppins"
                     >
-                      <option value="pagado">Pagado</option>
-                      <option value="en_mora">En Mora</option>
-                      <option value="en_proceso">En Proceso</option>
-                      <option value="vencido">Vencido</option>
-                      <option value="pendiente">Pendiente</option>{" "}
-                      {/* Otra opción adicional */}
-                      <option value="parcialmente_pagado">
-                        Parcialmente Pagado
-                      </option>{" "}
-                      {/* Otra opción */}
-                      <option value="reprogramado">Reprogramado</option>{" "}
-                      {/* Opción adicional */}
+                      <option value="">Seleccione cuotas</option>
+                      <option value="50000">1 cuota</option>
+                      <option value="100000">3 cutas</option>
+                      <option value="150000">5 cuotas</option>
+                      <option value="200000">9 cuotas</option>
+                      <option value="200000">12 cuotas</option>
+                      <option value="200000">18 cuotas</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm text-expresscash-textos block font-poppins font-bold">
+                      Monto
+                    </label>
+                    <select
+                      name="estado_pago"
+                      value={formData.estado_pago}
+                      onChange={e => {
+                        setFormData({
+                          ...formData,
+                          [e.target.name]: e.target.value,
+                        });
+                      }}
+                      className="p-2 w-full border border-expresscash-gray3 rounded-lg font-poppins"
+                    >
+                      <option value="">Seleccione un monto</option>
+                      <option value="50000">50,000</option>
+                      <option value="100000">100,000</option>
+                      <option value="150000">150,000</option>
+                      <option value="200000">200,000</option>
                     </select>
                   </div>
 
+                  <div className="space-y-2">
+                    <label className="text-sm text-expresscash-textos block font-poppins font-bold">
+                      Interes
+                    </label>
+                    <select
+                      name="estado_pago"
+                      value={formData.estado_pago}
+                      onChange={e => {
+                        setFormData({
+                          ...formData,
+                          [e.target.name]: e.target.value,
+                        });
+                      }}
+                      className="p-2 w-full border border-expresscash-gray3 rounded-lg font-poppins"
+                    >
+                      <option value="">Seleccione Interes</option>
+                      <option value="50000">10 porciento</option>
+                      <option value="100000">13 porciento</option>
+                      <option value="150000">16 porciento</option>
+                      <option value="200000">19 porciento</option>
+                      <option value="200000">25 porciento</option>
+                      <option value="200000">30 porciento</option>
+                    </select>
+                  </div>
                   <div className="flex justify-between mt-6">
                     <button
                       onClick={handleSavePrestamo}
