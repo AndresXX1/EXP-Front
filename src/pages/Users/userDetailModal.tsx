@@ -9,7 +9,7 @@ import { EditUserModal } from "./editUserModal";
 import { Address } from "../../store/types/user";
 import { IconDelete, IconEdit, IconX } from "@utils/svg";
 import { User, Prestamo } from "../../store/types/user";
-
+import { IconPrestamosBig } from "../../utils/svg";
 export interface UserFormData {
   id: number;
   firstName: string;
@@ -32,6 +32,7 @@ export interface UserFormData {
   createdAt: string;
   status: string;
   totalLoaned: number;
+  score: number;
 }
 
 interface UserDetailsModalProps {
@@ -104,10 +105,6 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
 
   const handleSavePrestamo = () => {
     if (formData && user) {
-      const updatedProducts = user.Prestamo.map(
-        (prestamo: { numero: string }) =>
-          prestamo.numero === formData.numero ? formData : prestamo
-      );
       setShowPrestamoModal(false);
     }
   };
@@ -139,6 +136,7 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
     email: user.email,
     dni: user.dni,
     phone: user.phone,
+    score: user.score,
     avatar: "",
     cuil: "",
     gender: "",
@@ -159,6 +157,7 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
   const handleEdit = (updatedUser: UserFormData) => {
     const updatedUserData: User = {
       id: updatedUser.id,
+      score: updatedUser.score,
       first_name: updatedUser.firstName,
       last_name: updatedUser.lastName,
       email: updatedUser.email,
@@ -207,7 +206,7 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
   };
 
   return (
-    <div className="flex flex-col bg-white p-6 max-w-8xl w-full min-h-[1400px] max-h-[1400px]">
+    <div className="flex flex-col bg-white p-6 max-w-8xl w-full min-h-[1100px] max-h-[1y00px]">
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-4">
@@ -234,7 +233,7 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
         <h2 className="text-2xl font-medium text-expresscash-textos mb-12 font-poppins">
           Datos del cliente
         </h2>
-        <div className="flex flex-wrap gap-[50px] mt-[20px] w-[1550px]">
+        <div className="flex flex-wrap gap-[50px] mt-[20px] w-[1350px]">
           {/* Nombre y apellido */}
           <div className="flex items-center gap-4 w-full sm:w-1/4 md:w-1/5 px-[10px]">
             <div className="w-5 h-5 text-expresscash-textos font-poppins" />
@@ -251,7 +250,7 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
           {/* Documento / ID */}
           <div className="flex items-center gap-4 w-full sm:w-1/4 md:w-1/5 px-[10px] ml-[20px]">
             <div className="w-5 h-5 flex items-center justify-center text-expresscash-textos">
-              <span className="text-sm font-medium font-poppins">ID</span>
+              <span className="text-sm font-medium font-poppins">Cuil</span>
             </div>
             <div>
               <p className="text-sm text-expresscash-textos font-poppins">
@@ -299,9 +298,9 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
         {/* Verificar si el array de préstamos está vacío */}
         {user.Prestamo.length === 0 ? (
           <>
-            <div className="translate-x-[190px]">
-              <div className="ml-[370px] mt-[150px]">
-                {/* <IconProductsBig /> */}
+            <div className="translate-x-[30px]">
+              <div className="ml-[530px] mt-[100px] mb-[10px]">
+                <IconPrestamosBig />
               </div>
               <p className="text-center text-expresscash-textos font-poppins">
                 Este cliente no ha sacado ningún préstamo aún
@@ -309,23 +308,23 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
             </div>
           </>
         ) : (
-          <div className="overflow-x-auto w-[1320px] h-[500px] translate-x-[0px]">
+          <div className="overflow-x-auto w-[1100px] h-[500px] translate-x-[10px]">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-expresscash-gray">
-                  <th className="text-center py-3 px-4 min-w-[200px] text-expresscash-textos font-bold font-poppins">
+                  <th className="text-center py-3 px-4 min-w-[220px] text-expresscash-textos font-bold font-poppins">
                     Número
                   </th>
-                  <th className="text-center py-3 px-4 min-w-[200px] text-expresscash-textos font-bold font-poppins">
+                  <th className="text-center py-3 px-4 min-w-[220px] text-expresscash-textos font-bold font-poppins">
                     Fecha
                   </th>
-                  <th className="text-center py-3 px-4 min-w-[200px] text-expresscash-textos font-bold font-poppins">
+                  <th className="text-center py-3 px-4 min-w-[220px] text-expresscash-textos font-bold font-poppins">
                     Monto
                   </th>
-                  <th className="text-center py-3 px-4 min-w-[200px] text-expresscash-textos font-bold font-poppins">
+                  <th className="text-center py-3 px-4 min-w-[220px] text-expresscash-textos font-bold font-poppins">
                     Estado del pago
                   </th>
-                  <th className="text-center py-3 px-4 min-w-[200px] text-expresscash-textos font-bold font-poppins">
+                  <th className="text-center py-3 px-4 min-w-[220px] text-expresscash-textos font-bold font-poppins">
                     Acciones
                   </th>
                 </tr>
@@ -430,7 +429,6 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
           </div>
         )}
       </div>
-      {/* Modal de confirmación de eliminación */}
 
       {/* Modal para editar préstamo */}
       {showPrestamoModal && formData && (

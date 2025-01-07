@@ -25,6 +25,8 @@ export interface User {
   create: string;
   last_login: string;
   prestamo: Prestamo[];
+  score: number;
+  email: string;
 }
 
 export interface Prestamo {
@@ -32,4 +34,6 @@ export interface Prestamo {
   fecha: string;
   monto: number;
   estado_pago: string;
+  status: string;
+  user?: User; // Opcional si no siempre está presente
 }

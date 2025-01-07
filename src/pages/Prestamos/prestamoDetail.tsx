@@ -25,6 +25,7 @@ interface LoanDetailsProps {
     email: string;
     phone: string;
     id: string;
+    zip_code: string;
     prestamos: Array<{
       numero: string;
       fecha: string;
@@ -116,18 +117,18 @@ export default function LoanDetails({
             </div>
             <hr className="border-t border-gray-300 mb-6" />
             <div className="space-y-4">
-              <p className="text-base font-medium text-gray-900 font-poppins underline ">
-                {client.name}
+              <p className="text-base font-bold text-gray-900 font-poppins underline">
+                Codigo postal: {client.zip_code}
               </p>
               <div className="space-y-2">
                 <p className="text-sm text-gray-600 font-poppins">
-                  {client.email}
+                  Email: {client.email}
                 </p>
                 <p className="text-sm text-gray-600 font-poppins">
-                  {client.phone}
+                  Telefono: {client.phone}
                 </p>
                 <p className="text-sm text-gray-600 font-poppins">
-                  {client.id}
+                  Cuil: {client.id}
                 </p>
               </div>
             </div>

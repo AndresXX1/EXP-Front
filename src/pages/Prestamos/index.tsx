@@ -5,11 +5,10 @@ import {
   ArrowRight,
   Mail,
   MoreVertical,
-  Search,
   UserPlus,
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import LoanDetails from "./prestamoDetail";
 import { User, Prestamo } from "../../store/types/user";
 import CreateLoanRequestModal from "./createLoanRequest";
@@ -51,7 +50,7 @@ export default function LoansTable() {
   const [isAllChecked, setIsAllChecked] = useState(false);
   const [selectedUsers, setSelectedUsers] = useState<number[]>([]);
   const [isActionsMenuOpen, setIsActionsMenuOpen] = useState<{
-    [key: number]: boolean;
+    [key: string]: boolean;
   }>({});
   const [visibleIndex, setVisibleIndex] = useState<number | null>(null);
   const [menuPosition, setMenuPosition] = useState<{
@@ -63,14 +62,15 @@ export default function LoansTable() {
   const users: User[] = [
     {
       id: 1,
-      first_name: "Andres",
+      first_name: "Andresss",
       last_name: "Vera",
       phone: "3511425568",
       address: [],
       dni: "39690691",
       email: "andres@hotmail.com",
       status: "activo",
-      score: "612",
+      score: 612,
+      zip_code: "z5003",
       Prestamo: [
         {
           numero: "#512",
@@ -104,16 +104,25 @@ export default function LoansTable() {
     },
     {
       id: 2,
-      first_name: "Andres",
+      first_name: "Carlos",
       last_name: "Vera",
       phone: "3511425568",
+      zip_code: "z5006",
       address: [],
       dni: "39690691",
-      score: "512",
+      score: 512,
       email: "andres2@hotmail.com",
       totalLoaned: 0,
       status: "pendiente",
-      Prestamo: [],
+      Prestamo: [
+        {
+          numero: "#514",
+          fecha: "10/11/2024",
+          monto: 4500,
+          estado_pago: "",
+          status: "pendiente",
+        },
+      ],
       last_login: "",
       create: "",
       image: "",
@@ -150,22 +159,13 @@ export default function LoansTable() {
 
   const handleToggleActionsMenu = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    userId: number,
-    _index?: number
+    prestamoNumero: string
   ) => {
     setMenuPosition({ top: event.clientY, left: event.clientX });
-    setIsActionsMenuOpen(prevState => {
-      const newState = Object.keys(prevState).reduce(
-        (acc, key) => {
-          acc[parseInt(key)] = false;
-          return acc;
-        },
-        {} as { [key: number]: boolean }
-      );
-
-      newState[userId] = !prevState[userId];
-      return newState;
-    });
+    setIsActionsMenuOpen(prevState => ({
+      ...prevState,
+      [prestamoNumero]: !prevState[prestamoNumero],
+    }));
   };
 
   const handlePrevPage = () => {
@@ -197,13 +197,13 @@ export default function LoansTable() {
     }
   };
 
-  const handleOpenLoanDetails = (user: User, loanIndex: number) => {
-    if (user.Prestamo && user.Prestamo[loanIndex]) {
+  const handleOpenLoanDetails = (user: User | undefined, loanIndex: number) => {
+    if (user && user.Prestamo && user.Prestamo[loanIndex]) {
       const loan = user.Prestamo[loanIndex];
       setSelectedLoan(loan);
       setSelectedUser(user);
     } else {
-      console.error("No loan found at index", loanIndex);
+      console.error("No loan or user found at index", loanIndex);
     }
   };
 
@@ -221,6 +221,34 @@ export default function LoansTable() {
     setIsAllChecked(users.length === selectedUsers.length + (checked ? 1 : -1));
   };
 
+  const countTotalLoans = () => {
+    return users.reduce((total, user) => total + user.Prestamo.length, 0);
+  };
+
+  const filteredUsers = users.filter(user => {
+    // Filtrar los usuarios que coinciden con el `searchQuery`
+    const userSearchString =
+      `${user.first_name} ${user.last_name} ${user.email} ${user.phone} ${user.address.join(" ")}`.toLowerCase();
+    return userSearchString.includes(searchQuery.toLowerCase());
+  });
+
+  // Luego dentro de los usuarios filtrados, filtras los préstamos:
+  const filteredLoans = useMemo(() => {
+    return filteredUsers
+      .map(user => {
+        const filteredPrestamos = user.Prestamo.filter(
+          (prestamo: { numero: any; fecha: any; monto: any }) => {
+            const prestamoSearchString =
+              `${prestamo.numero} ${prestamo.fecha} ${prestamo.monto}`.toLowerCase();
+            return prestamoSearchString.includes(searchQuery.toLowerCase());
+          }
+        );
+
+        return { ...user, Prestamo: filteredPrestamos };
+      })
+      .filter(user => user.Prestamo.length > 0); // Filtrar usuarios que tienen préstamos visibles
+  }, [searchQuery, filteredUsers]); // Dependencias ajustadas para recalcular cuando cambia el filtro
+
   return (
     <div className="flex flex-col pl-18 pt-12 px-[40px] max-w-[clamp(1600px,67.2vw,1600px)] min-h-[800px] max-h-[1300px] bg-[white]">
       {selectedLoan === null ? (
@@ -230,7 +258,7 @@ export default function LoansTable() {
               Solicitudes de préstamos
             </p>
             <p className="text-[40px] text-expresscash-textos font-poppins mt-[6px]">
-              ({users.length})
+              ({countTotalLoans()})
             </p>
           </div>
 
@@ -281,7 +309,7 @@ export default function LoansTable() {
           </div>
           {/* Solicitudes de Préstamos Pendientes */}
           <div>
-            <div className="grid grid-cols-[minmax(40px,40px)_minmax(190px,1fr)_minmax(190px,1fr)_minmax(190px,1fr)_minmax(190px,1fr)_minmax(10px,1fr)] gap-10 items-center">
+            <div className="grid grid-cols-[minmax(40px,40px)_minmax(150px,1fr)_minmax(150px,1fr)_minmax(150px,1fr)_minmax(150px,1fr)_minmax(150px,1fr)_minmax(10px,1fr)] gap-10 items-center">
               {/* Encabezados de la tabla */}
               <div className="text-center">
                 <input
@@ -294,121 +322,150 @@ export default function LoansTable() {
               <div className="text-center truncate font-poppins font-bold text-expresscash-textos">
                 Nombre
               </div>
-              <div className="font-bold font-poppins text-expresscash-textos text-center truncate">
+              <div className="text-center truncate font-poppins font-bold text-expresscash-textos">
                 Score
               </div>
               <div className="font-bold font-poppins text-expresscash-textos text-center truncate">
-                Total Solicitado
+                Fecha
               </div>
               <div className="font-bold font-poppins text-expresscash-textos text-center truncate">
+                Monto
+              </div>
+              <div className="font-poppins font-bold text-expresscash-textos text-center truncate">
                 Contactar
               </div>
               <div className="font-poppins font-bold text-expresscash-textos text-center truncate">
                 Acciones
               </div>
 
-              <div className="col-span-6 border-t border-gray-300"></div>
+              <div className="col-span-7 border-t border-gray-300"></div>
 
-              {users.map((user, index) => (
+              {filteredLoans.map(user => (
                 <React.Fragment key={user.id}>
-                  {/* Checkbox */}
-                  <div className="text-center">
-                    <input
-                      type="checkbox"
-                      onChange={e => handleCheck(user.id, e.target.checked)}
-                      checked={selectedUsers.includes(user.id)}
-                      style={{ borderRadius: "5px", color: "#8CC63F" }}
-                    />
-                  </div>
-                  {/* Nombre */}
-                  <div
-                    className="text-center cursor-pointer text-expresscash-skyBlue hover:underline font-poppins"
-                    onClick={() => handleOpenLoanDetails(user, 0)}
-                  >
-                    {user.first_name}
-                  </div>
-
-                  {/* Score */}
-                  <div className="text-left translate-x-[60px] font-poppins font-bold">
-                    <span
-                      className={`flex items-rigth gap-2 ${
-                        user.score >= 612 ? "text-green-500" : "text-red-500"
-                      }`}
-                    >
-                      {user.score >= 612 ? <Check /> : <X />}
-                      {user.score}
-                    </span>
-                  </div>
-                  {/* total prestado */}
-                  <div className="text-center font-poppins">
-                    {user.totalLoaned}
-                  </div>
-
-                  {/* Contactar */}
-                  <div className="text-center flex justify-center gap-4">
-                    <a
-                      href={`https://wa.me/${user.phone}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:opacity-80"
-                    >
-                      <FaWhatsapp className="w-5 h-5 text-green-500" />
-                    </a>
-                    <a
-                      href={`mailto:${user.email}?subject=Consulta&body=Hola,%20tengo%20una%20pregunta.`}
-                      className="hover:opacity-80"
-                    >
-                      <Mail className="w-5 h-5 text-black-500" />
-                    </a>
-                  </div>
-
-                  {/* Acciones */}
-                  <div className="text-center">
-                    <div className="flex justify-center relative">
-                      <button
-                        className="p-2 rounded-full hover:bg-gray-100"
-                        onClick={event =>
-                          handleToggleActionsMenu(event, user.id, index)
-                        }
-                      >
-                        <MoreVertical className="w-5 h-5" />
-                      </button>
-                      {isActionsMenuOpen[user.id] && menuPosition && (
-                        <div
-                          ref={actionsMenuRef}
-                          className="absolute z-10 bg-expresscash-white border border-expresscash-gray rounded-lg shadow-lg w-40"
-                          style={{
-                            top: "100%",
-                            right: 0,
-                            marginTop: "0.5rem",
-                          }}
-                        >
-                          <div className="py-2">
-                            <button
-                              onClick={e => {
-                                e.stopPropagation();
-                                handleEditLoan(user.Prestamo[0]);
-                              }}
-                              className="w-full text-left px-4 py-2 hover:bg-gray-100"
-                            >
-                              Editar
-                            </button>
-                            <button
-                              onClick={e => {
-                                e.stopPropagation();
-                                setSelectedUser(user);
-                                setModalDelete(true);
-                              }}
-                              className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600"
-                            >
-                              Eliminar
-                            </button>
+                  {user.Prestamo.map(
+                    (prestamo: Prestamo, prestamoIndex: number) => (
+                      <React.Fragment key={prestamo.numero}>
+                        {/* Checkbox */}
+                        <div className="text-center">
+                          <input
+                            type="checkbox"
+                            onChange={e =>
+                              handleCheck(
+                                Number(prestamo.numero),
+                                e.target.checked
+                              )
+                            }
+                            checked={selectedUsers.includes(
+                              Number(prestamo.numero)
+                            )}
+                            style={{ borderRadius: "5px", color: "#8CC63F" }}
+                          />
+                        </div>
+                        {/* Nombre */}
+                        <div className="font-poppins text-center">
+                          <div className="font-bold text-expresscash-textos">
+                            {prestamo.numero}
+                          </div>
+                          <div
+                            className="text-expresscash-skyBlue font-poppins text-sm cursor-pointer hover:underline mt-1"
+                            onClick={() =>
+                              handleOpenLoanDetails(user, prestamoIndex)
+                            }
+                          >
+                            {user.first_name} {user.last_name}
                           </div>
                         </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="col-span-6 border-t border-gray-300"></div>
+
+                        {/* Score */}
+                        <div className="text-left translate-x-[35px] font-poppins font-bold">
+                          <span
+                            className={`flex items-right gap-2 ${Number(user.score) >= 612 ? "text-green-500" : "text-red-500"}`}
+                          >
+                            {user.score >= 612 ? <Check /> : <X />}
+                            {user.score}
+                          </span>
+                        </div>
+
+                        {/* Fecha */}
+                        <div className="text-center font-poppins">
+                          {prestamo.fecha}
+                        </div>
+
+                        {/* Monto */}
+                        <div className="text-center font-poppins">
+                          {prestamo.monto}
+                        </div>
+
+                        {/* Contactar */}
+                        <div className="text-center flex justify-center gap-4">
+                          <a
+                            href={`https://wa.me/${user.phone}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:opacity-80"
+                          >
+                            <FaWhatsapp className="w-5 h-5 text-green-500" />
+                          </a>
+
+                          <a
+                            href={`mailto:${user.email}?subject=Consulta&body=Hola,%20tengo%20una%20pregunta.`}
+                            className="hover:opacity-80"
+                          >
+                            <Mail className="w-5 h-5 text-black-500" />
+                          </a>
+                        </div>
+
+                        {/* Acciones */}
+                        <div className="text-center">
+                          <div className="flex justify-center relative">
+                            <button
+                              className="p-2 rounded-full hover:bg-gray-100"
+                              onClick={event =>
+                                handleToggleActionsMenu(event, prestamo.numero)
+                              }
+                            >
+                              <MoreVertical className="w-5 h-5" />
+                            </button>
+                            {isActionsMenuOpen[prestamo.numero] &&
+                              menuPosition && (
+                                <div
+                                  ref={actionsMenuRef}
+                                  className="absolute z-10 bg-expresscash-white border border-expresscash-gray rounded-lg shadow-lg w-40"
+                                  style={{
+                                    top: "100%",
+                                    right: 0,
+                                    marginTop: "0.5rem",
+                                  }}
+                                >
+                                  <div className="py-2">
+                                    <button
+                                      onClick={e => {
+                                        e.stopPropagation();
+                                        handleEditLoan(user.Prestamo[0]);
+                                      }}
+                                      className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                                    >
+                                      Editar
+                                    </button>
+                                    <button
+                                      onClick={e => {
+                                        e.stopPropagation();
+                                        setSelectedUser(user);
+                                        setModalDelete(true);
+                                      }}
+                                      className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600"
+                                    >
+                                      Eliminar
+                                    </button>
+                                  </div>
+                                </div>
+                              )}
+                          </div>
+                        </div>
+                        <div className="col-span-7 border-t border-gray-300"></div>
+                      </React.Fragment>
+                    )
+                  )}
                 </React.Fragment>
               ))}
             </div>
@@ -581,18 +638,12 @@ export default function LoansTable() {
               remaining: 4500,
               total: selectedLoan?.monto || 0,
             }}
-            payment={{
-              status: "Pago en proceso",
-              method: "Tarjeta",
-              subtotal: selectedLoan?.monto || 0,
-              shippingCost: 0,
-              total: selectedLoan?.monto || 0,
-            }}
             client={{
               name: `${selectedUser!.first_name} ${selectedUser!.last_name}`,
               email: selectedUser!.email,
               phone: selectedUser!.phone,
               id: selectedUser!.dni,
+              zip_code: selectedUser!.zip_code,
               prestamos: selectedUser!.Prestamo || [],
             }}
           />

@@ -58,6 +58,7 @@ const Users = () => {
       totalLoaned: 0,
       subscription_status: "",
       prestamo: [],
+      score: 612,
     },
     {
       id: 1,
@@ -83,6 +84,7 @@ const Users = () => {
       totalLoaned: 0,
       subscription_status: "",
       prestamo: [],
+      score: 612,
     },
   ]);
 
@@ -345,7 +347,7 @@ const Users = () => {
           </div>
 
           {/* Mostrar listado de usuarios */}
-          <div className="grid grid-cols-[minmax(40px,40px)_minmax(190px,1fr)_minmax(190px,1fr)_minmax(190px,1fr)_minmax(190px,1fr)_minmax(10px,1fr)] gap-10 items-center">
+          <div className="grid grid-cols-[minmax(40px,40px)_minmax(130px,1fr)_minmax(130px,1fr)_minmax(130px,1fr)_minmax(130px,1fr)_minmax(130px,1fr)_minmax(10px,1fr)] gap-10 items-center">
             {/* Encabezados */}
             <div className="text-center">
               <input
@@ -365,6 +367,9 @@ const Users = () => {
               Total Prestado
             </div>
             <div className="font-poppins text-center truncate font-bold text-expresscash-textos">
+              Total Impago
+            </div>
+            <div className="font-poppins text-center truncate font-bold text-expresscash-textos">
               Contactar
             </div>
             <div className="font-poppins text-center truncate font-bold text-expresscash-textos">
@@ -372,7 +377,7 @@ const Users = () => {
             </div>
 
             {/* Separador */}
-            <div className="col-span-6 border-t border-gray-300"></div>
+            <div className="col-span-7 border-t border-gray-300"></div>
 
             {/* Información de los usuarios */}
             {currentUsers.map((user, index) => (
@@ -417,6 +422,20 @@ const Users = () => {
                       total: number,
                       prestamo: { monto: { toString: () => string } }
                     ) => total + parseInt(prestamo.monto.toString(), 10),
+                    0
+                  )}
+                </div>
+
+                {/* Total Impago */}
+                <div className="text-center truncate font-poppins">
+                  $
+                  {user.Prestamo.reduce(
+                    (total: number, prestamo: { total_Impago: string }) => {
+                      const impago = prestamo.total_Impago
+                        ? parseInt(prestamo.total_Impago, 10)
+                        : 0;
+                      return total + impago;
+                    },
                     0
                   )}
                 </div>
@@ -522,7 +541,7 @@ const Users = () => {
                     }
                   />
                 )}
-                <div className="col-span-6 border-t border-gray-300"></div>
+                <div className="col-span-7 border-t border-gray-300"></div>
               </React.Fragment>
             ))}
           </div>

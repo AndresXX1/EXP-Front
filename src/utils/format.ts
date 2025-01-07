@@ -19,15 +19,15 @@ export const links = [
     Icon: IconHome,
   },
   {
-    to: "/dashboard/products",
+    to: "/dashboard/loans",
     text: "Prestamos",
-    active: ["/dashboard/products"],
+    active: ["/dashboard/loans"],
     Icon: IconPrestamos,
   },
   {
-    to: "/dashboard/users",
+    to: "/dashboard/Clients",
     text: "Clientes",
-    active: ["/dashboard/users"],
+    active: ["/dashboard/Clients"],
     Icon: IconUser,
   },
   // {

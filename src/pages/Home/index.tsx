@@ -105,7 +105,7 @@ const Home = () => {
   return (
     <div className="flex flex-col px-4 sm:px-10 lg:px-16 py-12 bg-white min-h-[1800px] max-h-[1800px] font-poppins">
       {/* Header */}
-      <h2 className="text-2xl sm:text-4xl lg:text-5xl text-gray-800 font-poppins font-poppins">
+      <h2 className="text-2xl sm:text-4xl lg:text-5xl text-gray-800 font-poppins">
         Bienvenido, {user?.full_name || "Felix"}.
       </h2>
 

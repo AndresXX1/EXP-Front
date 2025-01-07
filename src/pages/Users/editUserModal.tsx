@@ -31,6 +31,7 @@ export interface UserFormData {
   lastLogin: string;
   createdAt: string;
   status: string;
+  score: number;
   totalLoaned: number;
   subscriptionStatus: string | number | readonly string[] | undefined;
 }
