@@ -33,7 +33,7 @@ const CreateLoanRequestModal = ({
 
   return (
     <div className="p-4 bg-white h-[320px] w-[700px]">
-      <h2 className="text-xl font-bold mb-8 mt-[-20px]">
+      <h2 className="text-xl text-expresscash-textos mb-8 mt-[-20px]">
         Nueva Solicitud de Préstamo
       </h2>
 

@@ -61,7 +61,7 @@ const Users = () => {
       score: 612,
     },
     {
-      id: 1,
+      id: 2,
       first_name: "Andressss",
       last_name: "Veraaaa",
       phone: "3511425568",
@@ -95,6 +95,8 @@ const Users = () => {
   const [modalEdit, setModalEdit] = useState<boolean>(false);
   const [userToEdit, setUserToEdit] = useState<UserFormData | null>(null);
   const itemsPerPage = 6;
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   const totalPages = Math.ceil(users.length / itemsPerPage);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [visibleIndex, setVisibleIndex] = useState<number | null>(null);
@@ -151,6 +153,20 @@ const Users = () => {
     currentPage * itemsPerPage
   );
 
+  useEffect(() => {
+    const handleClickOutside = (event: { target: any }) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsOpen(false); // Cerrar el menú si el clic es fuera del contenedor
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside); // Detectar clics fuera del menú
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside); // Limpiar el eventListener cuando el componente se desmonte
+    };
+  }, []);
+
   const handleOpenDetailsModal = (user?: User) => {
     if (!isModalOpenWhatsapp && !isModalOpenEmail) {
       setSelectedUser(user ?? null);
@@ -203,7 +219,7 @@ const Users = () => {
       Prestamo: _user.Prestamo || [],
       subscriptionStatus: _user.subscriptionStatus || "",
       dni: _user.dni || "",
-      score: _user.score || 0, // Add this line
+      score: _user.score || 0,
     });
     setModalEdit(true);
   };
@@ -254,7 +270,7 @@ const Users = () => {
       Prestamo: user.Prestamo || [],
       subscriptionStatus: user.subscriptionStatus || "",
       dni: user.dni || "",
-      score: user.score || 0, // Add this line
+      score: user.score || 0,
     });
     setModalEdit(true);
   }
@@ -282,12 +298,28 @@ const Users = () => {
 
   const handleCheck = (userId: number, checked: boolean) => {
     setSelectedUsers(prevSelected => {
-      if (prevSelected.includes(userId)) {
+      if (checked) {
+        return [...prevSelected, userId];
+      } else {
         return prevSelected.filter(id => id !== userId);
       }
-      return [userId];
     });
     setIsAllChecked(false);
+  };
+
+  // opciones para el filtro
+  const options = [
+    "Ordenar por nombre (A-Z)",
+    "Ordenar por nombre (Z-A)",
+    "Ordenar por edad (de menor a mayor)",
+    "Ordenar por edad (de mayor a menor)",
+    "Filtrar por género: Femenino",
+    "Filtrar por género: Masculino",
+  ];
+
+  // Función para manejar el clic en el botón del filtro
+  const toggleMenuFilter = () => {
+    setIsOpen(!isOpen);
   };
 
   return (
@@ -324,12 +356,37 @@ const Users = () => {
                 autoComplete="search"
               />
               <IconMagnifyingGlass className="absolute top-[18px] left-4" />
-              <div className="flex w-[120px] h-[54px] ml-4 border-[1px] border-expresscash-textos items-center justify-center gap-2 rounded-[13px]">
-                <IconFilter />
-                <p className="text-[15.36px] font-poppins text-expresscash-textos">
-                  Filtros
-                </p>
-              </div>
+
+              <button onClick={toggleMenuFilter}>
+                <div className="flex w-[120px] h-[54px] ml-4 border-[1px] border-expresscash-textos items-center justify-center gap-2 rounded-[13px] mt-[-10px]">
+                  <IconFilter />
+                  <p className="text-[15.36px] font-poppins text-expresscash-textos">
+                    Filtros
+                  </p>
+                </div>
+              </button>
+
+              {isOpen && (
+                <div
+                  ref={menuRef}
+                  className="absolute top-full mt-2 w-[370px] ml-[470px] bg-white border-[1px] border-expresscash-textos rounded-[10px] shadow-lg z-10 max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-expresscash-textos scrollbar-track-transparent scrollbar-rounded-md hover:scrollbar-thumb-expresscash-darkBlue"
+                >
+                  <ul className="list-none p-0 m-0">
+                    {options.map((option, index) => (
+                      <li
+                        key={index}
+                        className="p-3 cursor-pointer hover:bg-expresscash-skyBlue hover:text-white rounded-[8px] border-b border-expresscash-borderGray last:border-b-0"
+                        onClick={() => {
+                          console.log(option);
+                          setIsOpen(false);
+                        }}
+                      >
+                        {option}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
             <div className="flex gap-20 items-center">
               <p className="text-expresscash-textos">
@@ -389,7 +446,7 @@ const Users = () => {
                 <div className="text-center">
                   <input
                     type="checkbox"
-                    onChange={e => handleCheck(user.id, e.target.checked)}
+                    onChange={e => handleCheck(user.id, e.target.checked)} // Se pasa el ID del usuario y el estado del checkbox
                     checked={selectedUsers.includes(user.id)}
                     style={{ borderRadius: "5px", color: "#8CC63F" }}
                   />

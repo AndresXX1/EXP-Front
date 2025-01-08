@@ -167,14 +167,14 @@ export default function LoansTable() {
   useEffect(() => {
     const handleClickOutside = (event: { target: any }) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsOpen(false); // Cerrar el menú si el clic es fuera del contenedor
+        setIsOpen(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside); // Detectar clics fuera del menú
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside); // Limpiar el eventListener cuando el componente se desmonte
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -317,7 +317,7 @@ export default function LoansTable() {
               <input
                 className="w-[457px] h-[54px] rounded-[13px] border-[1px] border-expresscash-textos border-solid px-10 placeholder:text-expresscash-textos font-poppins text-expresscash-textos text-[15.36px]"
                 type="search"
-                placeholder="Buscar usuarios por nombre, email, teléfono o dirección"
+                placeholder="Buscar Prestamos por nombre, email, teléfono o dirección"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 autoComplete="search"
@@ -335,8 +335,8 @@ export default function LoansTable() {
 
               {isOpen && (
                 <div
-                  ref={menuRef} // Asignamos la referencia al contenedor del menú
-                  className="absolute top-full mt-2 w-[370px] ml-[470px] bg-white border-[1px] border-expresscash-textos rounded-[10px] shadow-lg z-10 max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-expresscash-skyBlue scrollbar-track-transparent scrollbar-rounded-md hover:scrollbar-thumb-expresscash-darkBlue"
+                  ref={menuRef}
+                  className="absolute top-full mt-2 w-[370px] ml-[470px] bg-white border-[1px] border-expresscash-textos rounded-[10px] shadow-lg z-10 max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-expresscash-textos scrollbar-track-transparent scrollbar-rounded-md hover:scrollbar-thumb-expresscash-darkBlue"
                 >
                   <ul className="list-none p-0 m-0">
                     {options.map((option, index) => (
@@ -345,7 +345,7 @@ export default function LoansTable() {
                         className="p-3 cursor-pointer hover:bg-expresscash-skyBlue hover:text-white rounded-[8px] border-b border-expresscash-borderGray last:border-b-0"
                         onClick={() => {
                           console.log(option);
-                          setIsOpen(false); // Cerrar el menú al seleccionar una opción
+                          setIsOpen(false);
                         }}
                       >
                         {option}
