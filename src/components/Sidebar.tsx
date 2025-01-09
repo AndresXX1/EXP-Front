@@ -17,7 +17,6 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(true);
 
-  // Determina si la página actual es la raíz ("/") o el login ("/login")
   const shouldHideSidebar = currentPath === "/" || currentPath === "/login";
 
   const toggleSidebar = () => {
@@ -62,7 +61,7 @@ const Sidebar = () => {
   }, [isOpen]);
 
   if (shouldHideSidebar) {
-    return null; // Si la ruta es "/", "/login", no mostramos el Sidebar.
+    return null;
   }
 
   return (
@@ -90,7 +89,7 @@ const Sidebar = () => {
         <div className="bg-expresscash-white w-[285px] fixed h-[800px] font-poppins">
           <div className="flex gap-2 mt-9 mb-7 xl:mt-12 xl:mb-10">
             <img
-              className="select-none w-[235px] h-[50px] mx-auto"
+              className="select-none w-[235px] h-[60px] mx-auto"
               src="/login/logo_Express-Cash.png"
               alt="Logo"
             />
@@ -115,14 +114,22 @@ const Sidebar = () => {
             ))}
           </ul>
           <div className="mt-12 flex items-center justify-center border-[2px] font-poppins border-expresscash-skyBlue w-[66px] h-[66px] mx-auto rounded-[25px] overflow-hidden">
-            {user && <img src={apiUrls.avatarUser(user.avatar)} alt="avatar" />}
+            <img
+              src={
+                user?.avatar
+                  ? apiUrls.avatarUser(user.avatar)
+                  : "/path/to/default-avatar.jpg"
+              }
+              alt="avatar"
+              className="w-full h-full object-cover"
+            />
           </div>
-          <p className="text-center mt-6 text-expresscash-textos text-[16px] font-poppins mb-[20px]">
+          <p className="text-center truncate w-[150px] mt-6 text-expresscash-textos text-[16px] font-poppins mb-[20px] ml-[65px]">
             {user?.full_name ? user.full_name : "Nombre de usuario"}
           </p>
 
           <button
-            className="flex items-center justify-center gap-1 text-[15.21px]  text-white mt-2 cursor-pointer font-poppins border-2 border-expresscash-skyBlue bg-expresscash-skyBlue hover:bg-expresscash-green ml-[70px] hover:text-white rounded-lg p-2 transition-all"
+            className="flex items-center justify-center gap-1 text-[15.21px] text-white mt-2 cursor-pointer font-poppins border-2 border-expresscash-skyBlue bg-expresscash-skyBlue hover:bg-expresscash-green ml-[70px] hover:text-white rounded-lg p-2 transition-all"
             onClick={() => dispatch(logOutAsync())}
           >
             <IconLogout />

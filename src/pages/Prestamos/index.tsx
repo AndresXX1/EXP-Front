@@ -46,6 +46,9 @@ export default function LoansTable() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages] = useState(1);
+  const operationsButtonRef = useRef<HTMLButtonElement>(null);
+  const [isOperationsMenuOpen, setIsOperationsMenuOpen] = useState(false);
+  const [showModifyButton, setShowModifyButton] = useState(false);
   const [selectedLoan, setSelectedLoan] = useState<Prestamo | null>(null);
   const [modalDelete, setModalDelete] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
@@ -178,6 +181,24 @@ export default function LoansTable() {
     };
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        actionsMenuRef.current &&
+        operationsButtonRef.current &&
+        !actionsMenuRef.current.contains(event.target as Node) &&
+        !operationsButtonRef.current.contains(event.target as Node)
+      ) {
+        setIsOperationsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const handleToggleActionsMenu = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     prestamoNumero: string
@@ -233,8 +254,10 @@ export default function LoansTable() {
     if (checked) {
       const allLoans = filteredLoans.flatMap(user => user.Prestamo);
       setSelectedLoans(allLoans);
+      setShowModifyButton(true);
     } else {
       setSelectedLoans([]);
+      setShowModifyButton(false);
     }
   };
 
@@ -244,6 +267,11 @@ export default function LoansTable() {
         ? [...prevSelected, prestamo]
         : prevSelected.filter(p => p.numero !== prestamo.numero)
     );
+    if (checked && selectedLoans.length === 1) {
+      setShowModifyButton(true);
+    } else if (!checked && selectedLoans.length === 2) {
+      setShowModifyButton(false);
+    }
   };
 
   const countTotalLoans = () => {
@@ -284,9 +312,33 @@ export default function LoansTable() {
     "Préstamos sin pagos realizados",
   ];
 
-  // Función para manejar el clic en el botón del filtro
+  // función para manejar el clic en el botón del filtro
   const toggleMenu = () => {
+    if (isOperationsMenuOpen) {
+      setIsOperationsMenuOpen(false);
+    }
     setIsOpen(!isOpen);
+  };
+
+  // función para manejar la apertura/cierre del menú de operaciones grupales
+  const toggleOperationsMenu = () => {
+    if (isOpen) {
+      setIsOpen(false);
+    }
+    setIsOperationsMenuOpen(!isOperationsMenuOpen);
+  };
+
+  // funciones para manejar las opciones del menú de operaciones
+  const handleApproveAll = () => {
+    console.log("Aprobar todos los préstamos seleccionados:", selectedLoans);
+  };
+
+  const handleDenyAll = () => {
+    console.log("Denegar todos los préstamos seleccionados:", selectedLoans);
+  };
+
+  const handleDeleteAll = () => {
+    console.log("Eliminar todos los préstamos seleccionados:", selectedLoans);
   };
 
   return (
@@ -351,6 +403,49 @@ export default function LoansTable() {
                         {option}
                       </li>
                     ))}
+                  </ul>
+                </div>
+              )}
+
+              {showModifyButton && (
+                <button
+                  onClick={toggleOperationsMenu}
+                  className="ml-4"
+                  ref={operationsButtonRef}
+                >
+                  <div className="flex w-[160px] h-[54px] border-[1px] border-expresscash-textos items-center justify-center gap-2 rounded-[13px] bg-transparent text-expresscash-textos">
+                    <p className="text-[15.36px] font-poppins">
+                      Operaciones grupales
+                    </p>
+                  </div>
+                </button>
+              )}
+
+              {/* Menú desplegable de Operaciones Grupales */}
+              {isOperationsMenuOpen && (
+                <div
+                  ref={actionsMenuRef}
+                  className="absolute top-full mt-2 w-[300px] ml-[610px] bg-white border-[1px] border-expresscash-textos rounded-[10px] shadow-lg z-10 max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-expresscash-textos scrollbar-track-transparent scrollbar-rounded-md hover:scrollbar-thumb-expresscash-darkBlue"
+                >
+                  <ul className="list-none p-0 m-0">
+                    <li
+                      className="p-3 cursor-pointer hover:bg-expresscash-skyBlue hover:text-white rounded-[8px] border-b border-expresscash-borderGray"
+                      onClick={handleApproveAll}
+                    >
+                      Aprobar todos los préstamos seleccionados
+                    </li>
+                    <li
+                      className="p-3 cursor-pointer hover:bg-expresscash-skyBlue hover:text-white rounded-[8px] border-b border-expresscash-borderGray"
+                      onClick={handleDenyAll}
+                    >
+                      Denegar todos los préstamos seleccionados
+                    </li>
+                    <li
+                      className="p-3 cursor-pointer hover:bg-expresscash-skyBlue hover:text-white rounded-[8px] last:border-b-0"
+                      onClick={handleDeleteAll}
+                    >
+                      Eliminar todos los préstamos seleccionados
+                    </li>
                   </ul>
                 </div>
               )}

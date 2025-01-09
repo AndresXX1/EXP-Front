@@ -95,6 +95,12 @@ const Users = () => {
   const [modalEdit, setModalEdit] = useState<boolean>(false);
   const [userToEdit, setUserToEdit] = useState<UserFormData | null>(null);
   const itemsPerPage = 6;
+  const operationsButtonRef = useRef<HTMLButtonElement>(null);
+  const [selectedLoans] = useState<Prestamo[]>([]);
+  const operationsMenuRef = useRef<HTMLDivElement>(null);
+  const actionsMenuRef = useRef<HTMLDivElement | null>(null);
+  const [isOperationsMenuOpen, setIsOperationsMenuOpen] = useState(false);
+  const [showModifyButton, setShowModifyButton] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const totalPages = Math.ceil(users.length / itemsPerPage);
@@ -156,14 +162,30 @@ const Users = () => {
   useEffect(() => {
     const handleClickOutside = (event: { target: any }) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsOpen(false); // Cerrar el menú si el clic es fuera del contenedor
+        setIsOpen(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside); // Detectar clics fuera del menú
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside); // Limpiar el eventListener cuando el componente se desmonte
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // useEffect para cerrar el menú de operaciones grupales al hacer clic fuera de la ventana
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        operationsMenuRef.current &&
+        !operationsMenuRef.current.contains(event.target as Node)
+      ) {
+        setIsOperationsMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -293,18 +315,26 @@ const Users = () => {
 
   const handleSelectAll = (checked: boolean) => {
     setIsAllChecked(checked);
-    setSelectedUsers(checked ? users.map(user => user.id) : []);
+    if (checked) {
+      const allUserIds = currentUsers.map(user => user.id);
+      setSelectedUsers(allUserIds);
+      setShowModifyButton(true);
+    } else {
+      setSelectedUsers([]);
+      setShowModifyButton(false);
+    }
   };
 
+  // Función para manejar la selección individual de usuarios
   const handleCheck = (userId: number, checked: boolean) => {
     setSelectedUsers(prevSelected => {
-      if (checked) {
-        return [...prevSelected, userId];
-      } else {
-        return prevSelected.filter(id => id !== userId);
-      }
+      const newSelected = checked
+        ? [...prevSelected, userId]
+        : prevSelected.filter(id => id !== userId);
+      setShowModifyButton(newSelected.length > 1);
+      setIsAllChecked(newSelected.length === currentUsers.length);
+      return newSelected;
     });
-    setIsAllChecked(false);
   };
 
   // opciones para el filtro
@@ -319,7 +349,31 @@ const Users = () => {
 
   // Función para manejar el clic en el botón del filtro
   const toggleMenuFilter = () => {
+    if (isOperationsMenuOpen) {
+      setIsOperationsMenuOpen(false);
+    }
     setIsOpen(!isOpen);
+  };
+
+  // función para manejar la apertura/cierre del menú de operaciones grupales
+  const toggleOperationsMenu = () => {
+    if (isOpen) {
+      setIsOpen(false);
+    }
+    setIsOperationsMenuOpen(prev => !prev);
+  };
+
+  // funciones para manejar las opciones del menú de operaciones
+  const handleApproveAll = () => {
+    console.log("Aprobar todos los préstamos seleccionados:", selectedLoans);
+  };
+
+  const handleDenyAll = () => {
+    console.log("Denegar todos los préstamos seleccionados:", selectedLoans);
+  };
+
+  const handleDeleteAll = () => {
+    console.log("Eliminar todos los préstamos seleccionados:", selectedLoans);
   };
 
   return (
@@ -384,6 +438,49 @@ const Users = () => {
                         {option}
                       </li>
                     ))}
+                  </ul>
+                </div>
+              )}
+
+              {showModifyButton && (
+                <button
+                  className="ml-4"
+                  onClick={toggleOperationsMenu}
+                  ref={operationsButtonRef}
+                >
+                  <div className="flex w-[160px] h-[54px] border-[1px] border-expresscash-textos items-center justify-center gap-2 rounded-[13px] bg-transparent text-expresscash-textos mt-[-10px]">
+                    <p className="text-[15.36px] font-poppins">
+                      Operaciones grupales
+                    </p>
+                  </div>
+                </button>
+              )}
+
+              {/* Menú desplegable de Operaciones Grupales */}
+              {isOperationsMenuOpen && (
+                <div
+                  ref={operationsMenuRef}
+                  className="absolute top-full mt-2 w-[350px] ml-[610px] bg-white border-[1px] border-expresscash-textos rounded-[10px] shadow-lg z-10 max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-expresscash-textos scrollbar-track-transparent scrollbar-rounded-md hover:scrollbar-thumb-expresscash-darkBlue"
+                >
+                  <ul className="list-none p-0 m-0">
+                    <li
+                      className="p-3 cursor-pointer hover:bg-expresscash-skyBlue hover:text-white rounded-[8px] border-b border-expresscash-borderGray"
+                      onClick={handleApproveAll}
+                    >
+                      Ver todos los prestamos de los usuarios seleccionados
+                    </li>
+                    <li
+                      className="p-3 cursor-pointer hover:bg-expresscash-skyBlue hover:text-white rounded-[8px] border-b border-expresscash-borderGray"
+                      onClick={handleDenyAll}
+                    >
+                      Bloquear todos los usuarios seleccionados
+                    </li>
+                    <li
+                      className="p-3 cursor-pointer hover:bg-expresscash-skyBlue hover:text-white rounded-[8px] last:border-b-0"
+                      onClick={handleDeleteAll}
+                    >
+                      Editar todos los usuarios seleccionados
+                    </li>
                   </ul>
                 </div>
               )}

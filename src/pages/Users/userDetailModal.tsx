@@ -10,6 +10,7 @@ import { Address } from "../../store/types/user";
 import { IconDelete, IconEdit, IconX } from "@utils/svg";
 import { User, Prestamo } from "../../store/types/user";
 import { IconPrestamosBig } from "../../utils/svg";
+import LoanDetails from "./loanDetaialFromDetailUser";
 export interface UserFormData {
   id: number;
   firstName: string;
@@ -27,6 +28,7 @@ export interface UserFormData {
   address: Address[];
   Prestamo: Prestamo[];
   bank: string;
+  zip_code?: string;
   paymentDate: string;
   lastLogin: string;
   createdAt: string;
@@ -55,6 +57,8 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
   const [modalDelete, setModalDelete] = useState(false);
   const [showUserEditModal, setShowUserEditModal] = useState(false);
   const [visibleIndex, setVisibleIndex] = useState<number | null>(null);
+  const [selectedLoan, setSelectedLoan] = useState<Prestamo | null>(null);
+  const [showLoanDetails, setShowLoanDetails] = useState(false);
   const [menuPosition, setMenuPosition] = useState<{
     top: number;
     left: number;
@@ -129,6 +133,17 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
     );
   }
 
+  const handleSelectLoan = (prestamo: Prestamo) => {
+    console.log("Prestamo seleccionado:", prestamo);
+    setSelectedLoan(prestamo);
+    setShowLoanDetails(true);
+  };
+
+  const handleCloseLoanDetails = () => {
+    setShowLoanDetails(false);
+    setSelectedLoan(null);
+  };
+
   const transformUserToFormData = (user: User): UserFormData => ({
     id: user.id,
     firstName: user.first_name,
@@ -137,6 +152,7 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
     dni: user.dni,
     phone: user.phone,
     score: user.score,
+    zip_code: user.zip_code,
     avatar: "",
     cuil: "",
     gender: "",
@@ -165,6 +181,7 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
       dni: updatedUser.dni,
       address: updatedUser.address,
       Prestamo: updatedUser.Prestamo,
+      zip_code: user.zip_code,
       last_login: "",
       create: "",
       image: "",
@@ -207,230 +224,267 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
 
   return (
     <div className="flex flex-col bg-white p-6 max-w-8xl w-full min-h-[1100px] max-h-[1y00px]">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-4">
+      {showLoanDetails && selectedLoan ? (
+        <div className="flex flex-col space-y-6 mt-8">
           <button
-            onClick={onClose}
-            className="text-expresscash-textos hover:text-expresscash-black"
+            className="text-expresscash-skyBlue"
+            onClick={handleCloseLoanDetails}
           >
-            <ArrowLeft className="w-6 h-6" />
+            <ArrowLeft />
           </button>
-          <h1 className="text-4xl font-medium text-expresscash-textos font-poppins">
-            {user.first_name} {user.last_name}
-          </h1>
-        </div>
-        <button
-          onClick={handleEditUser}
-          className="px-4 py-2 bg-expresscash-skyBlue text-white rounded-lg hover:bg-opacity-90 font-poppins"
-        >
-          Editar usuario
-        </button>
-      </div>
 
-      {/* Datos del cliente */}
-      <div className="mb-12 mt-12">
-        <h2 className="text-2xl font-medium text-expresscash-textos mb-12 font-poppins">
-          Datos del cliente
-        </h2>
-        <div className="flex flex-wrap gap-[50px] mt-[20px] w-[1350px]">
-          {/* Nombre y apellido */}
-          <div className="flex items-center gap-4 w-full sm:w-1/4 md:w-1/5 px-[10px]">
-            <div className="w-5 h-5 text-expresscash-textos font-poppins" />
-            <div>
-              <p className="text-sm text-expresscash-textos font-poppins">
-                Nombre y apellido
-              </p>
-              <p className="text-expresscash-textos font-poppins font-bold">
+          <LoanDetails
+            loanNumber={selectedLoan.numero.toString()}
+            status="al_dia"
+            installments={{ paid: 5, total: 15 }}
+            amounts={{
+              paid: selectedLoan.monto || 0,
+              remaining: 4500,
+              total: selectedLoan.monto || 0,
+            }}
+            client={{
+              name: `${user.first_name} ${user.last_name}`,
+              email: user.email,
+              phone: user.phone,
+              id: user.dni,
+              zip_code: user.zip_code,
+              prestamos: user.Prestamo,
+            }}
+          />
+        </div>
+      ) : (
+        <>
+          {/* Header */}
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={onClose}
+                className="text-expresscash-textos hover:text-expresscash-black"
+              >
+                <ArrowLeft className="w-6 h-6" />
+              </button>
+              <h1 className="text-4xl font-medium text-expresscash-textos font-poppins">
                 {user.first_name} {user.last_name}
-              </p>
+              </h1>
             </div>
+            <button
+              onClick={handleEditUser}
+              className="px-4 py-2 bg-expresscash-skyBlue text-white rounded-lg hover:bg-opacity-90 font-poppins"
+            >
+              Editar usuario
+            </button>
           </div>
 
-          {/* Documento / ID */}
-          <div className="flex items-center gap-4 w-full sm:w-1/4 md:w-1/5 px-[10px] ml-[20px]">
-            <div className="w-5 h-5 flex items-center justify-center text-expresscash-textos">
-              <span className="text-sm font-medium font-poppins">Cuil</span>
-            </div>
-            <div>
-              <p className="text-sm text-expresscash-textos font-poppins">
-                Documento
-              </p>
-              <p className="text-expresscash-textos font-poppins font-bold">
-                {user.dni}
-              </p>
-            </div>
-          </div>
-
-          {/* Email */}
-          <div className="flex items-center gap-4 w-full sm:w-1/4 md:w-1/5 px-[10px] ml-[20px] ">
-            <Mail className="w-5 h-5 text-expresscash-textos" />
-            <div>
-              <p className="text-sm text-expresscash-textos font-poppins font-bold">
-                Email
-              </p>
-              <p className="text-expresscash-skyBlue font-poppins">
-                {user.email}
-              </p>
-            </div>
-          </div>
-
-          {/* Teléfono */}
-          <div className="flex items-center gap-4 w-full sm:w-1/4 md:w-1/5 px-[10px] ml-[10px]">
-            <Phone className="w-5 h-5 text-expresscash-textos font-poppins" />
-            <div>
-              <p className="text-sm text-expresscash-textos font-poppins font-bold">
-                Teléfono
-              </p>
-              <p className="text-expresscash-skyBlue font-poppins">
-                {user.phone}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Tabla de préstamos */}
-      <div>
-        <h2 className="text-2xl font-medium text-expresscash-textos mb-8 mt-5 font-poppins">
-          Préstamos
-        </h2>
-        {/* Verificar si el array de préstamos está vacío */}
-        {user.Prestamo.length === 0 ? (
-          <>
-            <div className="translate-x-[30px]">
-              <div className="ml-[530px] mt-[100px] mb-[10px]">
-                <IconPrestamosBig />
+          {/* Datos del cliente */}
+          <div className="mb-12 mt-12">
+            <h2 className="text-2xl font-medium text-expresscash-textos mb-12 font-poppins">
+              Datos del cliente
+            </h2>
+            <div className="flex flex-wrap gap-[50px] mt-[20px] w-[1350px]">
+              {/* Nombre y apellido */}
+              <div className="flex items-center gap-4 w-full sm:w-1/4 md:w-1/5 px-[10px]">
+                <div className="w-5 h-5 text-expresscash-textos font-poppins" />
+                <div>
+                  <p className="text-sm text-expresscash-textos font-poppins">
+                    Nombre y apellido
+                  </p>
+                  <p className="text-expresscash-textos font-poppins font-bold">
+                    {user.first_name} {user.last_name}
+                  </p>
+                </div>
               </div>
-              <p className="text-center text-expresscash-textos font-poppins">
-                Este cliente no ha sacado ningún préstamo aún
-              </p>
+
+              {/* Documento / ID */}
+              <div className="flex items-center gap-4 w-full sm:w-1/4 md:w-1/5 px-[10px] ml-[20px]">
+                <div className="w-5 h-5 flex items-center justify-center text-expresscash-textos">
+                  <span className="text-sm font-medium font-poppins">Cuil</span>
+                </div>
+                <div>
+                  <p className="text-sm text-expresscash-textos font-poppins">
+                    Documento
+                  </p>
+                  <p className="text-expresscash-textos font-poppins font-bold">
+                    {user.dni}
+                  </p>
+                </div>
+              </div>
+
+              {/* Email */}
+              <div className="flex items-center gap-4 w-full sm:w-1/4 md:w-1/5 px-[10px] ml-[20px] ">
+                <Mail className="w-5 h-5 text-expresscash-textos" />
+                <div>
+                  <p className="text-sm text-expresscash-textos font-poppins font-bold">
+                    Email
+                  </p>
+                  <p className="text-expresscash-skyBlue font-poppins">
+                    {user.email}
+                  </p>
+                </div>
+              </div>
+
+              {/* Teléfono */}
+              <div className="flex items-center gap-4 w-full sm:w-1/4 md:w-1/5 px-[10px] ml-[10px]">
+                <Phone className="w-5 h-5 text-expresscash-textos font-poppins" />
+                <div>
+                  <p className="text-sm text-expresscash-textos font-poppins font-bold">
+                    Teléfono
+                  </p>
+                  <p className="text-expresscash-skyBlue font-poppins">
+                    {user.phone}
+                  </p>
+                </div>
+              </div>
             </div>
-          </>
-        ) : (
-          <div className="overflow-x-auto w-[1200px] h-[500px]">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-expresscash-gray">
-                  <th className="text-center py-3 px-4 min-w-[100px] text-expresscash-textos font-bold font-poppins">
-                    Número
-                  </th>
-                  <th className="text-center py-3 px-4 min-w-[100px] text-expresscash-textos font-bold font-poppins">
-                    Fecha
-                  </th>
-                  <th className="text-center py-3 px-4 min-w-[100px] text-expresscash-textos font-bold font-poppins">
-                    Monto
-                  </th>
-                  <th className="text-center py-3 px-4 min-w-[100px] text-expresscash-textos font-bold font-poppins">
-                    Estado del pago
-                  </th>
-                  <th className="text-center py-3 px-4 min-w-[100px] text-expresscash-textos font-bold font-poppins">
-                    Acciones
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {user.Prestamo.map((prestamo: Prestamo, index: number) => (
-                  <tr
-                    key={index}
-                    className={`${
-                      index !== user.Prestamo.length - 1
-                        ? "border-b border-expresscash-gray"
-                        : ""
-                    }`}
-                  >
-                    <td className="py-10 px-16 text-center text-expresscash-skyBlue min-w-[200px] font-poppins">
-                      {prestamo.numero}
-                    </td>
-                    <td className="py-10 px-16 text-center text-expresscash-textos min-w-[200px] font-poppins">
-                      {prestamo.fecha}
-                    </td>
-                    <td className="py-10 px-16 text-center text-expresscash-textos min-w-[200px] font-poppins">
-                      ${prestamo.monto}
-                    </td>
-                    <td className="py-10 px-16 text-center font-poppins">
-                      <span
-                        className={`text-sm font-medium min-w-[200px] font-poppins ${
-                          prestamo.estado_pago === "pagado"
-                            ? "text-expresscash-green"
-                            : prestamo.estado_pago === "en mora"
-                              ? "text-expresscash-red"
-                              : prestamo.estado_pago === "en proceso"
-                                ? "text-expresscash-yellow"
-                                : prestamo.estado_pago === "vencido"
-                                  ? "text-expresscash-gray"
-                                  : prestamo.estado_pago === "pendiente"
-                                    ? "text-expresscash-orange-yellow"
-                                    : prestamo.estado_pago ===
-                                        "parcialmente_pagado"
-                                      ? "text-expresscash-lightgreen"
-                                      : prestamo.estado_pago === "reprogramado"
-                                        ? "text-expresscash-blue"
-                                        : ""
+          </div>
+
+          {/* Tabla de préstamos */}
+          <div>
+            <h2 className="text-2xl font-medium text-expresscash-textos mb-8 mt-5 font-poppins">
+              Préstamos
+            </h2>
+
+            {/* Verificar si el array de préstamos está vacío */}
+            {user.Prestamo.length === 0 ? (
+              <>
+                <div className="translate-x-[30px]">
+                  <div className="ml-[530px] mt-[100px] mb-[10px]">
+                    <IconPrestamosBig />
+                  </div>
+                  <p className="text-center text-expresscash-textos font-poppins">
+                    Este cliente no ha sacado ningún préstamo aún
+                  </p>
+                </div>
+              </>
+            ) : (
+              <div className="overflow-x-auto w-[1200px] h-[500px]">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-expresscash-gray">
+                      <th className="text-center py-3 px-4 min-w-[100px] text-expresscash-textos font-bold font-poppins">
+                        Número
+                      </th>
+                      <th className="text-center py-3 px-4 min-w-[100px] text-expresscash-textos font-bold font-poppins">
+                        Fecha
+                      </th>
+                      <th className="text-center py-3 px-4 min-w-[100px] text-expresscash-textos font-bold font-poppins">
+                        Monto
+                      </th>
+                      <th className="text-center py-3 px-4 min-w-[100px] text-expresscash-textos font-bold font-poppins">
+                        Estado del pago
+                      </th>
+                      <th className="text-center py-3 px-4 min-w-[100px] text-expresscash-textos font-bold font-poppins">
+                        Acciones
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {user.Prestamo.map((prestamo: Prestamo, index: number) => (
+                      <tr
+                        key={index}
+                        className={`${
+                          index !== user.Prestamo.length - 1
+                            ? "border-b border-expresscash-gray"
+                            : ""
                         }`}
                       >
-                        {prestamo.estado_pago}
-                      </span>
-                    </td>
-                    <td className="py-12 px-16 text-center relative">
-                      {/* Botón de tres puntos para abrir el menú */}
-                      <button
-                        className="p-2 rounded-full hover:bg-gray-100"
-                        onClick={event => toggleMenu(event, Number(index))}
-                      >
-                        <MoreVertical className="w-5 h-5" />
-                      </button>
+                        <td className="py-10 px-16 text-center text-expresscash-skyBlue min-w-[200px] font-poppins">
+                          <button
+                            className="text-expresscash-skyBlue"
+                            onClick={() => handleSelectLoan(prestamo)}
+                          >
+                            {prestamo.numero}
+                          </button>
+                        </td>
+                        <td className="py-10 px-16 text-center text-expresscash-textos min-w-[200px] font-poppins">
+                          {prestamo.fecha}
+                        </td>
+                        <td className="py-10 px-16 text-center text-expresscash-textos min-w-[200px] font-poppins">
+                          ${prestamo.monto}
+                        </td>
+                        <td className="py-10 px-16 text-center font-poppins">
+                          <span
+                            className={`text-sm font-medium min-w-[200px] font-poppins ${
+                              prestamo.estado_pago === "pagado"
+                                ? "text-expresscash-green"
+                                : prestamo.estado_pago === "en mora"
+                                  ? "text-expresscash-red"
+                                  : prestamo.estado_pago === "en proceso"
+                                    ? "text-expresscash-yellow"
+                                    : prestamo.estado_pago === "vencido"
+                                      ? "text-expresscash-gray"
+                                      : prestamo.estado_pago === "pendiente"
+                                        ? "text-expresscash-orange-yellow"
+                                        : prestamo.estado_pago ===
+                                            "parcialmente_pagado"
+                                          ? "text-expresscash-lightgreen"
+                                          : prestamo.estado_pago ===
+                                              "reprogramado"
+                                            ? "text-expresscash-blue"
+                                            : ""
+                            }`}
+                          >
+                            {prestamo.estado_pago}
+                          </span>
+                        </td>
+                        <td className="py-12 px-16 text-center relative">
+                          {/* Botón de tres puntos para abrir el menú */}
+                          <button
+                            className="p-2 rounded-full hover:bg-gray-100"
+                            onClick={event => toggleMenu(event, Number(index))}
+                          >
+                            <MoreVertical className="w-5 h-5" />
+                          </button>
 
-                      {/* Menú desplegable */}
-                      {visibleIndex === index && menuPosition && (
-                        <div
-                          ref={dropdownRef}
-                          className="absolute z-10 bg-expresscash-white border border-expresscash-gray rounded-lg w-[158px] p-2"
-                          style={{
-                            top: `${menuPosition.top - 470}px`,
-                            left: `${menuPosition.left - 1440}px`,
-                          }}
-                        >
-                          <div className="flex flex-col gap-2">
-                            {/* Opción para editar */}
+                          {/* Menú desplegable */}
+                          {visibleIndex === index && menuPosition && (
                             <div
-                              onClick={e => {
-                                e.stopPropagation();
-                                handleEditPrestamo(prestamo, index);
+                              ref={dropdownRef}
+                              className="absolute z-10 bg-expresscash-white border border-expresscash-gray rounded-lg w-[158px] p-2"
+                              style={{
+                                top: `${menuPosition.top - 470}px`,
+                                left: `${menuPosition.left - 1440}px`,
                               }}
-                              className="cursor-pointer hover:bg-gray-200 p-2 rounded-lg flex items-center"
                             >
-                              <IconEdit
-                                className="w-6.5 h-6.5 translate-x-[-5px]"
-                                color="#575757"
-                              />
-                              <span>Editar</span>
-                            </div>
+                              <div className="flex flex-col gap-2">
+                                {/* Opción para editar */}
+                                <div
+                                  onClick={e => {
+                                    e.stopPropagation();
+                                    handleEditPrestamo(prestamo, index);
+                                  }}
+                                  className="cursor-pointer hover:bg-gray-200 p-2 rounded-lg flex items-center"
+                                >
+                                  <IconEdit
+                                    className="w-6.5 h-6.5 translate-x-[-5px]"
+                                    color="#575757"
+                                  />
+                                  <span>Editar</span>
+                                </div>
 
-                            {/* Opción para eliminar */}
-                            <div
-                              onClick={e => {
-                                e.stopPropagation();
-                                setModalDelete(true);
-                              }}
-                              className="cursor-pointer hover:bg-gray-200 p-2 rounded-lg flex items-center"
-                            >
-                              <IconDelete className="w-6.5 h-6.5 translate-x-[-5px]" />
-                              <span>Eliminar</span>
+                                {/* Opción para eliminar */}
+                                <div
+                                  onClick={e => {
+                                    e.stopPropagation();
+                                    setModalDelete(true);
+                                  }}
+                                  className="cursor-pointer hover:bg-gray-200 p-2 rounded-lg flex items-center"
+                                >
+                                  <IconDelete className="w-6.5 h-6.5 translate-x-[-5px]" />
+                                  <span>Eliminar</span>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-
-      {/* Modal para editar préstamo */}
+        </>
+      )}
       {showPrestamoModal && formData && (
         <Modal
           isShown={showPrestamoModal}
@@ -597,7 +651,6 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({
           </div>
         }
       />
-
       {/* Modal para editar usuario */}
       {showUserEditModal && user && (
         <Modal

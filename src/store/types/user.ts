@@ -27,6 +27,7 @@ export interface User {
   prestamo: Prestamo[];
   score: number;
   email: string;
+  zip_code: string;
 }
 
 export interface Prestamo {
